@@ -1398,11 +1398,13 @@ footer{
 </div>
 
 <div class="contact-meta-row">
-                <span class="contact-meta-label">Download broucher</span>
-                <span class="contact-meta-value"></span>
-                <span class="Download broucher"><button class="btn-secondary" type="download">
-<a href="broucher.pdf" class="btn secondary" onclick="downloadPDF()">Download</a>               </button>
+    <span class="contact-meta-label">Download brochure</span>
+
+    <button class="btn-secondary" onclick="downloadPDF()">
+        Download
+    </button>
 </div>
+
 
               <div class="contact-meta-row">
                 <span class="contact-meta-label">Consultation</span>
@@ -1496,9 +1498,18 @@ footer{
         span.textContent = y;
       }
     })();
+    function downloadPDF() {
+    const link = document.createElement("a");
+    link.href = "brochure.pdf";
+    link.download = "GrowWithHarshiee_Brochure.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
   </script>
 </body>
 
 </html>
+
 
 
