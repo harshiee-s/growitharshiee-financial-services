@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book a Consultation | growitharshiee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* Unified Light Theme Colors */
+      --color-bg: #f3f4f6;
+      --color-surface: #ffffff;
+      --color-primary: #0b3b63;
+      --color-primary-soft: rgba(11, 59, 99, 0.08);
+      --color-accent: #e0a94c;
+      --color-text: #111827;
+      --color-text-muted: #6b7280;
+      --color-border: rgba(148, 163, 184, 0.45);
+      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.18);
+      
+      /* Finance Grid Color */
+      --bg-grid: rgba(11, 59, 99, 0.05); 
+
+      --font-heading: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      padding: 2rem 1rem;
+      
+      /* Finance Grid Background */
+      background-image: 
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+      background-size: 40px 40px;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Abstract Market Trendline SVG Background */
+    .finance-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0; 
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 520px;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Back Button Styling */
+    .back-btn {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .back-btn:hover {
+      color: var(--color-text);
+      border-color: var(--color-text-muted);
+      transform: translateX(-2px);
+    }
+    .back-btn svg { width: 12px; height: 12px; }
+
+    /* BRAND IMAGE */
+    .brand {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .brand img {
+      max-width: 75px;
+      width: 100%;
+      height: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .brand img:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      text-align: center;
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
+    }
+
+    .field-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.4rem;
+    }
+
+    .field-input,
+    .field-textarea,
+    select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      outline: none;
+      transition: all 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .field-input:focus,
+    .field-textarea:focus,
+    select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-soft);
+    }
+
+    .field-textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    /* Custom dropdown arrow updated for Light Theme */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+      padding-right: 38px;
+    }
+
+    select option {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .btn-primary {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #f5c461, #f97316);
+      color: #111827;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(249, 115, 22, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(249, 115, 22, 0.3);
+      opacity: 0.96;
+    }
+
+    .contact-footnote {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: 1.2rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg class="finance-bg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <path d="M0,800 Q150,600 250,700 T500,400 T750,500 T1000,200 L1000,1000 L0,1000 Z" fill="rgba(11, 59, 99, 0.03)"></path>
+    <polyline points="0,800 150,600 250,700 500,400 750,500 1000,200" fill="none" stroke="rgba(11, 59, 99, 0.15)" stroke-width="2"></polyline>
+    <polyline points="0,900 200,850 400,900 600,600 800,800 1000,400" fill="none" stroke="rgba(15, 23, 42, 0.05)" stroke-width="1"></polyline>
+  </svg>
+
+  <div class="container">
+
+    <a href="index.html" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Home
+    </a>
+
+    <div class="brand">
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="logo-wrap">
+        <img src="logo.png" class="logo" alt="growitharshiee Logo">
+      </a>
+    </div>
+
+    <h1>Book a Consultation</h1>
+    <p class="subtitle">
+      Share your details and we’ll connect with you to discuss your
+      accounting, GST, tax, or MSME advisory requirements.
+    </p>
+
+    <form class="contact-form"
+          action="https://formsubmit.co/harshiee2122@gmail.com"
+          method="POST">
+
+      <input type="hidden" name="_subject" value="New Consultation Booking | growitharshiee" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next"
+             value="https://harshiee-s.github.io/growitharshiee-financial-services/enquiry-submitted" />
+      <input type="text" name="_honey" style="display:none">
+
+      <div class="field-group">
+        <label class="field-label">Name</label>
+        <input class="field-input" type="text" name="name" placeholder="Your full name" required />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Email</label>
+        <input class="field-input" type="email" name="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Phone</label>
+        <input class="field-input" type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Consultation Type</label>
+        <select name="consultation_type" required>
+          <option value="">Select consultation type</option>
+          <option>GST & Compliance</option>
+          <option>Income Tax Planning</option>
+          <option>MSME Advisory</option>
+          <option>Accounting & Payroll</option>
+          <option>Business Setup</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Requirement</label>
+        <textarea class="field-textarea"
+                  name="requirement"
+                  placeholder="Briefly describe your requirement"
+                  required></textarea>
+      </div>
+
+      <button class="btn-primary" type="submit">
+        <span>Submit & Book Consultation</span>
+        <span>↗</span>
+      </button>
+
+      <p class="contact-footnote">
+        No marketing lists. Your information is used only to respond to this
+        enquiry and discuss your MSME requirements.
+      </p>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

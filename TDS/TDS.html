@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium TDS Calculator | Growitharshiee</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* Replaced with your exact Light Theme colors */
+      --color-bg: #f3f4f6;
+      --color-bg-alt: #ffffff;
+      --color-surface: #ffffff;
+      --color-surface-soft: #f9fafb;
+      --color-primary: #0b3b63;
+      --color-primary-soft: rgba(11, 59, 99, 0.08);
+      --color-accent: #e0a94c;
+      --color-accent-soft: rgba(224, 169, 76, 0.14);
+      --color-text: #111827;
+      --color-text-muted: #6b7280;
+      --color-border: rgba(148, 163, 184, 0.45);
+      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.18);
+      
+      /* Finance Grid Color */
+      --bg-grid: rgba(11, 59, 99, 0.05); 
+
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+
+      --font-heading: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background-color: var(--color-bg); }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      
+      /* Finance Grid Background */
+      background-image: 
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+      background-size: 40px 40px;
+      position: relative;
+    }
+
+    /* Abstract Market Trendline SVG Background */
+    .finance-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0; 
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    .wrapper { max-width: 1120px; margin: 0 auto; padding: 0 1.25rem; width: 100%; position: relative; z-index: 10; }
+
+    /* --- Navigation --- */
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; color: var(--color-primary); display: flex; align-items: center; gap: 8px;}
+    .brand span { color: var(--color-accent); }
+    .nav-links { display: flex; gap: 1.5rem; font-size: 0.9rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--color-primary); }
+
+    /* --- Buttons --- */
+    .btn {
+      border-radius: var(--radius-pill);
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      font-family: var(--font-body);
+    }
+    .btn-primary { background: linear-gradient(135deg, #f5c461, #f97316); color: #111827; box-shadow: 0 8px 20px rgba(249, 115, 22, 0.2); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(249, 115, 22, 0.3); opacity: 0.96; }
+    .btn-outline { border: 1px solid var(--color-border); background: transparent; color: var(--color-text); }
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.85); border-color: var(--color-accent); }
+
+    /* --- Calculator Specific UI --- */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.25rem;
+      position: relative;
+    }
+
+    .calc-card {
+      max-width: 480px;
+      width: 100%;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Back Button Styling */
+    .back-btn {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+    .back-btn:hover {
+      color: var(--color-text);
+      border-color: var(--color-text-muted);
+      transform: translateX(-2px);
+    }
+    .back-btn svg { width: 12px; height: 12px; }
+
+    .calc-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .calc-logo {
+      width: 70px;
+      margin: 0 auto 15px auto;
+      display: block;
+      transition: transform 0.2s;
+    }
+    
+    .calc-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .calc-header h1 {
+      font-family: var(--font-heading);
+      color: var(--color-primary);
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-header p {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-soft);
+    }
+
+    input[readonly] {
+      background: var(--color-bg);
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+    }
+    
+    select option {
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .btn-group .btn { flex: 1; }
+
+    /* --- Results Section --- */
+    .result-box {
+      display: none;
+      margin-top: 2rem;
+      background: var(--color-surface-soft);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .result-row span:last-child {
+      font-weight: 600;
+      color: var(--color-text);
+      font-family: var(--font-heading);
+    }
+
+    .result-total {
+      border-top: 1px dashed var(--color-border);
+      padding-top: 1rem;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .result-total span:last-child { color: var(--color-accent); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Footer --- */
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      background: linear-gradient(to top, rgba(243, 244, 246, 0.98), rgba(243, 244, 246, 0.92), transparent);
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .calc-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <svg class="finance-bg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <path d="M0,800 Q150,600 250,700 T500,400 T750,500 T1000,200 L1000,1000 L0,1000 Z" fill="rgba(11, 59, 99, 0.03)"></path>
+    <polyline points="0,800 150,600 250,700 500,400 750,500 1000,200" fill="none" stroke="rgba(11, 59, 99, 0.15)" stroke-width="2"></polyline>
+    <polyline points="0,900 200,850 400,900 600,600 800,800 1000,400" fill="none" stroke="rgba(15, 23, 42, 0.05)" stroke-width="1"></polyline>
+  </svg>
+
+  <header>
+    <div class="wrapper nav">
+      <a href="index.html" class="brand">Growitharshiee<span>.</span></a>
+      <nav class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <a href="index.html#contact" class="btn btn-primary">Book Consultation</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="calc-card">
+      
+      <a href="index.html" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Home
+      </a>
+
+      <div class="calc-header">
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/">
+          <img src="logo.png" class="calc-logo" alt="Growitharshiee Logo">
+        </a>
+        <h1>TDS Calculator</h1>
+        <p>GST + TDS + Net Payable Calculator</p>
+      </div>
+
+      <div class="form-group">
+        <label for="taxable">Taxable Amount (₹)</label>
+        <input type="number" id="taxable" placeholder="e.g. 50000">
+      </div>
+
+      <div class="form-group">
+        <label for="gstRate">GST Rate (%)</label>
+        <input type="number" id="gstRate" value="18">
+      </div>
+
+      <div class="form-group">
+        <label for="tdsSection">TDS Section</label>
+        <select id="tdsSection" onchange="setRate()">
+          <option value="">Select Section</option>
+          <option value="2">194C – Contractor (2%)</option>
+          <option value="10">194J – Professional Fees (10%)</option>
+          <option value="5">194H – Commission (5%)</option>
+          <option value="10">194I – Rent (10%)</option>
+          <option value="0.1">194Q – Purchase of Goods (0.1%)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="tdsRate">TDS Rate (%)</label>
+        <input type="number" id="tdsRate" readonly placeholder="Auto-filled">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="calculate()">Calculate</button>
+        <button class="btn btn-outline" onclick="resetForm()">Reset</button>
+      </div>
+
+      <div class="result-box" id="result">
+        <div class="result-row">
+          <span>GST Amount</span>
+          <span id="gstAmt">₹ 0.00</span>
+        </div>
+        <div class="result-row">
+          <span>Invoice Amount</span>
+          <span id="invoiceAmt">₹ 0.00</span>
+        </div>
+        <div class="result-row">
+          <span>TDS on Invoice Amount</span>
+          <span id="tdsInvoice">₹ 0.00</span>
+        </div>
+        <div class="result-row">
+          <span>TDS on Invoice + GST</span>
+          <span id="tdsInvoiceGST">₹ 0.00</span>
+        </div>
+        <div class="result-row result-total">
+          <span>Amount After TDS</span>
+          <span id="netAmt">₹ 0.00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrapper">
+      <p>&copy; 2026 Growitharshiee Financial Services. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function setRate() {
+      document.getElementById("tdsRate").value = document.getElementById("tdsSection").value;
+    }
+
+    function formatCurrency(num) {
+      return "₹ " + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function animateValue(id, start, end, duration) {
+      let range = end - start;
+      let current = start;
+      let increment = range / (duration / 16);
+      let element = document.getElementById(id);
+
+      if (range === 0) {
+        element.innerText = formatCurrency(end);
+        return;
+      }
+
+      let timer = setInterval(function () {
+        current += increment;
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+          current = end;
+          clearInterval(timer);
+        }
+        element.innerText = formatCurrency(current);
+      }, 16);
+    }
+
+    function calculate() {
+      let taxable = parseFloat(document.getElementById("taxable").value) || 0;
+      let gstRate = parseFloat(document.getElementById("gstRate").value) || 0;
+      let tdsRate = parseFloat(document.getElementById("tdsRate").value) || 0;
+
+      let gst = taxable * (gstRate / 100);
+      let invoice = taxable;
+      let invoiceGST = taxable + gst;
+
+      let tdsInvoice = invoice * (tdsRate / 100);
+      let tdsInvoiceGST = invoiceGST * (tdsRate / 100);
+
+      let net = invoiceGST - tdsInvoice;
+
+      document.getElementById("result").style.display = "block";
+
+      animateValue("gstAmt", 0, gst, 800);
+      animateValue("invoiceAmt", 0, invoice, 900);
+      animateValue("tdsInvoice", 0, tdsInvoice, 800);
+      animateValue("tdsInvoiceGST", 0, tdsInvoiceGST, 800);
+      animateValue("netAmt", 0, net, 1000);
+    }
+
+    function resetForm() {
+      document.getElementById("taxable").value = "";
+      document.getElementById("gstRate").value = "18";
+      document.getElementById("tdsSection").value = "";
+      document.getElementById("tdsRate").value = "";
+      document.getElementById("result").style.display = "none";
+    }
+  </script>
+</body>
+</html>
