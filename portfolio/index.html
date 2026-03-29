@@ -106,6 +106,37 @@
       100% { transform: translateY(-20vh) scale(0.8); opacity: 0; }
     }
 
+    /* Back to Website Button - FIXED Z-INDEX */
+    .back-btn {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 10px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--color-border);
+      z-index: 1050; /* Increased Z-index so it's always above navbar */
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-soft);
+      transform: translateX(-3px);
+    }
+
+    .back-btn svg { width: 14px; height: 14px; }
+
     /* Floating Navbar - Light Glass Dock */
     .navbar {
       position: fixed;
@@ -523,10 +554,17 @@
       border-top: 1px solid var(--color-border);
     }
 
+    /* Mobile Adjustments - FIX FOR BACK BUTTON COLLISION */
+    @media (max-width: 1200px) {
+      .back-btn span { display: none; }
+      .back-btn { padding: 10px 14px; }
+    }
+
     @media (max-width: 768px) {
-      .navbar { width: 90%; justify-content: space-between; padding: 10px 15px; }
+      .back-btn { top: 15px; left: 15px; }
+      .navbar { width: 90%; justify-content: space-between; padding: 10px 15px; top: 65px; }
       .nav-link { padding: 10px; }
-      main { padding-top: 100px; gap: 40px; }
+      main { padding-top: 140px; gap: 40px; }
       .content-card { padding: 24px; }
       .hero h1 { font-size: 2.5rem; }
     }
@@ -550,7 +588,7 @@
     <span>👨‍🎓</span>
     <span>💻</span>
     <span>💸</span>
-    <span>Zoho Tally % - = +</span>
+    <span>Zoho Books</span>
     <span>= + % GST TAX</span>
     <span>Tax</span>
     <span>GST</span>
@@ -559,6 +597,13 @@
     <span>📈</span>
     <span>📊</span>
   </div>
+
+  <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    <span>Website</span>
+  </a>
 
   <nav class="navbar">
     <a href="#home" class="nav-link active"><i class="fas fa-home"></i> <span>Home</span></a>
@@ -832,7 +877,7 @@
             <li>Schedule completion tracker</li>
           </ul>
         </div>
-<div class="reveal">
+        <div class="reveal">
           <h3>Year-End Report</h3>
           <ul>
             <li>Clients Ledger Creation</li>
@@ -840,7 +885,6 @@
             <li>Maintaining Clean Books</li>
           </ul>
         </div>
-      
       </div>
     </section>
 
