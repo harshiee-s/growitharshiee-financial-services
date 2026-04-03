@@ -299,9 +299,9 @@
     <div class="wrapper nav">
       <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">Growitharshiee<span>.</span></a>
       <nav class="nav-links">
-        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#services">Services</a>
-        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#pricing">Pricing</a>
-        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#contact">Contact</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services#services">Services</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services#pricing">Pricing</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services#contact">Contact</a>
       </nav>
       <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">Book Consultation</a>
     </div>
@@ -359,24 +359,24 @@
 
       <div class="result-box" id="result">
         <div class="result-row">
-          <span>GST Amount</span>
-          <span id="gstAmt">₹ 0.00</span>
+          <span>Taxable amount</span>
+          <span id="resTaxable">₹ 0.00</span>
         </div>
         <div class="result-row">
-          <span>Invoice Amount</span>
-          <span id="invoiceAmt">₹ 0.00</span>
+          <span>GST</span>
+          <span id="resGst">₹ 0.00</span>
         </div>
         <div class="result-row">
-          <span>TDS on Invoice Amount</span>
-          <span id="tdsInvoice">₹ 0.00</span>
+          <span>Invoice Total</span>
+          <span id="resInvoiceTotal">₹ 0.00</span>
         </div>
         <div class="result-row">
-          <span>TDS on Invoice + GST</span>
-          <span id="tdsInvoiceGST">₹ 0.00</span>
+          <span>TDS</span>
+          <span id="resTds">₹ 0.00</span>
         </div>
         <div class="result-row result-total">
-          <span>Amount After TDS</span>
-          <span id="netAmt">₹ 0.00</span>
+          <span>Amount after TDS</span>
+          <span id="resNet">₹ 0.00</span>
         </div>
       </div>
     </div>
@@ -418,27 +418,24 @@
       }, 16);
     }
 
+    // Updated Calculation Logic
     function calculate() {
       let taxable = parseFloat(document.getElementById("taxable").value) || 0;
       let gstRate = parseFloat(document.getElementById("gstRate").value) || 0;
       let tdsRate = parseFloat(document.getElementById("tdsRate").value) || 0;
 
       let gst = taxable * (gstRate / 100);
-      let invoice = taxable;
-      let invoiceGST = taxable + gst;
-
-      let tdsInvoice = invoice * (tdsRate / 100);
-      let tdsInvoiceGST = invoiceGST * (tdsRate / 100);
-
-      let net = invoiceGST - tdsInvoice;
+      let invoiceTotal = taxable + gst;
+      let tds = taxable * (tdsRate / 100); // TDS calculated strictly on base taxable amount
+      let amountAfterTds = invoiceTotal - tds;
 
       document.getElementById("result").style.display = "block";
 
-      animateValue("gstAmt", 0, gst, 800);
-      animateValue("invoiceAmt", 0, invoice, 900);
-      animateValue("tdsInvoice", 0, tdsInvoice, 800);
-      animateValue("tdsInvoiceGST", 0, tdsInvoiceGST, 800);
-      animateValue("netAmt", 0, net, 1000);
+      animateValue("resTaxable", 0, taxable, 800);
+      animateValue("resGst", 0, gst, 800);
+      animateValue("resInvoiceTotal", 0, invoiceTotal, 900);
+      animateValue("resTds", 0, tds, 800);
+      animateValue("resNet", 0, amountAfterTds, 1000);
     }
 
     function resetForm() {
