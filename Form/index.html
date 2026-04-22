@@ -7,26 +7,33 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      /* Unified Light Theme Colors */
-      --color-bg: #f3f4f6;
-      --color-surface: #ffffff;
-      --color-primary: #0b3b63;
-      --color-primary-soft: rgba(11, 59, 99, 0.08);
-      --color-accent: #e0a94c;
-      --color-text: #111827;
-      --color-text-muted: #6b7280;
-      --color-border: rgba(148, 163, 184, 0.45);
-      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.18);
+      /* Premium Light Finance Theme Colors */
+      --color-bg-light: #f8fafc; 
       
-      /* Finance Grid Color */
-      --bg-grid: rgba(11, 59, 99, 0.05); 
+      /* Navy & Champagne Gold */
+      --color-primary: #0A2540; 
+      --color-primary-soft: rgba(10, 37, 64, 0.08);
+      --color-accent: #D4AF37; 
+      --color-accent-soft: rgba(212, 175, 55, 0.15);
+      
+      /* Typography & Shadows */
+      --color-text-dark: #0f172a;
+      --color-text-muted: #475569;
+      --shadow-soft: 0 8px 32px 0 rgba(10, 37, 64, 0.08);
+      
+      --radius-lg: 24px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.3s ease-in-out;
 
-      --font-heading: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-heading: "Playfair Display", serif;
+      --font-subheading: "Poppins", sans-serif;
+      --font-body: "Inter", sans-serif;
+      --font-tech: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -41,80 +48,128 @@
       align-items: center;
       justify-content: center;
       font-family: var(--font-body);
-      background-color: var(--color-bg);
-      color: var(--color-text);
+      color: var(--color-text-dark);
       padding: 2rem 1rem;
-      
-      /* Finance Grid Background */
-      background-image: 
-        linear-gradient(var(--bg-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
-      background-size: 40px 40px;
       -webkit-font-smoothing: antialiased;
       position: relative;
+      overflow-x: hidden;
+
+      /* ADDED: Sophisticated Background Image */
+      background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
     }
 
-    /* Abstract Market Trendline SVG Background */
-    .finance-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0; 
-      opacity: 0.6;
+    /* ADDED: Background Overlay for body image, z-index lower than trendlines/icons */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(248, 250, 252, 0.92);
+      z-index: -2; /* Set z-index to place it behind trendlines (-1) and icons (0 or 1) */
       pointer-events: none;
     }
 
+    /* --- DGV TRENDLINES BACKGROUND --- */
+    .dgv-background {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none; opacity: 0.6;
+    }
+    .dgv-background svg {
+      width: 100%; height: 100%;
+    }
+    .dgv-line {
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 4000; stroke-dashoffset: 4000;
+      animation: drawDGV 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+    .dgv-line-1 { stroke: var(--color-accent); stroke-width: 3px; opacity: 0.5; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); }
+    .dgv-line-2 { stroke: var(--color-primary); stroke-width: 1.5px; opacity: 0.2; animation-delay: -5s; }
+    .dgv-line-3 { stroke: var(--color-accent); stroke-width: 1px; opacity: 0.3; animation-delay: -10s; }
+
+    @keyframes drawDGV {
+      0% { stroke-dashoffset: 4000; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* --- FLOATING ANIMATED PORTFOLIO ICONS --- */
+    .floating-icons-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .floating-icon {
+      position: absolute; color: var(--color-primary); opacity: 0;
+      font-family: var(--font-tech); font-weight: 600;
+      animation: floatAnim 20s infinite linear;
+    }
+    @keyframes floatAnim {
+      0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+      10% { opacity: 0.08; }
+      90% { opacity: 0.08; }
+      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+    .icon-1 { left: 8%; animation-duration: 18s; font-size: 2rem; }
+    .icon-2 { left: 20%; animation-duration: 22s; animation-delay: 2s; font-size: 1.5rem; color: var(--color-accent); }
+    .icon-3 { left: 35%; animation-duration: 15s; animation-delay: 5s; font-size: 1.8rem; }
+    .icon-4 { left: 75%; animation-duration: 25s; animation-delay: 1s; font-size: 1.2rem; }
+    .icon-5 { left: 85%; animation-duration: 19s; animation-delay: 7s; font-size: 2.2rem; color: var(--color-accent); }
+    .icon-6 { left: 50%; animation-duration: 21s; animation-delay: 3s; font-size: 1.5rem; }
+
+    /* --- TRANSPARENT FORM CONTAINER --- */
     .container {
       max-width: 520px;
       width: 100%;
-      padding: 2.5rem 2rem;
-      border-radius: 20px;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      box-shadow: var(--shadow-soft);
+      padding: 3rem 1.5rem;
       position: relative;
       z-index: 10;
     }
 
-    /* Back Button Styling */
+    /* Back Button Styling (Fixed to top left) */
     .back-btn {
-      position: absolute;
-      top: 1.25rem;
-      left: 1.25rem;
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.75rem;
+      gap: 0.4rem;
+      font-size: 0.85rem;
       font-weight: 500;
+      font-family: var(--font-subheading);
       color: var(--color-text-muted);
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      transition: all 0.2s ease;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      transition: all var(--transition-fast);
       text-decoration: none;
+      z-index: 20;
     }
     .back-btn:hover {
-      color: var(--color-text);
-      border-color: var(--color-text-muted);
-      transform: translateX(-2px);
+      color: var(--color-primary);
+      background: #fff;
+      border-color: var(--color-primary);
+      transform: translateX(-3px);
+      box-shadow: 0 4px 10px var(--color-primary-soft);
     }
-    .back-btn svg { width: 12px; height: 12px; }
+    .back-btn svg { width: 16px; height: 16px; }
 
     /* BRAND IMAGE */
     .brand {
       display: flex;
       justify-content: center;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .brand img {
-      max-width: 75px;
+      max-width: 80px;
       width: 100%;
       height: auto;
-      transition: transform 0.2s ease;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform var(--transition-fast);
     }
 
     .brand img:hover {
@@ -123,46 +178,53 @@
 
     h1 {
       font-family: var(--font-heading);
-      font-size: 1.6rem;
+      font-size: 2.2rem;
       color: var(--color-primary);
       margin-bottom: 0.5rem;
       text-align: center;
+      line-height: 1.2;
     }
 
     .subtitle {
-      font-size: 0.9rem;
+      font-family: var(--font-subheading);
+      font-size: 0.95rem;
       color: var(--color-text-muted);
       text-align: center;
-      margin-bottom: 1.8rem;
-      line-height: 1.5;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
     }
 
     .field-group {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .field-label {
       display: block;
-      font-size: 0.85rem;
+      font-family: var(--font-subheading);
+      font-size: 0.9rem;
       font-weight: 600;
-      color: var(--color-text);
-      margin-bottom: 0.4rem;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      margin-left: 0.2rem;
     }
 
+    /* Glass inputs for the transparent background */
     .field-input,
     .field-textarea,
     select {
       width: 100%;
-      padding: 0.8rem 1rem;
-      border-radius: 12px;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      color: var(--color-text);
+      padding: 0.9rem 1.2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(15, 23, 42, 0.15);
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--color-text-dark);
       font-family: var(--font-body);
       font-size: 0.95rem;
-      line-height: 1.4;
+      line-height: 1.5;
       outline: none;
-      transition: all 0.2s ease;
+      transition: all var(--transition-fast);
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -171,81 +233,101 @@
     .field-input:focus,
     .field-textarea:focus,
     select:focus {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px var(--color-primary-soft);
+      background: rgba(255, 255, 255, 0.9);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 4px var(--color-accent-soft);
     }
 
     .field-textarea {
-      height: 100px;
+      height: 120px;
       resize: vertical;
     }
 
-    /* Custom dropdown arrow updated for Light Theme */
+    /* Custom dropdown arrow */
     select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230A2540'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 14px;
-      padding-right: 38px;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 40px;
     }
 
     select option {
-      background-color: var(--color-surface);
-      color: var(--color-text);
+      background-color: #ffffff;
+      color: var(--color-text-dark);
     }
 
     .btn-primary {
       width: 100%;
-      margin-top: 1rem;
-      padding: 0.9rem 1.5rem;
-      border-radius: 999px;
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-pill);
       border: none;
       cursor: pointer;
-      background: linear-gradient(135deg, #f5c461, #f97316);
-      color: #111827;
-      font-family: var(--font-heading);
-      font-size: 0.95rem;
+      background: linear-gradient(135deg, #E6C265, #D4AF37);
+      color: var(--color-primary);
+      font-family: var(--font-subheading);
+      font-size: 1rem;
       font-weight: 600;
-      box-shadow: 0 10px 20px rgba(249, 115, 22, 0.2);
+      box-shadow: 0 8px 20px var(--color-accent-soft);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      gap: 10px;
+      transition: all var(--transition-fast);
+      letter-spacing: 0.02em;
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(249, 115, 22, 0.3);
-      opacity: 0.96;
+      transform: translateY(-3px);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3);
     }
 
     .contact-footnote {
+      font-family: var(--font-tech);
       font-size: 0.75rem;
       color: var(--color-text-muted);
-      margin-top: 1.2rem;
+      margin-top: 1.5rem;
       text-align: center;
-      line-height: 1.5;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 4rem 1rem 2rem; }
+      .back-btn { top: 1rem; left: 1rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;}
+      .hero-title { font-size: 1.8rem; }
     }
   </style>
 </head>
 
 <body>
 
-  <svg class="finance-bg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-    <path d="M0,800 Q150,600 250,700 T500,400 T750,500 T1000,200 L1000,1000 L0,1000 Z" fill="rgba(11, 59, 99, 0.03)"></path>
-    <polyline points="0,800 150,600 250,700 500,400 750,500 1000,200" fill="none" stroke="rgba(11, 59, 99, 0.15)" stroke-width="2"></polyline>
-    <polyline points="0,900 200,850 400,900 600,600 800,800 1000,400" fill="none" stroke="rgba(15, 23, 42, 0.05)" stroke-width="1"></polyline>
-  </svg>
+  <div class="dgv-background">
+    <svg viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="dgv-line dgv-line-1" d="M-100,750 C150,650 300,500 650,450 C1000,400 1200,200 1500,100" />
+      <path class="dgv-line dgv-line-2" d="M-100,800 C250,700 450,550 800,500 C1100,450 1300,300 1500,150" />
+      <path class="dgv-line dgv-line-3" d="M-100,850 C350,750 550,650 900,550 C1250,450 1400,350 1500,200" />
+    </svg>
+  </div>
+
+  <div class="floating-icons-overlay">
+    <div class="floating-icon icon-1">₹</div>
+    <div class="floating-icon icon-2">%</div>
+    <div class="floating-icon icon-3">BRS</div>
+    <div class="floating-icon icon-4">Zoho</div>
+    <div class="floating-icon icon-5">GST</div>
+    <div class="floating-icon icon-6">MIS</div>
+  </div>
+
+  <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Home
+  </a>
 
   <div class="container">
-
-    <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="back-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-      </svg>
-      Home
-    </a>
 
     <div class="brand">
       <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="logo-wrap">
@@ -277,7 +359,7 @@
 
       <div class="field-group">
         <label class="field-label">Email</label>
-        <input class="field-input" type="email" name="email" placeholder="you@example.com" required />
+        <input class="field-input" type="email" name="email" placeholder="you@company.com" required />
       </div>
 
       <div class="field-group">
@@ -301,18 +383,17 @@
         <label class="field-label">Requirement</label>
         <textarea class="field-textarea"
                   name="requirement"
-                  placeholder="Briefly describe your requirement"
+                  placeholder="Briefly describe your current situation or requirement..."
                   required></textarea>
       </div>
 
       <button class="btn-primary" type="submit">
         <span>Submit & Book Consultation</span>
-        <span>↗</span>
       </button>
 
       <p class="contact-footnote">
         No marketing lists. Your information is used only to respond to this
-        enquiry and discuss your MSME requirements.
+        enquiry and discuss your financial requirements.
       </p>
 
     </form>
