@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Ultimate Guide to TAN & New TDS Sections Under the Income-tax Act, 2025 | Growitharshiee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="India’s taxation system is entering a new era. Learn about TAN, revised section mapping (392 & 393), updated thresholds, and transition rules for FY 2026." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #0A2540;
+      --primary-soft: rgba(10, 37, 64, 0.07);
+      --accent: #D4AF37;
+      --accent-soft: rgba(212, 175, 55, 0.13);
+      --accent-gradient: linear-gradient(135deg, #E6C265, #D4AF37);
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --text: #0f172a;
+      --muted: #5a6a82;
+      --border: rgba(10, 37, 64, 0.09);
+      --shadow: 0 4px 24px rgba(10, 37, 64, 0.07);
+      --shadow-md: 0 8px 36px rgba(10, 37, 64, 0.11);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+      --font-heading: "Playfair Display", serif;
+      --font-body: "Poppins", sans-serif;
+      --font-read: "Inter", sans-serif;
+      --transition: 0.28s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-read);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--accent-gradient);
+      z-index: 999; transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(212,175,55,0.5);
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(10,37,64,0.05);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+    }
+    .brand {
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem;
+      color: var(--primary); display: flex; align-items: center; gap: 10px;
+    }
+    .brand span { color: var(--accent); }
+    .brand img { height: 36px; width: auto; border-radius: 6px; }
+
+    .nav-links { display: flex; gap: 2rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; }
+    .nav-links a { color: var(--muted); transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); font-weight: 600; }
+
+    .btn {
+      border-radius: var(--radius-pill); padding: 0.65rem 1.5rem;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none;
+      font-family: var(--font-body); letter-spacing: 0.03em;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--accent-gradient); color: var(--primary);
+      box-shadow: 0 4px 16px var(--accent-soft);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(212,175,55,0.3); filter: brightness(1.04); }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #163a61 60%, #0d2d50 100%);
+      padding: 4.5rem 2rem 3.5rem; position: relative; overflow: hidden;
+    }
+    .hero-banner::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-banner::after {
+      content: ''; position: absolute; bottom: -60px; left: -60px;
+      width: 250px; height: 250px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 820px; margin: 0 auto; position: relative; z-index: 2;
+    }
+    .hero-top {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap;
+    }
+    .badge {
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-pill);
+    }
+    .badge-accent { background: var(--accent); color: var(--primary); }
+    .badge-outline { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.2); }
+
+    .hero-title {
+      font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      color: #fff; line-height: 1.2; margin-bottom: 1.2rem; font-weight: 700;
+    }
+    .hero-title .highlight { color: var(--accent); }
+
+    .hero-desc {
+      font-size: 1.05rem; color: rgba(255,255,255,0.78); line-height: 1.65;
+      margin-bottom: 1.8rem; max-width: 680px; font-family: var(--font-body);
+    }
+
+    .hero-meta {
+      display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+      font-family: var(--font-body); font-size: 0.82rem; color: rgba(255,255,255,0.6);
+    }
+    .hero-meta .sep { opacity: 0.3; }
+    .author-chip {
+      display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: rgba(255,255,255,0.85);
+    }
+    .author-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--accent-gradient); color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700;
+    }
+
+    /* ── KEY HIGHLIGHTS STRIP ── */
+    .highlights-strip {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+    }
+    .highlights-inner {
+      max-width: 820px; margin: 0 auto; padding: 1.5rem 2rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    .highlight-chip {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; background: var(--surface-alt);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
+    }
+    .highlight-chip .chip-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .highlight-chip .chip-text { font-size: 0.82rem; font-weight: 600; color: var(--primary); font-family: var(--font-body); line-height: 1.3; }
+
+    /* ── LAYOUT ── */
+    .page-layout {
+      max-width: 1150px; margin: 0 auto; padding: 3rem 2rem 5rem;
+      display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start;
+    }
+
+    /* ── ARTICLE ── */
+    .article-body { min-width: 0; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 600; font-family: var(--font-body);
+      color: var(--muted); margin-bottom: 2rem;
+      padding: 0.45rem 1rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius-pill);
+      transition: all var(--transition);
+    }
+    .back-link:hover { color: var(--primary); border-color: var(--primary); background: var(--primary-soft); transform: translateX(-3px); }
+
+    /* Section blocks */
+    .section-block {
+      background: var(--surface); border-radius: var(--radius);
+      border: 1px solid var(--border); padding: 2.2rem 2.5rem;
+      margin-bottom: 1.5rem; box-shadow: var(--shadow);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+
+    .section-block h2 {
+      font-family: var(--font-body); font-size: 1.35rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      padding-bottom: 0.75rem; border-bottom: 2px solid var(--accent-soft);
+    }
+    .section-block h2 .h2-icon { color: var(--accent); }
+
+    .section-block h3 {
+      font-family: var(--font-body); font-size: 1.05rem; font-weight: 700;
+      color: var(--text); margin: 1.4rem 0 0.7rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .section-block p {
+      font-size: 0.97rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.75;
+    }
+
+    .section-block ul:not(.checklist) { list-style: none; padding: 0; margin-bottom: 1rem; }
+    .section-block ul:not(.checklist) li {
+      font-size: 0.96rem; color: var(--muted); padding: 0.55rem 0 0.55rem 1.8rem;
+      position: relative; border-bottom: 1px solid var(--border);
+    }
+    .section-block ul:not(.checklist) li:last-child { border-bottom: none; }
+    .section-block ul:not(.checklist) li::before {
+      content: '▹'; position: absolute; left: 0;
+      color: var(--accent); font-size: 1rem; top: 0.57rem;
+    }
+
+    /* Info cards */
+    .info-card {
+      background: var(--primary-soft); border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1.1rem 1.4rem; margin: 1.2rem 0;
+      font-size: 0.93rem; color: var(--primary); font-family: var(--font-body); font-weight: 500; line-height: 1.65;
+    }
+    .info-card.accent-card {
+      background: var(--accent-soft); border-left-color: var(--accent); color: #6b4e00;
+    }
+    .info-card.warning-card {
+      background: #fef2f2; border-left-color: #ef4444; color: #991b1b;
+    }
+    .info-card strong { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* Checklist */
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.8rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.96rem; color: var(--muted);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li .check-icon {
+      width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%;
+      background: #dcfce7; color: #166534; display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; margin-top: 2px;
+    }
+    .checklist li .cross-icon {
+      width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%;
+      background: #fef2f2; color: #ef4444; display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; margin-top: 2px;
+    }
+    .checklist li strong { color: var(--primary); display: block; margin-bottom: 0.2rem; }
+
+    /* Card grid */
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+    .mini-card {
+      background: var(--surface-alt); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1.1rem 1.2rem;
+    }
+    .mini-card .mc-icon { font-size: 1.4rem; margin-bottom: 0.5rem; display: block; }
+    .mini-card .mc-label { font-family: var(--font-body); font-weight: 700; font-size: 0.88rem; color: var(--primary); margin-bottom: 0.3rem; }
+    .mini-card .mc-text { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+    .old-val { color: #b45309; text-decoration: line-through; margin-right: 8px;}
+    .new-val { color: #166534; font-weight: 600; }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 1rem; margin-bottom: 1.5rem;}
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    thead tr { background: var(--primary); }
+    th { padding: 1rem 1.3rem; text-align: left; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.06em; }
+    td { padding: 1rem 1.3rem; font-size: 0.92rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    td:first-child { font-weight: 700; color: var(--primary); }
+    tbody tr:hover { background: var(--surface-alt); }
+
+    /* FAQ Accordion */
+    .faq-list { margin-top: 0.5rem; }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem; overflow: hidden;
+      transition: box-shadow var(--transition);
+    }
+    .faq-item:hover { box-shadow: var(--shadow); }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.4rem; text-align: left;
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--primary);
+      transition: background var(--transition);
+    }
+    .faq-question:hover { background: var(--primary-soft); }
+    .faq-question.open { background: var(--primary-soft); }
+    .faq-icon { width: 22px; height: 22px; flex-shrink: 0; background: var(--accent-soft); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: transform var(--transition); }
+    .faq-question.open .faq-icon { transform: rotate(45deg); background: var(--accent); color: var(--primary); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-answer.open { max-height: 200px; }
+    .faq-answer-inner { padding: 0 1.4rem 1.2rem; font-size: 0.93rem; color: var(--muted); line-height: 1.7; }
+
+    /* CTA Block */
+    .cta-block {
+      background: linear-gradient(135deg, var(--primary) 0%, #163a61 100%);
+      border-radius: var(--radius); padding: 3rem 2.5rem; text-align: center;
+      position: relative; overflow: hidden; margin-top: 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-block::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%);
+    }
+    .cta-block::after {
+      content: ''; position: absolute; bottom: -40px; left: -40px;
+      width: 150px; height: 150px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+    }
+    .cta-block h3 { font-family: var(--font-heading); font-size: 1.7rem; color: #fff; margin-bottom: 0.8rem; position: relative; z-index: 2; }
+    .cta-block p { color: rgba(255,255,255,0.78); font-size: 1rem; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 480px; margin-left: auto; margin-right: auto; margin-bottom: 2rem; }
+    .cta-block .btn { position: relative; z-index: 2; font-size: 0.95rem; padding: 0.85rem 2rem; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 90px; }
+
+    .sidebar-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h4 {
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+      margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--accent-soft);
+    }
+
+    /* TOC */
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: 0.1rem; }
+    .toc-list a {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.6rem;
+      font-size: 0.84rem; color: var(--muted); border-radius: 6px;
+      transition: all var(--transition); font-family: var(--font-body); font-weight: 500;
+      border-left: 2px solid transparent;
+    }
+    .toc-list a:hover, .toc-list a.toc-active { color: var(--primary); background: var(--primary-soft); border-left-color: var(--accent); }
+    .toc-num { font-size: 0.72rem; font-weight: 700; color: var(--accent); min-width: 18px; }
+
+    /* Stats */
+    .stat-row { display: flex; flex-direction: column; gap: 0.8rem; }
+    .stat-item { display: flex; align-items: center; justify-content: space-between; }
+    .stat-label { font-size: 0.83rem; color: var(--muted); font-family: var(--font-body); }
+    .stat-value { font-size: 0.88rem; font-weight: 700; color: var(--primary); font-family: var(--font-body); }
+
+    /* Share */
+    .share-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .share-btn {
+      flex: 1; min-width: 0; padding: 0.55rem 0.4rem;
+      border-radius: var(--radius-sm); border: 1px solid var(--border);
+      background: var(--surface-alt); color: var(--muted);
+      font-size: 0.8rem; font-family: var(--font-body); font-weight: 600;
+      cursor: pointer; transition: all var(--transition); text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 0.35rem;
+    }
+    .share-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-1px); }
+    .share-btn.instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: #dc2743; color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff; border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    footer .brand { justify-content: center; margin-bottom: 1rem; font-size: 1.1rem; }
+    footer p { font-size: 0.85rem; color: var(--muted); font-family: var(--font-body); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .page-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    }
+    @media (max-width: 640px) {
+      .highlights-inner { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .card-grid-3 { grid-template-columns: 1fr; }
+      .hero-banner { padding: 3rem 1.2rem 2.5rem; }
+      .section-block { padding: 1.6rem 1.3rem; }
+      .nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 1.6rem; }
+      .sidebar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <header>
+    <div class="nav">
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+        <img src="logo.png" alt="Growitharshiee Logo">
+        growitharshiee<span>.</span>
+      </a>
+      <nav class="nav-links">
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#home">Home</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#services">Services</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/">Portfolio</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/blog/" class="active">Blog</a>
+      </nav>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
+        <i class="fa-solid fa-calendar-check"></i> Book Consultation
+      </a>
+    </div>
+  </header>
+
+  <section class="hero-banner">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <span class="badge badge-accent">📊 Tax Guide</span>
+        <span class="badge badge-outline">TDS Updates</span>
+        <span class="badge badge-outline"><i class="fa-regular fa-clock" style="margin-right:4px;"></i> 6 min read</span>
+      </div>
+      <h1 class="hero-title">
+        The Ultimate Guide to TAN & New TDS Sections<br>
+        <span class="highlight">Under the Income-tax Act, 2025</span>
+      </h1>
+      <p class="hero-desc">India’s taxation system is entering a new era. Learn about TAN, revised section mapping (392 & 393), updated thresholds, and transition rules for FY 2026.</p>
+      <div class="hero-meta">
+        <div class="author-chip">
+          <div class="author-avatar">H</div>
+          Harshith G S &nbsp;·&nbsp; CA Inter
+        </div>
+        <span class="sep">|</span>
+        <span>Published in 2026</span>
+        <span class="sep">|</span>
+        <span>Taxation & TDS</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="highlights-strip">
+    <div class="highlights-inner">
+      <div class="highlight-chip">
+        <span class="chip-icon">🧾</span>
+        <span class="chip-text">TAN remains the foundation of compliance</span>
+      </div>
+      <div class="highlight-chip">
+        <span class="chip-icon">🔄</span>
+        <span class="chip-text">Sections 392 & 393 replace old 192/194 series</span>
+      </div>
+      <div class="highlight-chip">
+        <span class="chip-icon">📉</span>
+        <span class="chip-text">Thresholds revised for simplified compliance</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-layout">
+
+    <main class="article-body">
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/blog/" class="back-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Articles
+      </a>
+
+      <div class="section-block" id="sec-intro">
+        <p>India’s taxation system is entering a new era of compliance and simplification. With the implementation of the Income-tax Act, 2025 effective from April 1, 2026, the framework for Tax Deducted at Source (TDS) has been significantly restructured.</p>
+        <p>From revised section mapping to updated thresholds and the shift from Assessment Year to Tax Year, professionals must now adapt quickly to stay compliant.</p>
+        <div class="info-card accent-card">
+          <strong><i class="fa-solid fa-bullseye" style="margin-right:6px;color:#d4af37;"></i> Key Insight</strong>
+          Whether you’re a business owner, HR professional, or accountant, understanding these changes is critical to avoid errors and strict penalties.
+        </div>
+      </div>
+
+      <div class="section-block" id="sec-tan">
+        <h2><span class="h2-icon">🧾</span> 1. TAN: The Foundation of TDS Compliance</h2>
+        <p>Before understanding the new provisions, it’s essential to revisit the basics—TAN (Tax Deduction and Collection Account Number). A TAN is a 10-digit alphanumeric number issued by the Income Tax Department of India, and it remains mandatory under the new law.</p>
+
+        <h3>✅ Why TAN is Important:</h3>
+        <ul class="checklist" style="margin-bottom: 1.5rem;">
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Required for deducting TDS on applicable payments.</div></li>
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Mandatory for filing quarterly TDS returns.</div></li>
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Needed to successfully issue TDS certificates to vendors.</div></li>
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Essential for depositing tax with the government.</div></li>
+        </ul>
+
+        <div class="info-card warning-card">
+          <strong>⚠️ Non-Compliance Risks:</strong>
+          Failure to obtain or quote a valid TAN can result in monetary penalties, return rejection, and increased scrutiny under the new Act. <br><br>
+          <em>👉 In short, no TAN = no TDS compliance</em>
+        </div>
+      </div>
+
+      <div class="section-block" id="sec-mapping">
+        <h2><span class="h2-icon">🔄</span> 2. Structural Change: Introduction of Sections 392 & 393</h2>
+        <p>One of the biggest reforms under the Income-tax Act, 2025 is the consolidation of TDS provisions. Instead of multiple scattered sections (like 194C, 194J, 194H), the new Act introduces streamlined master sections:</p>
+
+        <div class="card-grid" style="margin-bottom: 1.5rem;">
+          <div class="mini-card">
+            <span class="mc-icon">👤</span>
+            <div class="mc-label">Section 392</div>
+            <div class="mc-text">Covers salary-related TDS provisions. Replaces the earlier structure of Section 192.</div>
+          </div>
+          <div class="mini-card">
+            <span class="mc-icon">🏢</span>
+            <div class="mc-label">Section 393</div>
+            <div class="mc-text">Covers non-salary transactions (Contractor payments, Professional fees, Commission, Rent).</div>
+          </div>
+        </div>
+
+        <h3>📊 Old vs New Mapping (Simplified)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nature of Payment</th>
+                <th>Old Section (1961 Act)</th>
+                <th>New Framework (2025 Act)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Salary</td>
+                <td>192</td>
+                <td>Section 392</td>
+              </tr>
+              <tr>
+                <td>Contractor</td>
+                <td>194C</td>
+                <td>Section 393</td>
+              </tr>
+              <tr>
+                <td>Professional Fees</td>
+                <td>194J</td>
+                <td>Section 393</td>
+              </tr>
+              <tr>
+                <td>Commission</td>
+                <td>194H</td>
+                <td>Section 393</td>
+              </tr>
+              <tr>
+                <td>Rent</td>
+                <td>194-I</td>
+                <td>Section 393</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <strong><i class="fa-solid fa-lightbulb" style="margin-right:6px;"></i> Rule of Thumb</strong>
+          While section numbers have changed, the timing of deduction remains the exact same: <em>At the time of payment or credit, whichever is earlier.</em>
+        </div>
+      </div>
+
+      <div class="section-block" id="sec-thresholds">
+        <h2><span class="h2-icon">📈</span> 3. Updated TDS Thresholds</h2>
+        <p>To reduce compliance burden, the government has rationalized TDS limits. These changes aim to simplify compliance for small businesses and reduce unnecessary deductions.</p>
+
+        <div class="card-grid-3">
+          <div class="mini-card">
+            <div class="mc-label">Professional Fees</div>
+            <div class="mc-text"><span class="old-val">₹30,000</span> <span class="new-val">₹50,000</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-label">Rent</div>
+            <div class="mc-text"><span class="old-val">₹2.4L/yr</span> <span class="new-val">₹50,000/mo</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-label">Commission</div>
+            <div class="mc-text"><span class="old-val">₹15,000</span> <span class="new-val">₹20,000</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-label">Insurance Commission</div>
+            <div class="mc-text"><span class="old-val">₹15,000</span> <span class="new-val">₹20,000</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-label">Interest (General)</div>
+            <div class="mc-text"><span class="old-val">₹40,000</span> <span class="new-val">₹50,000</span></div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-label">Interest (Senior Citizen)</div>
+            <div class="mc-text"><span class="old-val">₹50,000</span> <span class="new-val">₹1,00,000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block" id="sec-transition">
+        <h2><span class="h2-icon">⚖️</span> 4. Transition Rules for FY 2026</h2>
+        <p>The transition phase is where most businesses make mistakes.</p>
+
+        <div class="info-card accent-card">
+          <strong><i class="fa-solid fa-star" style="margin-right:6px;color:#d4af37;"></i> Golden Rule</strong>
+          The date of the transaction strictly determines the applicable law.
+        </div>
+
+        <h3>📅 Applicability Timeline:</h3>
+        <ul>
+          <li><strong>Before March 31, 2026:</strong> Governed by the old Income-tax Act, 1961.</li>
+          <li><strong>On or After April 1, 2026:</strong> Governed by the new Income-tax Act, 2025.</li>
+        </ul>
+        <p><em>Example:</em> If a payment is credited in March 2026, old sections apply. If the payment is credited in April 2026, Section 393 applies.</p>
+      </div>
+
+      <div class="section-block" id="sec-compliance">
+        <h2><span class="h2-icon">🚨</span> 5. Risks & How to Stay Compliant</h2>
+
+        <h3>Common Risks Under the New Regime</h3>
+        <p>These errors can lead to immediate notices, interest, and penalties:</p>
+        <ul class="checklist" style="margin-bottom: 1.5rem;">
+          <li><div class="cross-icon"><i class="fa-solid fa-xmark"></i></div><div>Using old section codes in new returns.</div></li>
+          <li><div class="cross-icon"><i class="fa-solid fa-xmark"></i></div><div>Incorrectly applying the new thresholds prematurely.</div></li>
+          <li><div class="cross-icon"><i class="fa-solid fa-xmark"></i></div><div>Missing transition period adjustments.</div></li>
+          <li><div class="cross-icon"><i class="fa-solid fa-xmark"></i></div><div>Delayed compliance due to outdated accounting software.</div></li>
+        </ul>
+
+        <h3>✅ How to Stay Compliant in 2026</h3>
+        <ul class="checklist">
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Update accounting and payroll systems to handle Tax Year naming.</div></li>
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Re-map TDS sections to the new 392/393 structure.</div></li>
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Train your finance and HR teams heavily on the new tables.</div></li>
+          <li><div class="check-icon"><i class="fa-solid fa-check"></i></div><div>Perform regular reconciliations.</div></li>
+        </ul>
+      </div>
+
+      <div class="section-block" id="sec-conclusion">
+        <h2><span class="h2-icon">🧠</span> Conclusion</h2>
+        <p>The <strong>Income-tax Act, 2025</strong> marks a major shift in how TDS compliance works in India. With simplified master sections like 392 and 393, the law is theoretically easier in structure—but it requires careful and precise implementation.</p>
+        <p>Businesses that adapt early will benefit from smooth compliance, reduced risk, and better financial control.</p>
+      </div>
+
+      <div class="section-block" id="sec-faq">
+        <h2><span class="h2-icon">❓</span> Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              What is TAN and why is it needed?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">TAN is a 10-digit alphanumeric number mandatory for anyone who is responsible for deducting or collecting tax at source. You cannot file TDS returns or issue TDS certificates without it.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              What are Sections 392 and 393?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Under the new Income-tax Act, 2025, Section 392 covers salary-related TDS provisions, while Section 393 acts as a master section covering most non-salary transactions (like contractors, rent, and professional fees).</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              When do the new transition rules apply?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">The rules apply strictly based on the date of the transaction. Any payment credited on or after April 1, 2026, falls entirely under the new Income-tax Act, 2025.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              What happens if I use old section codes after April 1, 2026?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Using old codes like 194C or 194J for new transactions will result in return mismatches, rejection of the filing, and potential penalty notices from the Income Tax Department.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-block section-block" id="sec-cta">
+        <h3>Need Help with TAN & TDS Compliance?</h3>
+        <p>At Growitharshiee Financial Services, we help businesses register TAN, transition to new TDS sections, automate compliance, and avoid penalties.</p>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-right"></i> Get Expert Support
+        </a>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+
+      <div class="sidebar-card">
+        <h4>Table of Contents</h4>
+        <ul class="toc-list">
+          <li><a href="#sec-intro"><span class="toc-num">01</span> Introduction</a></li>
+          <li><a href="#sec-tan"><span class="toc-num">02</span> Foundation of TAN</a></li>
+          <li><a href="#sec-mapping"><span class="toc-num">03</span> Sections 392 & 393</a></li>
+          <li><a href="#sec-thresholds"><span class="toc-num">04</span> Updated Thresholds</a></li>
+          <li><a href="#sec-transition"><span class="toc-num">05</span> Transition Rules</a></li>
+          <li><a href="#sec-compliance"><span class="toc-num">06</span> Risks & Compliance</a></li>
+          <li><a href="#sec-conclusion"><span class="toc-num">07</span> Conclusion</a></li>
+          <li><a href="#sec-faq"><span class="toc-num">08</span> FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Article Info</h4>
+        <div class="stat-row">
+          <div class="stat-item">
+            <span class="stat-label"><i class="fa-regular fa-calendar" style="margin-right:5px;"></i> Published</span>
+            <span class="stat-value">2026</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fa-regular fa-clock" style="margin-right:5px;"></i> Read Time</span>
+            <span class="stat-value">~6 minutes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fa-solid fa-tag" style="margin-right:5px;"></i> Category</span>
+            <span class="stat-value">Taxation & TDS</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fa-solid fa-user" style="margin-right:5px;"></i> Author</span>
+            <span class="stat-value">Harshith G S</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Share This Article</h4>
+        <div class="share-btns">
+          <button class="share-btn" onclick="shareArticle('linkedin')"><i class="fa-brands fa-linkedin-in"></i> </button>
+          <button class="share-btn" onclick="shareArticle('whatsapp')"><i class="fa-brands fa-whatsapp"></i> </button>
+          <button class="share-btn instagram" onclick="shareArticle('instagram')"><i class="fa-brands fa-instagram"></i> </button>
+          <button class="share-btn" onclick="copyLink(this)" style="flex:100%;"><i class="fa-solid fa-link"></i> Copy Link</button>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background: linear-gradient(135deg, var(--primary), #163a61); border:none;">
+        <h4 style="color:rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.1);">Need Help?</h4>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.75);margin-bottom:1rem;font-family:var(--font-body);line-height:1.55;">Get expert GST &amp; tax compliance support from Growitharshiee.</p>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary" style="width:100%;justify-content:center;font-size:0.85rem;">Book Free Consultation</a>
+      </div>
+
+    </aside>
+  </div>
+
+  <footer>
+    <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+      <img src="logo.png" alt="Growitharshiee Logo">
+      growitharshiee<span>.</span>
+    </a>
+    <p style="margin-top:0.5rem;">&copy; 2026 Growitharshiee Financial Services. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Reading Progress Bar
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+    });
+
+    // Scroll Reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.section-block').forEach(el => revealObserver.observe(el));
+
+    // Active TOC Highlighting
+    const sections = document.querySelectorAll('.section-block[id]');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('toc-active'));
+          const active = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+          if (active) active.classList.add('toc-active');
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => tocObserver.observe(s));
+
+    // FAQ Accordion
+    function toggleFAQ(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+    }
+
+    // Share Functions
+    function shareArticle(platform) {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
+      if (platform === 'linkedin') {
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+      } else if (platform === 'whatsapp') {
+        window.open(`https://wa.me/?text=${title}%20${url}`, '_blank');
+      } else if (platform === 'instagram') {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('Link copied! You can now paste it in your Instagram bio or story.');
+        });
+      }
+    }
+
+    function copyLink(btn) {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        btn.style.background = '#dcfce7';
+        btn.style.color = '#166534';
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
