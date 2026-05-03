@@ -247,7 +247,7 @@
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 
     /* --- Hero Section Styles --- */
     .hero { padding-top: 8rem; padding-bottom: 6rem; overflow: hidden; }
@@ -780,7 +780,7 @@
           <p class="section-subtitle">Use these free tools to quickly estimate your taxes or download our complete service overview.</p>
         </div>
         
-        <div class="grid-3">
+        <div class="grid-4">
           <div class="card reveal" style="text-align: center;">
             <div class="icon-box" style="margin: 0 auto 1.5rem; background: rgba(255,255,255,0.1); color: var(--color-accent);">📊</div>
             <h3 style="color: #fff;">TDS Calculator</h3>
@@ -800,6 +800,13 @@
             <h3 style="color: #fff;">Service Brochure</h3>
             <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin: 1rem 0 2rem;">Download the full catalog of our services, pricing tiers, and startup checklists.</p>
             <a href="brochure.pdf" download class="btn btn-primary" style="width: 100%; background: #fff; color: var(--color-primary);">Download PDF</a>
+          </div>
+
+          <div class="card reveal" style="text-align: center; border: 2px solid var(--color-accent); transition-delay: 0.1s;">
+            <div class="icon-box" style="margin: 0 auto 1.5rem; background: var(--color-accent); color: var(--color-primary);">🔄</div>
+            <h3 style="color: #fff;">Statement Converter</h3>
+            <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin: 1rem 0 2rem;">Quickly convert your raw bank statements into standard journal entries for easy bookkeeping.</p>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Converter/" class="btn btn-accent" style="width: 100%;">Open Converter</a>
           </div>
         </div>
       </div>
