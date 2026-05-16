@@ -11,74 +11,43 @@
 
   <style>
     :root {
-      /* Premium Light Finance Theme Colors */
       --color-bg-light: #f8fafc; 
-      
-      /* Navy & Champagne Gold */
       --color-primary: #0A2540; 
       --color-primary-soft: rgba(10, 37, 64, 0.08);
       --color-accent: #D4AF37; 
       --color-accent-soft: rgba(212, 175, 55, 0.15);
-      
-      /* Typography & Shadows */
       --color-text-dark: #0f172a;
       --color-text-muted: #475569;
       --shadow-soft: 0 8px 32px 0 rgba(10, 37, 64, 0.08);
-      
       --radius-lg: 24px;
       --radius-md: 12px;
       --radius-pill: 999px;
       --transition-fast: 0.3s ease-in-out;
-
       --font-heading: "Playfair Display", serif;
       --font-subheading: "Poppins", sans-serif;
       --font-body: "Inter", sans-serif;
       --font-tech: 'JetBrains Mono', monospace;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-body);
-      color: var(--color-text-dark);
-      padding: 2rem 1rem;
-      -webkit-font-smoothing: antialiased;
-      position: relative;
-      overflow-x: hidden;
-
-      /* ADDED: Sophisticated Background Image */
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); color: var(--color-text-dark); padding: 2rem 1rem;
+      -webkit-font-smoothing: antialiased; position: relative; overflow-x: hidden;
       background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
+      background-size: cover; background-position: center;
     }
 
-    /* ADDED: Background Overlay for body image, z-index lower than trendlines/icons */
     body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(248, 250, 252, 0.92);
-      z-index: -2; /* Set z-index to place it behind trendlines (-1) and icons (0 or 1) */
-      pointer-events: none;
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(248, 250, 252, 0.92); z-index: -2; pointer-events: none;
     }
 
-    /* --- DGV TRENDLINES BACKGROUND --- */
     .dgv-background {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 0; pointer-events: none; opacity: 0.6;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.6;
     }
-    .dgv-background svg {
-      width: 100%; height: 100%;
-    }
+    .dgv-background svg { width: 100%; height: 100%; }
     .dgv-line {
       fill: none; stroke-linecap: round; stroke-linejoin: round;
       stroke-dasharray: 4000; stroke-dashoffset: 4000;
@@ -88,27 +57,11 @@
     .dgv-line-2 { stroke: var(--color-primary); stroke-width: 1.5px; opacity: 0.2; animation-delay: -5s; }
     .dgv-line-3 { stroke: var(--color-accent); stroke-width: 1px; opacity: 0.3; animation-delay: -10s; }
 
-    @keyframes drawDGV {
-      0% { stroke-dashoffset: 4000; }
-      100% { stroke-dashoffset: 0; }
-    }
+    @keyframes drawDGV { 0% { stroke-dashoffset: 4000; } 100% { stroke-dashoffset: 0; } }
 
-    /* --- FLOATING ANIMATED PORTFOLIO ICONS --- */
-    .floating-icons-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1; pointer-events: none; overflow: hidden;
-    }
-    .floating-icon {
-      position: absolute; color: var(--color-primary); opacity: 0;
-      font-family: var(--font-tech); font-weight: 600;
-      animation: floatAnim 20s infinite linear;
-    }
-    @keyframes floatAnim {
-      0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
-      10% { opacity: 0.08; }
-      90% { opacity: 0.08; }
-      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
-    }
+    .floating-icons-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+    .floating-icon { position: absolute; color: var(--color-primary); opacity: 0; font-family: var(--font-tech); font-weight: 600; animation: floatAnim 20s infinite linear; }
+    @keyframes floatAnim { 0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.08; } 90% { opacity: 0.08; } 100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; } }
     .icon-1 { left: 8%; animation-duration: 18s; font-size: 2rem; }
     .icon-2 { left: 20%; animation-duration: 22s; animation-delay: 2s; font-size: 1.5rem; color: var(--color-accent); }
     .icon-3 { left: 35%; animation-duration: 15s; animation-delay: 5s; font-size: 1.8rem; }
@@ -116,194 +69,55 @@
     .icon-5 { left: 85%; animation-duration: 19s; animation-delay: 7s; font-size: 2.2rem; color: var(--color-accent); }
     .icon-6 { left: 50%; animation-duration: 21s; animation-delay: 3s; font-size: 1.5rem; }
 
-    /* --- TRANSPARENT FORM CONTAINER --- */
     .container {
-      max-width: 520px;
-      width: 100%;
-      padding: 3rem 1.5rem;
-      position: relative;
-      z-index: 10;
+      max-width: 520px; width: 100%; padding: 3rem 1.5rem; position: relative; z-index: 10;
     }
 
-    /* Back Button Styling (Fixed to top left) */
     .back-btn {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-      font-family: var(--font-subheading);
-      color: var(--color-text-muted);
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-pill);
-      transition: all var(--transition-fast);
-      text-decoration: none;
-      z-index: 20;
+      position: fixed; top: 2rem; left: 2rem; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 500; font-family: var(--font-subheading); color: var(--color-text-muted); background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(15, 23, 42, 0.1); padding: 0.5rem 1rem; border-radius: var(--radius-pill); transition: all var(--transition-fast); text-decoration: none; z-index: 20;
     }
-    .back-btn:hover {
-      color: var(--color-primary);
-      background: #fff;
-      border-color: var(--color-primary);
-      transform: translateX(-3px);
-      box-shadow: 0 4px 10px var(--color-primary-soft);
-    }
+    .back-btn:hover { color: var(--color-primary); background: #fff; border-color: var(--color-primary); transform: translateX(-3px); box-shadow: 0 4px 10px var(--color-primary-soft); }
     .back-btn svg { width: 16px; height: 16px; }
 
-    /* BRAND IMAGE */
-    .brand {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
+    .brand { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+    .brand img { max-width: 80px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform var(--transition-fast); }
+    .brand img:hover { transform: scale(1.05); }
 
-    .brand img {
-      max-width: 80px;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      transition: transform var(--transition-fast);
-    }
+    h1 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-primary); margin-bottom: 0.5rem; text-align: center; line-height: 1.2; }
+    .subtitle { font-family: var(--font-subheading); font-size: 0.95rem; color: var(--color-text-muted); text-align: center; margin-bottom: 2.5rem; line-height: 1.6; }
 
-    .brand img:hover {
-      transform: scale(1.05);
-    }
+    .field-group { margin-bottom: 1.5rem; }
+    .field-label { display: block; font-family: var(--font-subheading); font-size: 0.9rem; font-weight: 600; color: var(--color-primary); margin-bottom: 0.5rem; margin-left: 0.2rem; }
 
-    h1 {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      color: var(--color-primary);
-      margin-bottom: 0.5rem;
-      text-align: center;
-      line-height: 1.2;
+    .field-input, .field-textarea, select {
+      width: 100%; padding: 0.9rem 1.2rem; border-radius: var(--radius-md); border: 1px solid rgba(15, 23, 42, 0.15); background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--color-text-dark); font-family: var(--font-body); font-size: 0.95rem; line-height: 1.5; outline: none; transition: all var(--transition-fast); appearance: none; -webkit-appearance: none; -moz-appearance: none;
     }
+    .field-input:focus, .field-textarea:focus, select:focus { background: rgba(255, 255, 255, 0.9); border-color: var(--color-accent); box-shadow: 0 0 0 4px var(--color-accent-soft); }
+    .field-textarea { height: 120px; resize: vertical; }
 
-    .subtitle {
-      font-family: var(--font-subheading);
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      text-align: center;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-    }
-
-    .field-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .field-label {
-      display: block;
-      font-family: var(--font-subheading);
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--color-primary);
-      margin-bottom: 0.5rem;
-      margin-left: 0.2rem;
-    }
-
-    /* Glass inputs for the transparent background */
-    .field-input,
-    .field-textarea,
-    select {
-      width: 100%;
-      padding: 0.9rem 1.2rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(15, 23, 42, 0.15);
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--color-text-dark);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      outline: none;
-      transition: all var(--transition-fast);
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-    }
-
-    .field-input:focus,
-    .field-textarea:focus,
-    select:focus {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 4px var(--color-accent-soft);
-    }
-
-    .field-textarea {
-      height: 120px;
-      resize: vertical;
-    }
-
-    /* Custom dropdown arrow */
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230A2540'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      background-size: 16px;
-      padding-right: 40px;
-    }
-
-    select option {
-      background-color: #ffffff;
-      color: var(--color-text-dark);
-    }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230A2540'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; background-size: 16px; padding-right: 40px; }
+    select option { background-color: #ffffff; color: var(--color-text-dark); }
 
     .btn-primary {
-      width: 100%;
-      margin-top: 1.5rem;
-      padding: 1rem 1.5rem;
-      border-radius: var(--radius-pill);
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, #E6C265, #D4AF37);
-      color: var(--color-primary);
-      font-family: var(--font-subheading);
-      font-size: 1rem;
-      font-weight: 600;
-      box-shadow: 0 8px 20px var(--color-accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: all var(--transition-fast);
-      letter-spacing: 0.02em;
+      width: 100%; margin-top: 1.5rem; padding: 1rem 1.5rem; border-radius: var(--radius-pill); border: none; cursor: pointer; background: linear-gradient(135deg, #E6C265, #D4AF37); color: var(--color-primary); font-family: var(--font-subheading); font-size: 1rem; font-weight: 600; box-shadow: 0 8px 20px var(--color-accent-soft); display: flex; align-items: center; justify-content: center; gap: 10px; transition: all var(--transition-fast); letter-spacing: 0.02em;
     }
+    .btn-primary:hover { transform: translateY(-3px); filter: brightness(1.05); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3); }
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.05);
-      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3);
-    }
+    .contact-footnote { font-family: var(--font-tech); font-size: 0.75rem; color: var(--color-text-muted); margin-top: 1.5rem; text-align: center; line-height: 1.6; }
 
-    .contact-footnote {
-      font-family: var(--font-tech);
-      font-size: 0.75rem;
-      color: var(--color-text-muted);
-      margin-top: 1.5rem;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 480px) {
-      .container { padding: 4rem 1rem 2rem; }
-      .back-btn { top: 1rem; left: 1rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;}
-      .hero-title { font-size: 1.8rem; }
-    }
+    @media (max-width: 480px) { .container { padding: 4rem 1rem 2rem; } .back-btn { top: 1rem; left: 1rem; padding: 0.4rem 0.8rem; font-size: 0.8rem;} .hero-title { font-size: 1.8rem; } }
   </style>
+
+  <!-- IMPORTANT: This script handles the redirect after the hidden iframe loads -->
+  <script type="text/javascript">
+    var submitted = false;
+  </script>
 </head>
 
 <body>
 
   <div class="dgv-background">
+    <!-- SVG background lines left intact -->
     <svg viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path class="dgv-line dgv-line-1" d="M-100,750 C150,650 300,500 650,450 C1000,400 1200,200 1500,100" />
       <path class="dgv-line dgv-line-2" d="M-100,800 C250,700 450,550 800,500 C1100,450 1300,300 1500,150" />
@@ -328,7 +142,6 @@
   </a>
 
   <div class="container">
-
     <div class="brand">
       <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="logo-wrap">
         <img src="logo.png" class="logo" alt="growitharshiee Logo">
@@ -341,50 +154,47 @@
       accounting, GST, tax, or MSME advisory requirements.
     </p>
 
-    <form class="contact-form"
-          action="https://formsubmit.co/harshiee2122@gmail.com"
-          method="POST">
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='https://harshiee-s.github.io/growitharshiee-financial-services/enquiry-submitted';}"></iframe>
 
-      <input type="hidden" name="_subject" value="New Consultation Booking | growitharshiee" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_next"
-             value="https://harshiee-s.github.io/growitharshiee-financial-services/enquiry-submitted" />
-      <input type="text" name="_honey" style="display:none">
+    <!-- CUSTOM FORM: Points to Google Forms -->
+    <!-- ACTION URL: Must be /formResponse (Not /viewform) -->
+    <form action="https://docs.google.com/forms/d/1CnNoO7Fbjc3fK1GAxxharTKx8CUHoj7kZiURLlg1IXM/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
 
       <div class="field-group">
         <label class="field-label">Name</label>
-        <input class="field-input" type="text" name="name" placeholder="Your full name" required />
+        <!-- Replace entry.1111111 with your Google Form entry ID -->
+        <input class="field-input" type="text" name="entry.238817162" placeholder="Your full name" required />
       </div>
 
       <div class="field-group">
         <label class="field-label">Email</label>
-        <input class="field-input" type="email" name="email" placeholder="you@company.com" required />
+        <!-- Replace entry.2222222 with your Google Form entry ID -->
+        <input class="field-input" type="email" name="entry.309646542" placeholder="you@company.com" required />
       </div>
 
       <div class="field-group">
         <label class="field-label">Phone</label>
-        <input class="field-input" type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required />
+        <!-- Replace entry.3333333 with your Google Form entry ID -->
+        <input class="field-input" type="tel" name="entry.1822285665" placeholder="+91 XXXXX XXXXX" required />
       </div>
 
       <div class="field-group">
         <label class="field-label">Consultation Type</label>
-        <select name="consultation_type" required>
+        <!-- Replace entry.4444444 with your Google Form entry ID -->
+        <select name="entry.635018107" required>
           <option value="">Select consultation type</option>
-          <option>GST & Compliance</option>
-          <option>Income Tax Planning</option>
-          <option>MSME Advisory</option>
-          <option>Accounting & Payroll</option>
-          <option>Business Setup</option>
+          <option value="GST & Compliance">GST & Compliance</option>
+          <option value="Income Tax Planning">Income Tax Planning</option>
+          <option value="MSME Advisory">MSME Advisory</option>
+          <option value="Accounting & Payroll">Accounting & Payroll</option>
+          <option value="Business Setup">Business Setup</option>
         </select>
       </div>
 
       <div class="field-group">
         <label class="field-label">Requirement</label>
-        <textarea class="field-textarea"
-                  name="requirement"
-                  placeholder="Briefly describe your current situation or requirement..."
-                  required></textarea>
+        <!-- Replace entry.5555555 with your Google Form entry ID -->
+        <textarea class="field-textarea" name="entry.1646339716" placeholder="Briefly describe your current situation or requirement..." required></textarea>
       </div>
 
       <button class="btn-primary" type="submit">
@@ -397,7 +207,6 @@
       </p>
 
     </form>
-
   </div>
 
 </body>
