@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GSTR-2B ITC Reconciliation Tool | Growitharshiee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Auto-reconcile your Purchase Register with GSTR-2B data and instantly calculate your available Input Tax Credit (ITC) in CGST, SGST & IGST." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #0A2540;
+      --primary-soft: rgba(10, 37, 64, 0.07);
+      --accent: #D4AF37;
+      --accent-soft: rgba(212, 175, 55, 0.13);
+      --accent-gradient: linear-gradient(135deg, #E6C265, #D4AF37);
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --text: #0f172a;
+      --muted: #5a6a82;
+      --border: rgba(10, 37, 64, 0.09);
+      --shadow: 0 4px 24px rgba(10, 37, 64, 0.07);
+      --shadow-md: 0 8px 36px rgba(10, 37, 64, 0.11);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+      --success: #16a34a;
+      --success-soft: rgba(22, 163, 74, 0.1);
+      --warning: #b45309;
+      --warning-soft: rgba(180, 83, 9, 0.1);
+      --danger: #b91c1c;
+      --danger-soft: rgba(185, 28, 28, 0.1);
+      --info: #1d4ed8;
+      --info-soft: rgba(29, 78, 216, 0.1);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+      --font-heading: "Playfair Display", serif;
+      --font-body: "Poppins", sans-serif;
+      --font-read: "Inter", sans-serif;
+      --transition: 0.28s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-read); background: var(--bg); color: var(--text); line-height: 1.75; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent-gradient); z-index: 999; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(212,175,55,0.5); }
+
+    /* ── HEADER ── */
+    header { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); box-shadow: 0 2px 16px rgba(10,37,64,0.05); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+    .brand span { color: var(--accent); }
+    .brand img { height: 36px; width: auto; border-radius: 6px; }
+    .nav-links { display: flex; gap: 2rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; }
+    .nav-links a { color: var(--muted); transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); font-weight: 600; }
+
+    .btn { border-radius: var(--radius-pill); padding: 0.65rem 1.5rem; font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none; font-family: var(--font-body); letter-spacing: 0.03em; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: all var(--transition); }
+    .btn-primary { background: var(--accent-gradient); color: var(--primary); box-shadow: 0 4px 16px var(--accent-soft); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(212,175,55,0.3); filter: brightness(1.04); }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; filter: none; }
+    .btn-outline { border: 1px solid var(--border); background: transparent; color: var(--text); }
+    .btn-outline:hover { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+    .btn-success { background: linear-gradient(135deg, #15803d, #16a34a); color: #fff; }
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(22,163,74,0.25); }
+
+    /* ── BACKGROUNDS ── */
+    .dgv-background { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.5; }
+    .dgv-background svg { width: 100%; height: 100%; }
+    .dgv-line { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4000; stroke-dashoffset: 4000; animation: drawDGV 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+    .dgv-line-1 { stroke: var(--accent); stroke-width: 3px; opacity: 0.5; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); }
+    .dgv-line-2 { stroke: var(--primary); stroke-width: 1.5px; opacity: 0.2; animation-delay: -5s; }
+    .dgv-line-3 { stroke: var(--accent); stroke-width: 1px; opacity: 0.3; animation-delay: -10s; }
+    @keyframes drawDGV { 0% { stroke-dashoffset: 4000; } 100% { stroke-dashoffset: 0; } }
+
+    .floating-icons-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+    .floating-icon { position: absolute; color: var(--primary); opacity: 0; font-family: var(--font-body); font-weight: 600; animation: floatAnim 20s infinite linear; }
+    @keyframes floatAnim { 0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.06; } 90% { opacity: 0.06; } 100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; } }
+    .icon-1 { left: 8%; animation-duration: 18s; font-size: 2rem; }
+    .icon-2 { left: 20%; animation-duration: 22s; animation-delay: 2s; font-size: 1.5rem; color: var(--accent); }
+    .icon-3 { left: 85%; animation-duration: 15s; animation-delay: 5s; font-size: 1.8rem; }
+    .icon-4 { left: 75%; animation-duration: 25s; animation-delay: 1s; font-size: 1.2rem; }
+
+    /* ── HERO BANNER ── */
+    .hero-banner { background: linear-gradient(135deg, var(--primary) 0%, #163a61 60%, #0d2d50 100%); padding: 4.5rem 2rem 3.5rem; position: relative; overflow: hidden; }
+    .hero-banner::before { content: ''; position: absolute; top: -80px; right: -80px; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%); pointer-events: none; }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .badge { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.3rem 0.85rem; border-radius: var(--radius-pill); }
+    .badge-accent { background: var(--accent); color: var(--primary); }
+    .badge-outline { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.2); }
+    .hero-title { font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.7rem); color: #fff; line-height: 1.2; margin-bottom: 1.2rem; font-weight: 700; }
+    .hero-title .highlight { color: var(--accent); }
+    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 1.8rem; max-width: 680px; font-family: var(--font-body); }
+    .hero-meta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; font-family: var(--font-body); font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+    .hero-meta .sep { opacity: 0.3; }
+    .author-chip { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .author-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--accent-gradient); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; }
+
+    /* ── HIGHLIGHTS STRIP ── */
+    .highlights-strip { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .highlights-inner { max-width: 820px; margin: 0 auto; padding: 1.5rem 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .highlight-chip { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1.1rem; background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); }
+    .highlight-chip .chip-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .highlight-chip .chip-text { font-size: 0.82rem; font-weight: 600; color: var(--primary); font-family: var(--font-body); line-height: 1.3; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-layout { max-width: 1150px; margin: 0 auto; padding: 3rem 2rem 5rem; display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+    .article-body { min-width: 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 600; font-family: var(--font-body); color: var(--muted); margin-bottom: 2rem; padding: 0.45rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); transition: all var(--transition); }
+    .back-link:hover { color: var(--primary); border-color: var(--primary); background: var(--primary-soft); transform: translateX(-3px); }
+
+    /* ── SECTION BLOCKS ── */
+    .section-block { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 2.2rem 2.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+    .section-block h2 { font-family: var(--font-body); font-size: 1.35rem; font-weight: 700; color: var(--primary); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--accent-soft); }
+    .section-block h3 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 1.4rem 0 0.7rem; }
+    .section-block p { font-size: 0.97rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.75; }
+
+    /* ── UPLOAD ZONE ── */
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem; }
+    .upload-zone { border: 2px dashed rgba(10,37,64,0.18); border-radius: var(--radius-sm); padding: 2rem 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease; background: var(--surface-alt); }
+    .upload-zone:hover, .upload-zone.dragover { border-color: var(--accent); background: rgba(212,175,55,0.05); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .upload-zone.has-file { border-color: rgba(22,163,74,0.5); background: rgba(22,163,74,0.04); border-style: solid; }
+    .upload-zone input[type="file"] { display: none; }
+    .upload-icon { font-size: 2rem; color: var(--accent); margin-bottom: 0.75rem; display: block; }
+    .upload-zone.has-file .upload-icon { color: var(--success); }
+    .upload-label { font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem; }
+    .upload-hint { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .upload-filename { font-size: 0.82rem; color: var(--success); font-weight: 600; margin-top: 0.4rem; }
+
+    .action-bar { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+    .action-bar .btn { flex: 1; padding: 0.9rem; font-size: 0.92rem; }
+
+    /* ── ITC RESULT CARDS ── */
+    .itc-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+    .itc-card { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.5rem; text-align: center; border-top: 3px solid var(--accent); transition: all var(--transition); }
+    .itc-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .itc-card.cgst { border-top-color: #1d4ed8; }
+    .itc-card.sgst { border-top-color: #16a34a; }
+    .itc-card.igst { border-top-color: #9333ea; }
+    .itc-card-label { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+    .itc-card-amount { font-family: var(--font-heading); font-size: 1.7rem; font-weight: 700; color: var(--primary); }
+    .itc-card.cgst .itc-card-amount { color: #1d4ed8; }
+    .itc-card.sgst .itc-card-amount { color: #16a34a; }
+    .itc-card.igst .itc-card-amount { color: #9333ea; }
+    .itc-card-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; font-family: var(--font-body); }
+
+    .itc-total-row { background: linear-gradient(135deg, var(--primary) 0%, #163a61 100%); border-radius: var(--radius-sm); padding: 1.2rem 1.8rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .itc-total-label { font-family: var(--font-body); font-weight: 700; font-size: 0.92rem; color: rgba(255,255,255,0.85); }
+    .itc-total-label small { display: block; font-weight: 400; font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.1rem; }
+    .itc-total-amount { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--accent); }
+
+    /* ── STATS CHIPS ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .stat-chip { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center; border-left: 3px solid var(--border); }
+    .stat-chip.matched { border-left-color: var(--success); }
+    .stat-chip.mismatch { border-left-color: #d97706; }
+    .stat-chip.pr-only { border-left-color: var(--info); }
+    .stat-chip.b2b-only { border-left-color: var(--danger); }
+    .stat-chip-num { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; }
+    .stat-chip.matched .stat-chip-num { color: var(--success); }
+    .stat-chip.mismatch .stat-chip-num { color: #d97706; }
+    .stat-chip.pr-only .stat-chip-num { color: var(--info); }
+    .stat-chip.b2b-only .stat-chip-num { color: var(--danger); }
+    .stat-chip-label { font-size: 0.75rem; color: var(--muted); font-family: var(--font-body); font-weight: 600; margin-top: 0.15rem; }
+
+    /* ── LOADING BAR ── */
+    .loading-bar { height: 3px; background: linear-gradient(90deg, var(--accent), #1d4ed8, var(--accent)); background-size: 200%; animation: shimmer 1.2s infinite; border-radius: 3px; margin-top: 1rem; display: none; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+    /* ── TABS ── */
+    .tab-bar { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.5rem 1.1rem; border-radius: var(--radius-pill); font-size: 0.82rem; font-family: var(--font-body); font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface-alt); color: var(--muted); transition: all 0.2s; }
+    .tab-btn:hover { color: var(--primary); border-color: var(--primary); }
+    .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .tab-btn.t-mismatch.active { background: #d97706; border-color: #d97706; }
+    .tab-btn.t-pr.active { background: var(--info); border-color: var(--info); }
+    .tab-btn.t-2b.active { background: var(--danger); border-color: var(--danger); }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    thead tr { background: var(--primary); }
+    th { padding: 0.85rem 1rem; text-align: left; font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+    th.num { text-align: right; }
+    td { padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td.num { text-align: right; font-family: var(--font-read); font-weight: 500; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: var(--surface-alt); }
+    .diff-cell { color: #d97706 !important; font-weight: 700; }
+
+    /* Status Badges */
+    .row-badge { display: inline-block; padding: 0.22rem 0.65rem; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+    .badge-match { background: var(--success-soft); color: var(--success); border: 1px solid rgba(22,163,74,0.25); }
+    .badge-mismatch { background: rgba(217,119,6,0.1); color: #b45309; border: 1px solid rgba(217,119,6,0.25); }
+    .badge-pr { background: var(--info-soft); color: var(--info); border: 1px solid rgba(29,78,216,0.25); }
+    .badge-2b { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(185,28,28,0.25); }
+
+    /* ── PLACEHOLDER ── */
+    .placeholder-card { text-align: center; padding: 3.5rem 2rem; border: 2px dashed rgba(10,37,64,0.12); border-radius: var(--radius); background: var(--surface-alt); color: var(--muted); }
+    .placeholder-card i { font-size: 3rem; display: block; margin-bottom: 1rem; opacity: 0.25; color: var(--primary); }
+    .placeholder-card p { font-size: 0.95rem; font-family: var(--font-body); }
+
+    /* ── FAQ ── */
+    .faq-list { margin-top: 0.5rem; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 0.75rem; overflow: hidden; transition: box-shadow var(--transition); }
+    .faq-item:hover { box-shadow: var(--shadow); }
+    .faq-question { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.4rem; text-align: left; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--primary); transition: background var(--transition); }
+    .faq-question:hover, .faq-question.open { background: var(--primary-soft); }
+    .faq-icon { width: 22px; height: 22px; flex-shrink: 0; background: var(--accent-soft); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: transform var(--transition); }
+    .faq-question.open .faq-icon { transform: rotate(45deg); background: var(--accent); color: var(--primary); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-answer.open { max-height: 250px; }
+    .faq-answer-inner { padding: 0 1.4rem 1.2rem; font-size: 0.93rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── CTA BLOCK ── */
+    .cta-block { background: linear-gradient(135deg, var(--primary) 0%, #163a61 100%); border-radius: var(--radius); padding: 3rem 2.5rem; text-align: center; position: relative; overflow: hidden; margin-top: 1.5rem; box-shadow: var(--shadow-lg); }
+    .cta-block::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%); }
+    .cta-block::after { content: ''; position: absolute; bottom: -40px; left: -40px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); }
+    .cta-block h3 { font-family: var(--font-heading); font-size: 1.7rem; color: #fff; margin-bottom: 0.8rem; position: relative; z-index: 2; }
+    .cta-block p { color: rgba(255,255,255,0.78); font-size: 1rem; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 480px; margin-left: auto; margin-right: auto; font-family: var(--font-body); }
+    .cta-block .btn { position: relative; z-index: 2; font-size: 0.95rem; padding: 0.85rem 2rem; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: var(--shadow); }
+    .sidebar-card h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--accent-soft); }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: 0.1rem; }
+    .toc-list a { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.84rem; color: var(--muted); border-radius: 6px; transition: all var(--transition); font-family: var(--font-body); font-weight: 500; border-left: 2px solid transparent; }
+    .toc-list a:hover, .toc-list a.toc-active { color: var(--primary); background: var(--primary-soft); border-left-color: var(--accent); }
+    .toc-num { font-size: 0.72rem; font-weight: 700; color: var(--accent); min-width: 18px; }
+    .stat-row { display: flex; flex-direction: column; gap: 0.8rem; }
+    .stat-item { display: flex; align-items: center; justify-content: space-between; }
+    .stat-label { font-size: 0.83rem; color: var(--muted); font-family: var(--font-body); }
+    .stat-value { font-size: 0.88rem; font-weight: 700; color: var(--primary); font-family: var(--font-body); }
+    .share-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .share-btn { flex: 1; min-width: 0; padding: 0.55rem 0.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface-alt); color: var(--muted); font-size: 0.8rem; font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: all var(--transition); text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.35rem; }
+    .share-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-1px); }
+
+    /* ── TOAST ── */
+    .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.6rem; }
+    .toast { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.9rem 1.2rem; font-size: 0.85rem; font-family: var(--font-body); color: var(--text); box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 0.6rem; animation: slideIn 0.3s ease; max-width: 320px; }
+    .toast.success { border-left: 3px solid var(--success); }
+    .toast.error { border-left: 3px solid var(--danger); }
+    .toast i { font-size: 1rem; }
+    .toast.success i { color: var(--success); }
+    .toast.error i { color: var(--danger); }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* ── FOOTER ── */
+    footer { background: #fff; border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    footer .brand { justify-content: center; margin-bottom: 1rem; font-size: 1.1rem; }
+    footer p { font-size: 0.85rem; color: var(--muted); font-family: var(--font-body); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) { .page-layout { grid-template-columns: 1fr; gap: 2rem; } .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; } }
+    @media (max-width: 640px) { .hero-banner { padding: 3rem 1.2rem 2.5rem; } .section-block { padding: 1.6rem 1.3rem; } .nav { padding: 0 1rem; } .nav-links { display: none; } .hero-title { font-size: 1.6rem; } .sidebar { grid-template-columns: 1fr; } .upload-grid { grid-template-columns: 1fr; } .itc-cards-grid { grid-template-columns: 1fr; } .stats-row { grid-template-columns: repeat(2,1fr); } .highlights-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="dgv-background">
+  <svg viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="dgv-line dgv-line-1" d="M-100,750 C150,650 300,500 650,450 C1000,400 1200,200 1500,100" />
+    <path class="dgv-line dgv-line-2" d="M-100,800 C250,700 450,550 800,500 C1100,450 1300,300 1500,150" />
+    <path class="dgv-line dgv-line-3" d="M-100,850 C350,750 550,650 900,550 C1250,450 1400,350 1500,200" />
+  </svg>
+</div>
+
+<div class="floating-icons-overlay">
+  <div class="floating-icon icon-1">2B</div>
+  <div class="floating-icon icon-2">ITC</div>
+  <div class="floating-icon icon-3">GST</div>
+  <div class="floating-icon icon-4">₹</div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="nav">
+    <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+      <img src="logo.png" alt="Growitharshiee Logo">
+      growitharshiee<span>.</span>
+    </a>
+    <nav class="nav-links">
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#home">Home</a>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#services">Services</a>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/">Portfolio</a>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/blog/" class="active">Tools</a>
+    </nav>
+    <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
+      <i class="fa-solid fa-calendar-check"></i> Book Consultation
+    </a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero-banner">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <span class="badge badge-accent">⚖️ Reconciliation Tool</span>
+      <span class="badge badge-outline">GST Compliance · 2026</span>
+    </div>
+    <h1 class="hero-title">
+      GSTR-2B ITC Reconciliation<br>
+      <span class="highlight">Auto-Reconcile & Claim Your Credit</span>
+    </h1>
+    <p class="hero-desc">Upload your Purchase Register and GSTR-2B portal data to auto-reconcile every invoice and instantly calculate your available Input Tax Credit in CGST, SGST, and IGST.</p>
+    <div class="hero-meta">
+      <div class="author-chip">
+        <div class="author-avatar">H</div>
+        Harshith G S &nbsp;·&nbsp; CA Inter
+      </div>
+      <span class="sep">|</span>
+      <span>Updated for FY 2025–26</span>
+    </div>
+  </div>
+</section>
+
+<!-- Highlights Strip -->
+<div class="highlights-strip">
+  <div class="highlights-inner">
+    <div class="highlight-chip">
+      <span class="chip-icon">📂</span>
+      <span class="chip-text">CSV & Excel Upload Support</span>
+    </div>
+    <div class="highlight-chip">
+      <span class="chip-icon">🔄</span>
+      <span class="chip-text">Auto-Match by GSTIN + Invoice No.</span>
+    </div>
+    <div class="highlight-chip">
+      <span class="chip-icon">📥</span>
+      <span class="chip-text">Download Reconciled Excel Report</span>
+    </div>
+  </div>
+</div>
+
+<!-- Page Layout -->
+<div class="page-layout">
+  <main class="article-body">
+    <a href="https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/" class="back-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Tools
+    </a>
+
+    <!-- Intro -->
+    <div class="section-block visible" id="sec-intro">
+      <p>GSTR-2B is a static auto-drafted ITC statement generated by the GST portal for each taxpayer. Before claiming Input Tax Credit in your GSTR-3B return, it's mandatory to reconcile your Purchase Register with GSTR-2B to ensure every ITC claim is backed by a supplier-filed invoice.</p>
+      <p>Use this tool to instantly match your records, identify mismatches, spot missing invoices, and know exactly how much CGST, SGST, and IGST credit is available to you this period.</p>
+    </div>
+
+    <!-- Reconciliation Tool -->
+    <div class="section-block visible" id="sec-tool">
+      <h2><span>⚖️</span> Upload & Reconcile</h2>
+      <p>Upload both files below. Columns are auto-detected — headers like <em>Date, Vendor, GSTIN, Inv No., Taxable Amount, CGST, SGST, IGST, Total Tax, Invoice Value</em> (and common variations) are supported.</p>
+
+      <div class="upload-grid">
+        <div class="upload-zone" id="prZone" onclick="document.getElementById('prFile').click()">
+          <input type="file" id="prFile" accept=".csv,.xlsx,.xls" onchange="handleFile('pr',this)">
+          <i class="fas fa-file-invoice upload-icon"></i>
+          <div class="upload-label">Purchase Register</div>
+          <div class="upload-hint">Your internal purchase book — CSV or Excel</div>
+          <button class="btn btn-outline" style="font-size:0.82rem; padding:0.5rem 1.2rem; pointer-events:none;" tabindex="-1"><i class="fas fa-upload"></i> Choose File</button>
+          <div class="upload-filename" id="prFilename"></div>
+        </div>
+        <div class="upload-zone" id="b2bZone" onclick="document.getElementById('b2bFile').click()">
+          <input type="file" id="b2bFile" accept=".csv,.xlsx,.xls" onchange="handleFile('b2b',this)">
+          <i class="fas fa-database upload-icon"></i>
+          <div class="upload-label">GSTR-2B Data</div>
+          <div class="upload-hint">Downloaded from GST portal — CSV or Excel</div>
+          <button class="btn btn-outline" style="font-size:0.82rem; padding:0.5rem 1.2rem; pointer-events:none;" tabindex="-1"><i class="fas fa-upload"></i> Choose File</button>
+          <div class="upload-filename" id="b2bFilename"></div>
+        </div>
+      </div>
+
+      <div class="loading-bar" id="loadingBar"></div>
+
+      <div class="action-bar">
+        <button class="btn btn-primary" id="reconcileBtn" onclick="reconcile()" disabled>
+          <i class="fas fa-magic"></i> Reconcile Now
+        </button>
+        <button class="btn btn-outline" onclick="resetAll()" style="flex:0; padding: 0.9rem 1.5rem;">
+          <i class="fas fa-redo"></i> Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- ITC Summary (hidden until reconciled) -->
+    <div id="itcSection" style="display:none;">
+
+      <div class="section-block visible" id="sec-itc">
+        <h2><span>💰</span> ITC Available</h2>
+        <p>Input Tax Credit available based on invoices matched between your Purchase Register and GSTR-2B. The 2B values are used as authoritative amounts.</p>
+
+        <div class="itc-cards-grid">
+          <div class="itc-card cgst">
+            <div class="itc-card-label">CGST Available</div>
+            <div class="itc-card-amount" id="itcCGST">₹0.00</div>
+            <div class="itc-card-sub">Central GST Credit</div>
+          </div>
+          <div class="itc-card sgst">
+            <div class="itc-card-label">SGST Available</div>
+            <div class="itc-card-amount" id="itcSGST">₹0.00</div>
+            <div class="itc-card-sub">State GST Credit</div>
+          </div>
+          <div class="itc-card igst">
+            <div class="itc-card-label">IGST Available</div>
+            <div class="itc-card-amount" id="itcIGST">₹0.00</div>
+            <div class="itc-card-sub">Integrated GST Credit</div>
+          </div>
+        </div>
+
+        <div class="itc-total-row">
+          <div class="itc-total-label">
+            Total ITC Available
+            <small>CGST + SGST + IGST · Matched &amp; Mismatch Records (2B values)</small>
+          </div>
+          <div class="itc-total-amount" id="itcTotal">₹0.00</div>
+        </div>
+      </div>
+
+      <!-- Reconciliation Results -->
+      <div class="section-block visible" id="sec-results">
+        <h2><span>📋</span> Reconciliation Details</h2>
+
+        <div class="stats-row">
+          <div class="stat-chip matched">
+            <div class="stat-chip-num" id="statMatched">0</div>
+            <div class="stat-chip-label">✔ Matched</div>
+          </div>
+          <div class="stat-chip mismatch">
+            <div class="stat-chip-num" id="statMismatch">0</div>
+            <div class="stat-chip-label">⚠ Mismatch</div>
+          </div>
+          <div class="stat-chip pr-only">
+            <div class="stat-chip-num" id="statPR">0</div>
+            <div class="stat-chip-label">PR Only</div>
+          </div>
+          <div class="stat-chip b2b-only">
+            <div class="stat-chip-num" id="stat2B">0</div>
+            <div class="stat-chip-label">2B Only</div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; gap:0.75rem;">
+          <div class="tab-bar" style="margin-bottom:0;">
+            <button class="tab-btn active" onclick="switchTab('all')">All</button>
+            <button class="tab-btn" onclick="switchTab('matched')">✔ Matched</button>
+            <button class="tab-btn t-mismatch" onclick="switchTab('mismatch')">⚠ Mismatch</button>
+            <button class="tab-btn t-pr" onclick="switchTab('pr')">PR Only</button>
+            <button class="tab-btn t-2b" onclick="switchTab('2b')">2B Only</button>
+          </div>
+          <button class="btn btn-success" onclick="downloadExcel()" style="padding:0.55rem 1.2rem; font-size:0.85rem;">
+            <i class="fas fa-file-excel"></i> Download Excel
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="reconTable">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Vendor</th>
+                <th>GSTIN</th>
+                <th>Invoice No.</th>
+                <th class="num">Taxable (PR)</th>
+                <th class="num">Taxable (2B)</th>
+                <th class="num">CGST (PR)</th>
+                <th class="num">CGST (2B)</th>
+                <th class="num">SGST (PR)</th>
+                <th class="num">SGST (2B)</th>
+                <th class="num">IGST (PR)</th>
+                <th class="num">IGST (2B)</th>
+                <th class="num">Inv Val (PR)</th>
+                <th class="num">Inv Val (2B)</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="reconBody">
+              <tr><td colspan="16" style="text-align:center; padding:2.5rem; color:var(--muted);">No data yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Placeholder -->
+    <div id="placeholderCard" class="placeholder-card" style="margin-bottom:1.5rem;">
+      <i class="fas fa-balance-scale"></i>
+      <p>Upload both files above and click <strong>Reconcile Now</strong> to begin auto-matching.</p>
+    </div>
+
+    <!-- How It Works -->
+    <div class="section-block" id="sec-how">
+      <h2><span>🔍</span> How the Reconciliation Works</h2>
+      <p>The tool matches invoices using a composite key of <strong>GSTIN + Invoice Number</strong> — the standard GST matching criterion. Here's what each status means:</p>
+      <div class="table-wrap" style="margin-top:0.5rem;">
+        <table>
+          <thead><tr><th>Status</th><th>Meaning</th><th>ITC Treatment</th></tr></thead>
+          <tbody>
+            <tr><td><span class="row-badge badge-match">✔ Matched</span></td><td style="color:var(--muted);">Invoice found in both PR and 2B with matching amounts (within ₹1 tolerance)</td><td style="color:var(--muted);">Fully available — claim in GSTR-3B</td></tr>
+            <tr><td><span class="row-badge badge-mismatch">⚠ Mismatch</span></td><td style="color:var(--muted);">Invoice found in both, but amounts differ in one or more fields</td><td style="color:var(--muted);">Available per 2B value; reconcile with supplier</td></tr>
+            <tr><td><span class="row-badge badge-pr">PR Only</span></td><td style="color:var(--muted);">Invoice in your books but not yet in GSTR-2B portal</td><td style="color:var(--muted);">Cannot claim yet — supplier may not have filed</td></tr>
+            <tr><td><span class="row-badge badge-2b">2B Only</span></td><td style="color:var(--muted);">Invoice visible in 2B portal but missing from your purchase register</td><td style="color:var(--muted);">Verify and add to PR before claiming</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section-block" id="sec-faq">
+      <h2><span>❓</span> Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            What file format should I use for upload?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Both CSV (.csv) and Excel (.xlsx/.xls) formats are supported. Ensure the first row contains headers. The tool auto-detects common column names like "Inv No.", "Invoice Number", "GSTIN No.", "Taxable Amount", "Taxable Amt", etc.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            How is the ITC amount calculated?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">ITC is calculated from all Matched and Mismatch records using the GSTR-2B portal values, since the portal data is authoritative for ITC purposes. PR-Only records are excluded as the supplier hasn't reflected those invoices yet.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            What should I do with Mismatch invoices?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Contact your supplier to issue a credit/debit note correcting the discrepancy, or amend your purchase register if the entry was incorrectly recorded on your end. Claim ITC only on the amount reflected in 2B.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            Can I claim ITC on invoices that are PR Only (not in 2B)?
+            <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Under Section 16(2)(aa) of the CGST Act (effective from FY 2022–23), ITC is available only on invoices reflected in GSTR-2B. PR-Only invoices should not be claimed until the supplier files their GSTR-1/IFF and the invoice appears in your 2B.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block section-block" id="sec-cta">
+      <h3>Need Help with GST Reconciliation?</h3>
+      <p>Let our team handle your monthly 2B reconciliation, ITC tracking, and GSTR-3B filing so you never miss a credit.</p>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
+        <i class="fa-solid fa-arrow-right"></i> Book a Free Consultation
+      </a>
+    </div>
+  </main>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h4>Tool Index</h4>
+      <ul class="toc-list">
+        <li><a href="#sec-intro"><span class="toc-num">01</span> Introduction</a></li>
+        <li><a href="#sec-tool"><span class="toc-num">02</span> Upload & Reconcile</a></li>
+        <li><a href="#sec-itc"><span class="toc-num">03</span> ITC Summary</a></li>
+        <li><a href="#sec-results"><span class="toc-num">04</span> Reconciliation Details</a></li>
+        <li><a href="#sec-how"><span class="toc-num">05</span> How It Works</a></li>
+        <li><a href="#sec-faq"><span class="toc-num">06</span> FAQs</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-card">
+      <h4>Tool Info</h4>
+      <div class="stat-row">
+        <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-code-branch" style="margin-right:5px;"></i> Logic Update</span><span class="stat-value">FY 2025–26</span></div>
+        <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-tag" style="margin-right:5px;"></i> Category</span><span class="stat-value">GST Tool</span></div>
+        <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-user" style="margin-right:5px;"></i> Developer</span><span class="stat-value">Harshith G S</span></div>
+        <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-shield-halved" style="margin-right:5px;"></i> Data Privacy</span><span class="stat-value">100% Local</span></div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <h4>Share This Tool</h4>
+      <div class="share-btns">
+        <button class="share-btn" onclick="shareArticle('linkedin')"><i class="fa-brands fa-linkedin-in"></i></button>
+        <button class="share-btn" onclick="shareArticle('whatsapp')"><i class="fa-brands fa-whatsapp"></i></button>
+        <button class="share-btn" onclick="copyLink(this)" style="flex:100%;"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+    <img src="logo.png" alt="Growitharshiee Logo">
+    growitharshiee<span>.</span>
+  </a>
+  <p style="margin-top:0.5rem;">&copy; 2026 Growitharshiee Financial Services. All rights reserved.</p>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────
+let prData = null, b2bData = null, reconResults = [];
+
+// ── Progress Bar ──
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  document.getElementById('progress-bar').style.width = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100) + '%';
+});
+
+// ── Scroll Reveal ──
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.section-block').forEach(el => revealObs.observe(el));
+
+// ── TOC Active ──
+const sections = document.querySelectorAll('.section-block[id]');
+const tocLinks = document.querySelectorAll('.toc-list a');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('toc-active'));
+      const a = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('toc-active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => tocObs.observe(s));
+
+// ── FAQ ──
+function toggleFAQ(btn) {
+  const ans = btn.nextElementSibling;
+  const wasOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
+  if (!wasOpen) { ans.classList.add('open'); btn.classList.add('open'); }
+}
+
+// ── Share ──
+function shareArticle(platform) {
+  const url = encodeURIComponent(window.location.href);
+  if (platform === 'linkedin') window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+  else if (platform === 'whatsapp') window.open(`https://wa.me/?text=Free%202B%20ITC%20Reconciliation%20Tool%20by%20Growitharshiee%20${url}`, '_blank');
+}
+function copyLink(btn) {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+    btn.style.background = '#dcfce7'; btn.style.color = '#166534';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  });
+}
+
+// ── Drag & Drop ──
+['prZone','b2bZone'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('dragover'); });
+  el.addEventListener('dragleave', () => el.classList.remove('dragover'));
+  el.addEventListener('drop', e => {
+    e.preventDefault(); el.classList.remove('dragover');
+    const f = e.dataTransfer.files[0]; if (!f) return;
+    processFile(id === 'prZone' ? 'pr' : 'b2b', f);
+  });
+});
+
+function handleFile(type, input) { const f = input.files[0]; if (f) processFile(type, f); }
+
+function processFile(type, file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(e.target.result, { type: 'binary', cellDates: true });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+      const normalized = rows.map(normalizeRow);
+      if (type === 'pr') {
+        prData = normalized;
+        document.getElementById('prFilename').textContent = '✔ ' + file.name + ' (' + normalized.length + ' rows)';
+        document.getElementById('prZone').classList.add('has-file');
+        showToast('Purchase Register loaded: ' + normalized.length + ' records', 'success');
+      } else {
+        b2bData = normalized;
+        document.getElementById('b2bFilename').textContent = '✔ ' + file.name + ' (' + normalized.length + ' rows)';
+        document.getElementById('b2bZone').classList.add('has-file');
+        showToast('GSTR-2B data loaded: ' + normalized.length + ' records', 'success');
+      }
+      checkReady();
+    } catch(err) { showToast('Error reading file: ' + err.message, 'error'); }
+  };
+  reader.readAsBinaryString(file);
+}
+
+// ── Column Detection ──
+const COL_MAP = {
+  date:      ['date','invoice date','inv date','doc date','voucher date'],
+  vendor:    ['vendor','party name','supplier','vendor name','party','name'],
+  gstin:     ['gstin','gst no','gst number','gstin no','supplier gstin','vendor gstin'],
+  inv_no:    ['inv no','invoice no','invoice number','inv number','bill no','document no','doc no','voucher no'],
+  taxable:   ['taxable amount','taxable amt','taxable value','taxable','assessable value'],
+  cgst:      ['cgst','cgst amount','cgst amt'],
+  sgst:      ['sgst','sgst amount','sgst amt'],
+  igst:      ['igst','igst amount','igst amt'],
+  total_tax: ['total tax','tax amount','total gst','gst amount'],
+  inv_value: ['invoice value','inv value','total amount','total','bill amount','invoice amt'],
+};
+
+function findCol(row, keys) {
+  const rowKeys = Object.keys(row);
+  for (const key of keys) {
+    const found = rowKeys.find(k => k.trim().toLowerCase() === key);
+    if (found !== undefined) return row[found];
+  }
+  for (const key of keys) {
+    const found = rowKeys.find(k => k.trim().toLowerCase().includes(key));
+    if (found !== undefined) return row[found];
+  }
+  return '';
+}
+
+function normalizeRow(row) {
+  const n = {};
+  for (const [field, keys] of Object.entries(COL_MAP)) n[field] = findCol(row, keys);
+  ['taxable','cgst','sgst','igst','total_tax','inv_value'].forEach(f => {
+    n[f] = parseFloat(String(n[f]).replace(/[^\d.-]/g,'')) || 0;
+  });
+  n.gstin = String(n.gstin).trim().toUpperCase();
+  n.inv_no = String(n.inv_no).trim().toUpperCase().replace(/\s+/g,'');
+  n.vendor = String(n.vendor).trim();
+  n.date = n.date instanceof Date ? n.date.toLocaleDateString('en-IN') : String(n.date).trim();
+  n._key = n.gstin + '||' + n.inv_no;
+  return n;
+}
+
+function checkReady() {
+  document.getElementById('reconcileBtn').disabled = !(prData && b2bData);
+}
+
+// ── Reconciliation ──
+const TOL = 1.0;
+
+function reconcile() {
+  if (!prData || !b2bData) { showToast('Upload both files first.', 'error'); return; }
+  document.getElementById('loadingBar').style.display = 'block';
+  setTimeout(() => {
+    reconResults = [];
+    const prMap = {}, b2bMap = {};
+    prData.forEach(r => { if (!prMap[r._key]) prMap[r._key] = []; prMap[r._key].push(r); });
+    b2bData.forEach(r => { if (!b2bMap[r._key]) b2bMap[r._key] = []; b2bMap[r._key].push(r); });
+    const allKeys = new Set([...Object.keys(prMap), ...Object.keys(b2bMap)]);
+
+    allKeys.forEach(key => {
+      const prs = prMap[key] || [], b2bs = b2bMap[key] || [];
+      if (prs.length && b2bs.length) {
+        const usedB2B = new Set();
+        prs.forEach(pr => {
+          let bestIdx = -1, bestScore = Infinity;
+          b2bs.forEach((b, i) => {
+            if (usedB2B.has(i)) return;
+            const diff = Math.abs(pr.inv_value - b.inv_value) + Math.abs(pr.taxable - b.taxable);
+            if (diff < bestScore) { bestScore = diff; bestIdx = i; }
+          });
+          if (bestIdx >= 0) {
+            usedB2B.add(bestIdx);
+            const b = b2bs[bestIdx];
+            const diffs = [];
+            if (Math.abs(pr.taxable - b.taxable) > TOL) diffs.push('Taxable Amt');
+            if (Math.abs(pr.cgst - b.cgst) > TOL) diffs.push('CGST');
+            if (Math.abs(pr.sgst - b.sgst) > TOL) diffs.push('SGST');
+            if (Math.abs(pr.igst - b.igst) > TOL) diffs.push('IGST');
+            if (Math.abs(pr.inv_value - b.inv_value) > TOL) diffs.push('Inv Value');
+            reconResults.push({ ...pr, _b2b: b, _status: diffs.length ? 'mismatch' : 'matched', _diffs: diffs });
+          } else {
+            reconResults.push({ ...pr, _b2b: null, _status: 'pr_only', _diffs: [] });
+          }
+        });
+        b2bs.forEach((b, i) => { if (!usedB2B.has(i)) reconResults.push({ ...b, _b2b: b, _status: 'b2b_only', _diffs: [] }); });
+      } else if (prs.length) {
+        prs.forEach(pr => reconResults.push({ ...pr, _b2b: null, _status: 'pr_only', _diffs: [] }));
+      } else {
+        b2bs.forEach(b => reconResults.push({ ...b, _b2b: b, _status: 'b2b_only', _diffs: [] }));
+      }
+    });
+
+    updateUI();
+    document.getElementById('loadingBar').style.display = 'none';
+    showToast('Reconciliation complete! ' + reconResults.length + ' records processed.', 'success');
+    document.getElementById('sec-itc').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 450);
+}
+
+function fmt(n) { return '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtNum(n) { return Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+function animateValue(id, end, dur = 700) {
+  const el = document.getElementById(id);
+  let start = null;
+  const step = ts => {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / dur, 1);
+    el.textContent = fmt(progress * end);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = fmt(end);
+  };
+  requestAnimationFrame(step);
+}
+
+function updateUI() {
+  const matched  = reconResults.filter(r => r._status === 'matched');
+  const mismatch = reconResults.filter(r => r._status === 'mismatch');
+  const prOnly   = reconResults.filter(r => r._status === 'pr_only');
+  const b2bOnly  = reconResults.filter(r => r._status === 'b2b_only');
+
+  let cgst = 0, sgst = 0, igst = 0;
+  [...matched, ...mismatch].forEach(r => {
+    const b = r._b2b;
+    cgst += b ? b.cgst : r.cgst;
+    sgst += b ? b.sgst : r.sgst;
+    igst += b ? b.igst : r.igst;
+  });
+
+  animateValue('itcCGST', cgst);
+  animateValue('itcSGST', sgst);
+  animateValue('itcIGST', igst);
+  animateValue('itcTotal', cgst + sgst + igst);
+
+  document.getElementById('statMatched').textContent = matched.length;
+  document.getElementById('statMismatch').textContent = mismatch.length;
+  document.getElementById('statPR').textContent = prOnly.length;
+  document.getElementById('stat2B').textContent = b2bOnly.length;
+
+  document.getElementById('itcSection').style.display = 'block';
+  document.getElementById('placeholderCard').style.display = 'none';
+  renderTable('all');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const tabMap = { all: 0, matched: 1, mismatch: 2, pr: 3, '2b': 4 };
+  document.querySelectorAll('.tab-btn')[tabMap[tab]].classList.add('active');
+  renderTable(tab);
+}
+
+function renderTable(tab) {
+  let rows;
+  if (tab === 'all') rows = reconResults;
+  else if (tab === 'matched') rows = reconResults.filter(r => r._status === 'matched');
+  else if (tab === 'mismatch') rows = reconResults.filter(r => r._status === 'mismatch');
+  else if (tab === 'pr') rows = reconResults.filter(r => r._status === 'pr_only');
+  else rows = reconResults.filter(r => r._status === 'b2b_only');
+
+  const tbody = document.getElementById('reconBody');
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="16" style="text-align:center; padding:2.5rem; color:var(--muted);">No records in this category.</td></tr>`;
+    return;
+  }
+
+  const badgeMap = {
+    matched: '<span class="row-badge badge-match">✔ Matched</span>',
+    mismatch: '<span class="row-badge badge-mismatch">⚠ Mismatch</span>',
+    pr_only: '<span class="row-badge badge-pr">PR Only</span>',
+    b2b_only: '<span class="row-badge badge-2b">2B Only</span>',
+  };
+
+  tbody.innerHTML = rows.map(r => {
+    const b = r._b2b;
+    const d = field => r._diffs && r._diffs.includes(field) ? 'diff-cell' : '';
+    const isPROnly = r._status === 'pr_only';
+    const is2BOnly = r._status === 'b2b_only';
+    const prV   = f => !is2BOnly ? fmtNum(r[f]) : '—';
+    const b2bV  = f => b ? fmtNum(b[f]) : '—';
+    const vendor = is2BOnly ? (b ? b.vendor : '') : r.vendor;
+    const gstin  = is2BOnly ? (b ? b.gstin : '') : r.gstin;
+    const inv    = is2BOnly ? (b ? b.inv_no : '') : r.inv_no;
+    const date   = is2BOnly ? (b ? b.date : '') : r.date;
+    const remark = r._diffs && r._diffs.length ? r._diffs.join(', ') : is2BOnly ? 'Not in PR' : isPROnly ? 'Not in 2B' : 'Perfect Match';
+
+    return `<tr>
+      <td>${badgeMap[r._status]}</td>
+      <td>${date}</td>
+      <td title="${vendor}">${vendor.length > 18 ? vendor.substring(0,18)+'…' : vendor}</td>
+      <td style="font-size:0.78rem;">${gstin}</td>
+      <td style="font-size:0.78rem;">${inv}</td>
+      <td class="num">${prV('taxable')}</td>
+      <td class="num ${d('Taxable Amt')}">${b2bV('taxable')}</td>
+      <td class="num">${prV('cgst')}</td>
+      <td class="num ${d('CGST')}">${b2bV('cgst')}</td>
+      <td class="num">${prV('sgst')}</td>
+      <td class="num ${d('SGST')}">${b2bV('sgst')}</td>
+      <td class="num">${prV('igst')}</td>
+      <td class="num ${d('IGST')}">${b2bV('igst')}</td>
+      <td class="num">${prV('inv_value')}</td>
+      <td class="num ${d('Inv Value')}">${b2bV('inv_value')}</td>
+      <td style="font-size:0.78rem; color:${r._diffs && r._diffs.length ? '#b45309' : 'var(--muted)'};">${remark}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Excel Download ──
+function downloadExcel() {
+  if (!reconResults.length) { showToast('No data to download.', 'error'); return; }
+  const wb = XLSX.utils.book_new();
+
+  // ITC Summary Sheet
+  const matched  = reconResults.filter(r => r._status === 'matched');
+  const mismatch = reconResults.filter(r => r._status === 'mismatch');
+  let cgst = 0, sgst = 0, igst = 0;
+  [...matched, ...mismatch].forEach(r => {
+    const b = r._b2b;
+    cgst += b ? b.cgst : r.cgst;
+    sgst += b ? b.sgst : r.sgst;
+    igst += b ? b.igst : r.igst;
+  });
+  const summaryData = [
+    ['GSTR-2B ITC Reconciliation Report'],
+    ['Generated on:', new Date().toLocaleDateString('en-IN')],
+    [],
+    ['ITC AVAILABLE (Matched + Mismatch Records)'],
+    ['Tax Type','Amount (₹)'],
+    ['CGST',cgst],['SGST',sgst],['IGST',igst],['TOTAL ITC',cgst+sgst+igst],
+    [],
+    ['RECONCILIATION SUMMARY'],
+    ['Status','Count'],
+    ['Matched',matched.length],
+    ['Mismatch',mismatch.length],
+    ['PR Only',reconResults.filter(r=>r._status==='pr_only').length],
+    ['2B Only',reconResults.filter(r=>r._status==='b2b_only').length],
+    ['Total Records',reconResults.length],
+  ];
+  const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+  wsSummary['!cols'] = [{wch:35},{wch:20}];
+  XLSX.utils.book_append_sheet(wb, wsSummary, 'ITC Summary');
+
+  const makeSheet = (rows, title) => {
+    const headers = ['Status','Date','Vendor','GSTIN','Invoice No.','Taxable (PR)','Taxable (2B)','CGST (PR)','CGST (2B)','SGST (PR)','SGST (2B)','IGST (PR)','IGST (2B)','Total Tax (PR)','Total Tax (2B)','Inv Val (PR)','Inv Val (2B)','Remarks'];
+    const data = [headers, ...rows.map(r => {
+      const b = r._b2b;
+      const is2B = r._status === 'b2b_only';
+      const statusLabel = { matched:'Matched', mismatch:'Mismatch', pr_only:'PR Only', b2b_only:'2B Only' }[r._status];
+      return [
+        statusLabel,
+        is2B ? (b ? b.date : '') : r.date,
+        is2B ? (b ? b.vendor : '') : r.vendor,
+        is2B ? (b ? b.gstin : '') : r.gstin,
+        is2B ? (b ? b.inv_no : '') : r.inv_no,
+        !is2B ? r.taxable : '', b ? b.taxable : '',
+        !is2B ? r.cgst : '', b ? b.cgst : '',
+        !is2B ? r.sgst : '', b ? b.sgst : '',
+        !is2B ? r.igst : '', b ? b.igst : '',
+        !is2B ? r.total_tax : '', b ? b.total_tax : '',
+        !is2B ? r.inv_value : '', b ? b.inv_value : '',
+        r._diffs && r._diffs.length ? r._diffs.join(', ') : r._status === 'matched' ? 'Perfect Match' : r._status === 'pr_only' ? 'Not in 2B' : 'Not in PR',
+      ];
+    })];
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    ws['!cols'] = [10,12,25,20,18,14,14,10,10,10,10,10,10,12,12,14,14,28].map(w=>({wch:w}));
+    XLSX.utils.book_append_sheet(wb, ws, title);
+  };
+
+  makeSheet(reconResults, 'All Records');
+  makeSheet(matched, 'Matched');
+  makeSheet(mismatch, 'Mismatch');
+  makeSheet(reconResults.filter(r=>r._status==='pr_only'), 'PR Only');
+  makeSheet(reconResults.filter(r=>r._status==='b2b_only'), '2B Only');
+
+  XLSX.writeFile(wb, '2B_Reconciliation_' + new Date().toLocaleDateString('en-IN').replace(/\//g,'-') + '.xlsx');
+  showToast('Excel report downloaded!', 'success');
+}
+
+// ── Reset ──
+function resetAll() {
+  prData = null; b2bData = null; reconResults = [];
+  ['prFile','b2bFile'].forEach(id => document.getElementById(id).value = '');
+  ['prFilename','b2bFilename'].forEach(id => document.getElementById(id).textContent = '');
+  ['prZone','b2bZone'].forEach(id => document.getElementById(id).classList.remove('has-file'));
+  document.getElementById('reconcileBtn').disabled = true;
+  document.getElementById('itcSection').style.display = 'none';
+  document.getElementById('placeholderCard').style.display = 'block';
+  showToast('Reset complete.', 'success');
+}
+
+// ── Toast ──
+function showToast(msg, type = 'success') {
+  const tc = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}`;
+  tc.appendChild(t);
+  setTimeout(() => t.remove(), 4000);
+}
+</script>
+</body>
+</html>
