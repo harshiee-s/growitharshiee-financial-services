@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | Growitharshiee Financial Services</title>
+  <meta name="description" content="Detailed accounting, GST, taxation, and consulting services provided by Growitharshiee. Tailored financial solutions for Indian freelancers and startups." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --color-bg-light: #F0F4F8;
+      --color-surface-light: rgba(255, 255, 255, 0.88);
+      --glass-border-light: 1px solid rgba(255, 255, 255, 0.65);
+      --color-primary: #0A2540;
+      --color-primary-soft: rgba(10, 37, 64, 0.06);
+      --color-accent: #D4AF37;
+      --color-accent-soft: rgba(212, 175, 55, 0.15);
+      --color-text-dark: #0f172a;
+      --color-text-muted: #475569;
+      --color-text-light: #ffffff;
+      --shadow-soft: 0 8px 32px 0 rgba(10, 37, 64, 0.08);
+      --shadow-strong: 0 20px 50px 0 rgba(10, 37, 64, 0.14);
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --transition-fast: 0.35s ease-in-out;
+      --font-heading: "Playfair Display", serif;
+      --font-subheading: "Poppins", sans-serif;
+      --font-body: "Inter", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text-dark);
+      background-color: var(--color-bg-light);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .bg-desk {
+      background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+    .bg-desk::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(240, 244, 248, 0.96);
+      z-index: 0;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 10; }
+    section { padding: 6rem 0; position: relative; }
+    h1, h2 { font-family: var(--font-heading); line-height: 1.2; }
+    h3, h4 { font-family: var(--font-subheading); }
+
+    .section-kicker {
+      font-family: var(--font-subheading); font-size: 0.82rem; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--color-accent); font-weight: 700; margin-bottom: 0.8rem;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .section-kicker::before, .section-kicker::after {
+      content: ''; display: inline-block; width: 28px; height: 2px;
+      background: var(--color-accent); border-radius: 2px;
+    }
+
+    /* --- BUTTONS --- */
+    .btn {
+      border-radius: var(--radius-pill); padding: 0.9rem 2rem; font-size: 0.95rem;
+      font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
+      justify-content: center; cursor: pointer; transition: all var(--transition-fast);
+      border: none; font-family: var(--font-subheading); letter-spacing: 0.03em;
+    }
+    .btn-accent {
+      background: linear-gradient(135deg, #E6C265, #C9A227);
+      color: var(--color-primary);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
+    }
+    .btn-accent:hover { transform: translateY(-3px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(212, 175, 55, 0.35); }
+    .btn-ghost { background: rgba(255,255,255,0.12); color: #fff; border: 1.5px solid rgba(255,255,255,0.35); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.22); transform: translateY(-3px); }
+
+    /* =====================
+       NAVIGATION — FIXED
+    ===================== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      position: relative;
+    }
+    .brand {
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem;
+      color: var(--color-primary); display: flex; align-items: center;
+      gap: 12px; z-index: 102; flex-shrink: 0;
+    }
+    .brand img {
+      height: 48px; width: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Centred nav links via absolute positioning */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.95rem;
+      font-family: var(--font-subheading);
+      font-weight: 500;
+      align-items: center;
+      list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-links a {
+      color: var(--color-text-muted);
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s; border-radius: 2px;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--color-primary); }
+
+    .mobile-menu-toggle {
+      display: none; background: none; border: none;
+      font-size: 1.5rem; color: var(--color-primary);
+      cursor: pointer; z-index: 102; flex-shrink: 0;
+    }
+
+    /* --- FLOATING WA --- */
+    .wa-float {
+      position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF;
+      border-radius: 50px; padding: 14px 22px; display: flex; align-items: center; gap: 10px;
+      font-size: 0.95rem; font-weight: 600; font-family: var(--font-subheading);
+      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.35); z-index: 1000; transition: all 0.3s;
+    }
+    .wa-float:hover { transform: scale(1.06) translateY(-4px); color: #fff; }
+    .wa-icon { width: 22px; height: 22px; fill: currentColor; }
+
+    /* --- ANIMATIONS --- */
+    .reveal {
+      opacity: 0; transform: translateY(40px) scale(0.98);
+      transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* --- PAGE HEADER --- */
+    .page-header {
+      padding: 9rem 0 5rem; text-align: center;
+      background: linear-gradient(160deg, rgba(212, 175, 55, 0.07) 0%, transparent 60%);
+      border-bottom: 1px solid rgba(10, 37, 64, 0.06);
+      position: relative;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 3px;
+      background: linear-gradient(90deg, #D4AF37, #E6C265);
+      border-radius: 3px;
+    }
+    .page-title {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      color: var(--color-primary); margin-bottom: 1.2rem;
+    }
+    .page-subtitle {
+      font-size: 1.15rem; color: var(--color-text-muted);
+      max-width: 680px; margin: 0 auto;
+      font-family: var(--font-subheading); font-weight: 400;
+    }
+
+    /* --- STATS STRIP --- */
+    .stats-strip {
+      background: var(--color-primary); border-radius: var(--radius-lg);
+      padding: 3rem; display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center; margin: 2rem 0 3rem;
+      box-shadow: var(--shadow-strong);
+    }
+    .stat-item { border-right: 1px solid rgba(255,255,255,0.1); }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-heading); font-size: 2.8rem;
+      color: var(--color-accent); font-weight: 700; line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-subheading); font-size: 0.85rem;
+      color: rgba(255,255,255,0.65); margin-top: 0.5rem; font-weight: 400;
+    }
+
+    /* --- SERVICE CARDS --- */
+    .services-section { padding-top: 0; }
+
+    .service-card-new {
+      background: var(--color-surface-light);
+      backdrop-filter: blur(16px);
+      border: var(--glass-border-light);
+      border-radius: var(--radius-lg);
+      margin-bottom: 3rem;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      min-height: 420px;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .service-card-new:hover { transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+    .service-card-new.reverse { grid-template-columns: 1fr 420px; }
+
+    .card-image-panel { position: relative; overflow: hidden; min-height: 380px; }
+    .card-image-panel img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: center; transition: transform 0.6s ease;
+    }
+    .service-card-new:hover .card-image-panel img { transform: scale(1.04); }
+    .card-image-panel::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(10, 37, 64, 0.35) 0%, transparent 60%);
+    }
+    .card-image-badge {
+      position: absolute; top: 24px; left: 24px; z-index: 2;
+      background: rgba(255,255,255,0.18); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.4); color: #fff;
+      padding: 10px 18px; border-radius: var(--radius-pill);
+      font-family: var(--font-subheading); font-size: 0.82rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .card-number {
+      position: absolute; bottom: 24px; right: 24px; z-index: 2;
+      font-family: var(--font-heading); font-size: 4rem;
+      color: rgba(255,255,255,0.18); line-height: 1; font-weight: 700;
+    }
+    .card-content-panel {
+      padding: 3.5rem 3.5rem 3rem;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 1.5rem;
+    }
+    .card-service-label {
+      font-family: var(--font-subheading); font-size: 0.8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-accent);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-service-label::before {
+      content: ''; width: 24px; height: 2px;
+      background: var(--color-accent); border-radius: 2px;
+    }
+    .card-title {
+      font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+      color: var(--color-primary); line-height: 1.25;
+    }
+    .card-description {
+      color: var(--color-text-muted); font-size: 1rem;
+      line-height: 1.75; max-width: 520px;
+    }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1.5rem; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.9rem; color: var(--color-text-dark);
+      font-family: var(--font-subheading); font-weight: 500;
+    }
+    .feature-check {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--color-accent-soft);
+      border: 1.5px solid var(--color-accent); color: var(--color-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* --- CTA --- */
+    .cta-section {
+      background: var(--color-primary); border-radius: var(--radius-lg);
+      padding: 5.5rem 3rem; text-align: center; color: var(--color-text-light);
+      margin: 2rem 0 4rem; position: relative; overflow: hidden;
+      box-shadow: var(--shadow-strong);
+    }
+    .cta-section::before {
+      content: ''; position: absolute; top: -60%; left: -5%;
+      width: 500px; height: 500px; background: var(--color-accent);
+      filter: blur(140px); opacity: 0.12; border-radius: 50%;
+    }
+    .cta-section::after {
+      content: ''; position: absolute; bottom: -40%; right: -5%;
+      width: 400px; height: 400px; background: #163a61;
+      filter: blur(100px); opacity: 0.5; border-radius: 50%;
+    }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-section h2 { color: #fff; font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 1rem; }
+    .cta-section p {
+      font-size: 1.1rem; color: rgba(255,255,255,0.75);
+      margin-bottom: 2.5rem; max-width: 580px; margin-inline: auto;
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.06); padding: 3rem 0;
+      text-align: center; color: var(--color-text-muted);
+      font-size: 0.92rem; background: #ffffff;
+    }
+    .footer-brand {
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 1.4rem; color: var(--color-primary); margin-bottom: 0.6rem;
+    }
+    .footer-brand span { color: var(--color-accent); }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 1024px) {
+      .mobile-menu-toggle { display: block; }
+
+      .nav-links {
+        /* reset absolute centering for mobile drawer */
+        position: absolute;
+        top: 100%; left: 0;
+        transform: none;
+        width: 100%;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 0;
+        padding: 1.5rem 2rem 2rem;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        opacity: 0; visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      }
+      .nav-links.active {
+        opacity: 1; visibility: visible; transform: translateY(0);
+      }
+      .nav-links li { width: 100%; border-bottom: 1px solid rgba(0,0,0,0.05); }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a { display: block; padding: 0.9rem 0; color: var(--color-text-dark); font-size: 1rem; }
+      .nav-links a::after { display: none; }
+
+      .service-card-new,
+      .service-card-new.reverse { grid-template-columns: 1fr; }
+      .card-image-panel { min-height: 260px; }
+      .service-card-new.reverse .card-content-panel { order: 1; }
+      .service-card-new.reverse .card-image-panel { order: 2; }
+      .card-content-panel { padding: 2.5rem 2rem; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem; }
+      .stat-item:nth-child(3),
+      .stat-item:nth-child(4) { border-bottom: none; }
+    }
+
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-strip { grid-template-columns: 1fr; padding: 2rem; }
+      .stat-item { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1.5rem; }
+      .stat-item:last-child { border-bottom: none; }
+      .cta-section { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body class="bg-desk">
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <div class="wrapper nav">
+
+      <!-- Logo -->
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Growitharshiee Logo" />
+      </a>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Nav links — absolutely centred on desktop -->
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="index.html#tools">Tools</a></li>
+          <li><a href="index.html#insights">Insights</a></li>
+          <li><a href="Blog.html">Blog</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="wrapper reveal">
+        <div class="section-kicker">Expert Solutions</div>
+        <h1 class="page-title">Financial Services<br>Tailored For You</h1>
+        <p class="page-subtitle">From daily bookkeeping to complex GST compliance — practical, jargon-free financial services built for Indian startups and freelancers.</p>
+      </div>
+    </section>
+
+    <!-- Stats Strip -->
+    <div class="wrapper">
+      <div class="stats-strip reveal">
+        <div class="stat-item">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Clients Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">₹0</div>
+          <div class="stat-label">Penalties Incurred</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">On-Time Filing Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Core Service Areas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <section class="wrapper services-section">
+
+      <!-- Service 1 -->
+      <div class="service-card-new reveal">
+        <div class="card-image-panel">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="Accounting and bookkeeping workspace" loading="lazy" />
+          <span class="card-image-badge">Service 01</span>
+          <span class="card-number">01</span>
+        </div>
+        <div class="card-content-panel">
+          <div class="card-service-label">Accounting & Bookkeeping</div>
+          <h2 class="card-title">Flawless Ledger Management</h2>
+          <p class="card-description">Keep your books audit-ready year-round. I manage your daily transactions using industry-standard tools like Zoho Books and Tally, ensuring your financial data is accurate, reconciled, and always readable.</p>
+          <div class="features-grid">
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Daily & Monthly Ledger Updates</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>End-to-End Bank Reconciliation</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Accounts Payable & Receivable</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Month-End P&L and Balance Sheets</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Payroll Processing & Entry</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Historical Data Cleanup</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card-new reverse reveal">
+        <div class="card-content-panel">
+          <div class="card-service-label">GST & Taxation</div>
+          <h2 class="card-title">Zero-Penalty Tax Compliance</h2>
+          <p class="card-description">Stop worrying about tax deadlines and portal glitches. I handle the heavy lifting of Indian tax compliance — timely returns, proper credit utilization, and zero penalties for your growing business.</p>
+          <div class="features-grid">
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>GST Registration & Modifications</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>GSTR-1, GSTR-3B & Annual Returns</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>ITC Reconciliation (GSTR-2B)</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>TDS / TCS Calculations & Filing</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Individual & Corporate ITR Filing</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Advance Tax Estimation</div>
+          </div>
+        </div>
+        <div class="card-image-panel">
+          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200&auto=format&fit=crop" alt="Tax filing and GST compliance documents" loading="lazy" />
+          <span class="card-image-badge">Service 02</span>
+          <span class="card-number">02</span>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card-new reveal">
+        <div class="card-image-panel">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop" alt="Business registration documents and official paperwork" loading="lazy" />
+          <span class="card-image-badge">Service 03</span>
+          <span class="card-number">03</span>
+        </div>
+        <div class="card-content-panel">
+          <div class="card-service-label">Business Registrations</div>
+          <h2 class="card-title">Launch Your Startup Right</h2>
+          <p class="card-description">Setting up a legal entity in India requires navigating a maze of paperwork. I streamline the entire registration process so you can focus on building your product and acquiring clients.</p>
+          <div class="features-grid">
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Entity Incorporation Support</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>MSME / Udyam Registration</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>PAN & TAN Applications</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>PF & ESI Setup</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Professional Tax (PT) Registration</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Import Export Code (IEC)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card-new reverse reveal">
+        <div class="card-content-panel">
+          <div class="card-service-label">Advisory</div>
+          <h2 class="card-title">Virtual CFO & Consulting</h2>
+          <p class="card-description">Go beyond basic compliance. Get strategic financial insights, cash flow forecasting, and personalized advisory to help you make informed, profitable business decisions with confidence.</p>
+          <div class="features-grid">
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Cash Flow Optimization & Forecasting</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Internal Audit Assistance</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Budgeting & Variance Analysis</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Business Model Financial Review</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Dedicated 1-on-1 Strategy Calls</div>
+            <div class="feature-item"><span class="feature-check"><i class="fa-solid fa-check"></i></span>Foreign Inward Remittance Advisory</div>
+          </div>
+        </div>
+        <div class="card-image-panel">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" alt="Financial advisory and CFO consulting meeting" loading="lazy" />
+          <span class="card-image-badge">Service 04</span>
+          <span class="card-number">04</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-section reveal">
+        <div class="cta-inner">
+          <div class="section-kicker" style="color: var(--color-accent); justify-content: center; margin-bottom: 1rem;">Let's Talk</div>
+          <h2>Ready to hand over the paperwork?</h2>
+          <p>Let's map out a compliance and accounting structure that fits your current operational scale perfectly.</p>
+          <div class="cta-btns">
+            <a href="index.html#contact" class="btn btn-accent">
+              <i class="fa-solid fa-calendar-check"></i> Book a Free Consultation
+            </a>
+            <a href="https://wa.me/917411709054" target="_blank" class="btn btn-ghost">
+              <i class="fa-brands fa-whatsapp"></i> Message on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="wrapper">
+      <div class="footer-brand">growitharshiee<span>.</span></div>
+      <p>&copy; 2026 Growitharshiee Financial Services. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <button onclick="window.open('https://wa.me/917411709054?text=Hi,%20I%20am%20interested%20in%20your%20services.', '_blank')" class="wa-float" style="border: none; cursor: pointer; outline: none;">
+    <svg class="wa-icon" viewBox="0 0 24 24"><path d="M12.031 0C5.383 0 0 5.383 0 12.031c0 2.128.552 4.195 1.599 6.01L.044 23.955l6.067-1.587A11.968 11.968 0 0012.031 24c6.648 0 12.031-5.383 12.031-12.031C24.062 5.383 18.679 0 12.031 0zm0 22.008c-1.802 0-3.567-.485-5.116-1.404l-.366-.217-3.801.996.996-3.801-.217-.366c-.919-1.549-1.404-3.314-1.404-5.116 0-5.548 4.512-10.06 10.06-10.06 5.548 0 10.06 4.512 10.06 10.06 0 5.548-4.512 10.06-10.06 10.06zm5.518-7.53c-.303-.152-1.787-.881-2.064-.982-.278-.101-.48-.152-.682.152-.202.303-.783.982-.96 1.183-.177.202-.354.227-.657.076-1.549-.785-2.738-1.503-3.8-3.32-.177-.303.177-.278.48-.881.101-.202.051-.38-.025-.532-.076-.152-.682-1.643-.935-2.25-.246-.593-.497-.512-.682-.52h-.581c-.202 0-.53.076-.808.38-.278.303-1.061 1.036-1.061 2.527 0 1.491 1.086 2.932 1.238 3.134.152.202 2.14 3.264 5.186 4.577 2.016.868 2.846.938 3.902.787 1.144-.162 3.49-1.425 3.983-2.805.493-1.38.493-2.563.341-2.815-.152-.253-.556-.404-.859-.556z"/></svg>
+    Chat with us
+  </button>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("active");
+          else entry.target.classList.remove("active");
+        });
+      },
+      { threshold: 0.08 }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
