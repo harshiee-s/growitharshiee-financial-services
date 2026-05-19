@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form 26AS PDF to Excel Converter | Growitharshiee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free Form 26AS PDF to Excel converter — instantly extract every deductor, TAN, and TDS transaction into a clean Excel workbook." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --primary: #0A2540;
+      --primary-soft: rgba(10, 37, 64, 0.07);
+      --accent: #D4AF37;
+      --accent-soft: rgba(212, 175, 55, 0.13);
+      --accent-gradient: linear-gradient(135deg, #E6C265, #D4AF37);
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --text: #0f172a;
+      --muted: #5a6a82;
+      --border: rgba(10, 37, 64, 0.09);
+      --success: #16a34a;
+      --success-soft: #dcfce7;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
+      --shadow: 0 4px 24px rgba(10, 37, 64, 0.07);
+      --shadow-md: 0 8px 36px rgba(10, 37, 64, 0.11);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+      --font-heading: "Playfair Display", serif;
+      --font-body: "Poppins", sans-serif;
+      --font-read: "Inter", sans-serif;
+      --transition: 0.28s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-read);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--accent-gradient);
+      z-index: 999; transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(212,175,55,0.5);
+    }
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(10,37,64,0.05);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+    }
+    .brand {
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem;
+      color: var(--primary); display: flex; align-items: center; gap: 10px;
+    }
+    .brand span { color: var(--accent); }
+    .brand img { height: 36px; width: auto; border-radius: 6px; }
+    .nav-links { display: flex; gap: 2rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; }
+    .nav-links a { color: var(--muted); transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); font-weight: 600; }
+    .btn {
+      border-radius: var(--radius-pill); padding: 0.65rem 1.5rem;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none;
+      font-family: var(--font-body); letter-spacing: 0.03em;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--accent-gradient); color: var(--primary);
+      box-shadow: 0 4px 16px var(--accent-soft);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(212,175,55,0.3); filter: brightness(1.04); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-outline { border: 1px solid var(--border); background: transparent; color: var(--text); }
+    .btn-outline:hover { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+    .dgv-background {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none; opacity: 0.5;
+    }
+    .dgv-background svg { width: 100%; height: 100%; }
+    .dgv-line {
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 4000; stroke-dashoffset: 4000;
+      animation: drawDGV 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+    .dgv-line-1 { stroke: var(--accent); stroke-width: 3px; opacity: 0.5; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); }
+    .dgv-line-2 { stroke: var(--primary); stroke-width: 1.5px; opacity: 0.2; animation-delay: -5s; }
+    .dgv-line-3 { stroke: var(--accent); stroke-width: 1px; opacity: 0.3; animation-delay: -10s; }
+    @keyframes drawDGV { 0% { stroke-dashoffset: 4000; } 100% { stroke-dashoffset: 0; } }
+    .floating-icons-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .floating-icon {
+      position: absolute; color: var(--primary); opacity: 0;
+      font-family: var(--font-body); font-weight: 600;
+      animation: floatAnim 20s infinite linear;
+    }
+    @keyframes floatAnim {
+      0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+      10% { opacity: 0.06; }
+      90% { opacity: 0.06; }
+      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+    .icon-1 { left: 8%; animation-duration: 18s; font-size: 2rem; }
+    .icon-2 { left: 20%; animation-duration: 22s; animation-delay: 2s; font-size: 1.5rem; color: var(--accent); }
+    .icon-3 { left: 85%; animation-duration: 15s; animation-delay: 5s; font-size: 1.8rem; }
+    .icon-4 { left: 75%; animation-duration: 25s; animation-delay: 1s; font-size: 1.2rem; }
+
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #163a61 60%, #0d2d50 100%);
+      padding: 4.5rem 2rem 3.5rem; position: relative; overflow: hidden;
+    }
+    .hero-banner::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .badge {
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-pill);
+    }
+    .badge-accent { background: var(--accent); color: var(--primary); }
+    .badge-outline { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.2); }
+    .hero-title {
+      font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      color: #fff; line-height: 1.2; margin-bottom: 1.2rem; font-weight: 700;
+    }
+    .hero-title .highlight { color: var(--accent); }
+    .hero-desc {
+      font-size: 1.05rem; color: rgba(255,255,255,0.78); line-height: 1.65;
+      margin-bottom: 1.8rem; max-width: 680px; font-family: var(--font-body);
+    }
+    .hero-meta {
+      display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+      font-family: var(--font-body); font-size: 0.82rem; color: rgba(255,255,255,0.6);
+    }
+    .hero-meta .sep { opacity: 0.3; }
+    .author-chip { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .author-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--accent-gradient); color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700;
+    }
+
+    .highlights-strip { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .highlights-inner {
+      max-width: 820px; margin: 0 auto; padding: 1.5rem 2rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    .highlight-chip {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.9rem 1.1rem; background: var(--surface-alt);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
+    }
+    .highlight-chip .chip-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .highlight-chip .chip-text { font-size: 0.82rem; font-weight: 600; color: var(--primary); font-family: var(--font-body); line-height: 1.3; }
+
+    .page-layout {
+      max-width: 1150px; margin: 0 auto; padding: 3rem 2rem 5rem;
+      display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start;
+    }
+    .article-body { min-width: 0; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 600; font-family: var(--font-body);
+      color: var(--muted); margin-bottom: 2rem;
+      padding: 0.45rem 1rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius-pill);
+      transition: all var(--transition);
+    }
+    .back-link:hover { color: var(--primary); border-color: var(--primary); background: var(--primary-soft); transform: translateX(-3px); }
+    .section-block {
+      background: var(--surface); border-radius: var(--radius);
+      border: 1px solid var(--border); padding: 2.2rem 2.5rem;
+      margin-bottom: 1.5rem; box-shadow: var(--shadow);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      position: relative; z-index: 5;
+    }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+    .section-block h2 {
+      font-family: var(--font-body); font-size: 1.35rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      padding-bottom: 0.75rem; border-bottom: 2px solid var(--accent-soft);
+    }
+    .section-block h3 {
+      font-family: var(--font-body); font-size: 1.05rem; font-weight: 700;
+      color: var(--text); margin: 1.4rem 0 0.7rem;
+    }
+    .section-block p { font-size: 0.97rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.75; }
+
+    /* ── DROP ZONE ── */
+    .drop-zone {
+      border: 2px dashed rgba(10, 37, 64, 0.18);
+      border-radius: var(--radius);
+      background: var(--surface-alt);
+      padding: 3rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .drop-zone:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .drop-zone.dragover {
+      border-color: var(--accent); background: var(--accent-soft);
+      transform: scale(1.01); box-shadow: var(--shadow-md);
+    }
+    .drop-zone-icon {
+      width: 64px; height: 64px; margin: 0 auto 1rem;
+      background: var(--accent-gradient); color: var(--primary);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; box-shadow: 0 8px 20px rgba(212,175,55,0.3);
+    }
+    .drop-zone h3 {
+      font-family: var(--font-body); font-size: 1.15rem; font-weight: 700;
+      color: var(--primary); margin: 0 0 0.5rem;
+    }
+    .drop-zone p {
+      font-size: 0.88rem; color: var(--muted); margin: 0 0 1.2rem;
+      font-family: var(--font-body);
+    }
+    .drop-zone .browse-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1.4rem; background: var(--primary); color: #fff;
+      border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 600;
+      font-family: var(--font-body); transition: all var(--transition);
+    }
+    .drop-zone .browse-btn:hover { background: #163a61; transform: translateY(-1px); }
+    .drop-zone-hint {
+      margin-top: 1rem; font-size: 0.75rem; color: var(--muted);
+      font-family: var(--font-body);
+    }
+    #fileInput { display: none; }
+
+    /* ── FILE LIST ── */
+    .file-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .file-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+    .file-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--danger-soft); color: var(--danger);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .file-info { flex: 1; min-width: 0; }
+    .file-name {
+      font-family: var(--font-body); font-weight: 600; font-size: 0.92rem;
+      color: var(--text); margin-bottom: 0.25rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .file-meta {
+      font-size: 0.78rem; color: var(--muted);
+      font-family: var(--font-body); display: flex; gap: 0.75rem; align-items: center;
+    }
+    .file-status {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 700; font-family: var(--font-body);
+    }
+    .status-processing { background: rgba(59,130,246,0.1); color: #2563eb; }
+    .status-success { background: var(--success-soft); color: var(--success); }
+    .status-error { background: var(--danger-soft); color: var(--danger); }
+    .file-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); padding: 0.5rem; font-size: 1rem;
+      transition: color var(--transition);
+    }
+    .file-remove:hover { color: var(--danger); }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      margin-top: 0.6rem; height: 4px; background: var(--bg);
+      border-radius: 999px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; width: 0%; background: var(--accent-gradient);
+      transition: width 0.3s ease; border-radius: 999px;
+    }
+
+    /* ── RESULTS ── */
+    .results-wrap { display: none; margin-top: 2rem; }
+    .results-wrap.visible { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1.1rem;
+      border-left: 3px solid var(--accent);
+    }
+    .stat-card-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--muted);
+      font-family: var(--font-body); margin-bottom: 0.4rem;
+    }
+    .stat-card-value {
+      font-family: var(--font-body); font-size: 1.25rem; font-weight: 700;
+      color: var(--primary);
+    }
+
+    .confidence-banner {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 1rem 1.3rem; border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem; font-family: var(--font-body); font-size: 0.88rem;
+    }
+    .confidence-high { background: var(--success-soft); color: #166534; border-left: 4px solid var(--success); }
+    .confidence-medium { background: #fef3c7; color: #92400e; border-left: 4px solid #d97706; }
+    .confidence-low { background: var(--danger-soft); color: #991b1b; border-left: 4px solid var(--danger); }
+    .confidence-banner i { font-size: 1.2rem; }
+
+    .metadata-card {
+      background: var(--surface-alt); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;
+    }
+    .metadata-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    .metadata-item .label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); font-weight: 700; font-family: var(--font-body);
+      margin-bottom: 0.3rem;
+    }
+    .metadata-item .value {
+      font-family: var(--font-body); font-size: 0.92rem; font-weight: 600;
+      color: var(--primary); word-break: break-word;
+    }
+
+    .preview-table-wrap {
+      overflow-x: auto; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); margin-top: 1rem; max-height: 460px;
+      overflow-y: auto;
+    }
+    .preview-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 0.85rem; }
+    .preview-table thead tr { background: var(--primary); position: sticky; top: 0; }
+    .preview-table th {
+      padding: 0.85rem 1rem; text-align: left; font-family: var(--font-body);
+      font-size: 0.72rem; font-weight: 700; color: #fff;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .preview-table td {
+      padding: 0.75rem 1rem; color: var(--muted);
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .preview-table td:first-child { font-weight: 700; color: var(--primary); }
+    .preview-table tr:last-child td { border-bottom: none; }
+    .preview-table tbody tr:hover { background: var(--surface-alt); }
+    .amount-cell { font-family: var(--font-body); font-weight: 600; color: var(--text) !important; text-align: right; }
+
+    .deductor-toggle {
+      cursor: pointer; user-select: none; background: var(--surface-alt) !important;
+    }
+    .deductor-toggle td { font-weight: 700 !important; color: var(--primary) !important; font-family: var(--font-body); }
+    .deductor-toggle .toggle-icon { transition: transform var(--transition); display: inline-block; margin-right: 6px; }
+    .deductor-toggle.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+    .download-bar {
+      display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .download-bar .btn { flex: 1; min-width: 200px; padding: 1rem 1.5rem; font-size: 0.95rem; }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px; border: 2.5px solid rgba(10, 37, 64, 0.15);
+      border-top-color: var(--primary); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* FAQ */
+    .faq-list { margin-top: 0.5rem; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 0.75rem; overflow: hidden; transition: box-shadow var(--transition); }
+    .faq-item:hover { box-shadow: var(--shadow); }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.4rem; text-align: left; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--primary);
+      transition: background var(--transition);
+    }
+    .faq-question:hover, .faq-question.open { background: var(--primary-soft); }
+    .faq-icon { width: 22px; height: 22px; flex-shrink: 0; background: var(--accent-soft); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: transform var(--transition); }
+    .faq-question.open .faq-icon { transform: rotate(45deg); background: var(--accent); color: var(--primary); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-answer.open { max-height: 400px; }
+    .faq-answer-inner { padding: 0 1.4rem 1.2rem; font-size: 0.93rem; color: var(--muted); line-height: 1.7; }
+
+    /* CTA */
+    .cta-block {
+      background: linear-gradient(135deg, var(--primary) 0%, #163a61 100%);
+      border-radius: var(--radius); padding: 3rem 2.5rem; text-align: center;
+      position: relative; overflow: hidden; margin-top: 1.5rem; box-shadow: var(--shadow-lg);
+    }
+    .cta-block::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%); }
+    .cta-block::after { content: ''; position: absolute; bottom: -40px; left: -40px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); }
+    .cta-block h3 { font-family: var(--font-heading); font-size: 1.7rem; color: #fff; margin-bottom: 0.8rem; position: relative; z-index: 2; }
+    .cta-block p { color: rgba(255,255,255,0.78); font-size: 1rem; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-block .btn { position: relative; z-index: 2; font-size: 0.95rem; padding: 0.85rem 2rem; }
+
+    /* Sidebar */
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: var(--shadow); }
+    .sidebar-card h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--accent-soft); }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: 0.1rem; }
+    .toc-list a { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.6rem; font-size: 0.84rem; color: var(--muted); border-radius: 6px; transition: all var(--transition); font-family: var(--font-body); font-weight: 500; border-left: 2px solid transparent; }
+    .toc-list a:hover, .toc-list a.toc-active { color: var(--primary); background: var(--primary-soft); border-left-color: var(--accent); }
+    .toc-num { font-size: 0.72rem; font-weight: 700; color: var(--accent); min-width: 18px; }
+    .stat-row { display: flex; flex-direction: column; gap: 0.8rem; }
+    .stat-item { display: flex; align-items: center; justify-content: space-between; }
+    .stat-label { font-size: 0.83rem; color: var(--muted); font-family: var(--font-body); }
+    .stat-value { font-size: 0.88rem; font-weight: 700; color: var(--primary); font-family: var(--font-body); }
+    .share-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .share-btn { flex: 1; min-width: 0; padding: 0.55rem 0.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface-alt); color: var(--muted); font-size: 0.8rem; font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: all var(--transition); text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.35rem; }
+    .share-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-1px); }
+
+    footer { background: #fff; border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    footer .brand { justify-content: center; margin-bottom: 1rem; font-size: 1.1rem; }
+    footer p { font-size: 0.85rem; color: var(--muted); font-family: var(--font-body); }
+
+    .feature-list { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 0.55rem 0; font-size: 0.93rem; color: var(--muted);
+      line-height: 1.6;
+    }
+    .feature-list li::before {
+      content: '✓'; color: var(--success); font-weight: 700; font-size: 1rem;
+      flex-shrink: 0; margin-top: -1px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 30px; right: 30px;
+      padding: 1rem 1.4rem; border-radius: var(--radius-sm);
+      background: var(--primary); color: #fff;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.88rem;
+      box-shadow: var(--shadow-lg); z-index: 1000;
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.3s ease; display: flex; align-items: center; gap: 0.7rem;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--danger); }
+
+    @media (max-width: 900px) {
+      .page-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .metadata-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero-banner { padding: 3rem 1.2rem 2.5rem; }
+      .section-block { padding: 1.6rem 1.3rem; }
+      .nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 1.6rem; }
+      .sidebar { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .highlights-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="dgv-background">
+    <svg viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="dgv-line dgv-line-1" d="M-100,750 C150,650 300,500 650,450 C1000,400 1200,200 1500,100" />
+      <path class="dgv-line dgv-line-2" d="M-100,800 C250,700 450,550 800,500 C1100,450 1300,300 1500,150" />
+      <path class="dgv-line dgv-line-3" d="M-100,850 C350,750 550,650 900,550 C1250,450 1400,350 1500,200" />
+    </svg>
+  </div>
+  <div class="floating-icons-overlay">
+    <div class="floating-icon icon-1">₹</div>
+    <div class="floating-icon icon-2">26AS</div>
+    <div class="floating-icon icon-3">TDS</div>
+    <div class="floating-icon icon-4">XLSX</div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+        <img src="logo.png" alt="Growitharshiee Logo" onerror="this.style.display='none'">
+        growitharshiee<span>.</span>
+      </a>
+      <nav class="nav-links">
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/#home">Home</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services">Services</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/">Portfolio</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools/" class="active">Tools</a>
+      </nav>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
+        <i class="fa-solid fa-calendar-check"></i> Book Consultation
+      </a>
+    </div>
+  </header>
+
+  <section class="hero-banner">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <span class="badge badge-accent">📊 Free Tool</span>
+        <span class="badge badge-outline">TRACES Compatible</span>
+        <span class="badge badge-outline">100% Browser-Based</span>
+      </div>
+      <h1 class="hero-title">
+        Form 26AS PDF to Excel<br>
+        <span class="highlight">Converter — Instant & Accurate</span>
+      </h1>
+      <p class="hero-desc">Upload your TRACES Form 26AS PDF and instantly receive a structured Excel workbook with every deductor, TAN, section, and TDS transaction perfectly separated. Built for CAs, accountants, and finance teams.</p>
+      <div class="hero-meta">
+        <div class="author-chip">
+          <div class="author-avatar">H</div>
+          Harshith G S &nbsp;·&nbsp; CA Inter
+        </div>
+        <span class="sep">|</span>
+        <span>Updated for FY 2025-26 / AY 2026-27</span>
+        <span class="sep">|</span>
+        <span>🔒 Files processed locally — never uploaded</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="highlights-strip">
+    <div class="highlights-inner">
+      <div class="highlight-chip">
+        <span class="chip-icon">⚡</span>
+        <span class="chip-text">Instant Auto-Detection</span>
+      </div>
+      <div class="highlight-chip">
+        <span class="chip-icon">📋</span>
+        <span class="chip-text">3 Structured Sheets</span>
+      </div>
+      <div class="highlight-chip">
+        <span class="chip-icon">🔒</span>
+        <span class="chip-text">100% Private &amp; Secure</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-layout">
+    <main class="article-body">
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools/" class="back-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Tools
+      </a>
+
+      <div class="section-block visible" id="sec-intro">
+        <p>Form 26AS is your <strong>consolidated annual tax statement</strong> issued by the Income Tax Department — but the PDF format makes it painful to reconcile TDS with your books. Manually copying dozens of deductors and hundreds of transactions into Excel is slow, error-prone, and frustrating.</p>
+        <p>This tool reads your 26AS PDF directly in your browser (nothing is uploaded to any server) and produces a clean Excel workbook with every deductor auto-separated and every transaction itemised — ready for reconciliation, audit, or ITR filing.</p>
+      </div>
+
+      <div class="section-block visible" id="sec-converter">
+        <h2><span>📂</span> Upload &amp; Convert</h2>
+
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-zone-icon"><i class="fa-solid fa-file-pdf"></i></div>
+          <h3>Drag &amp; drop your Form 26AS PDF</h3>
+          <p>or click to browse — supports single or multiple PDFs</p>
+          <button type="button" class="browse-btn" onclick="document.getElementById('fileInput').click()">
+            <i class="fa-solid fa-folder-open"></i> Browse Files
+          </button>
+          <div class="drop-zone-hint">PDF only • Up to 25 MB per file • All processing happens locally in your browser</div>
+          <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple />
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+
+        <div class="results-wrap" id="resultsWrap">
+          <div class="confidence-banner" id="confidenceBanner"></div>
+
+          <div class="metadata-card">
+            <div class="metadata-grid" id="metadataGrid"></div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-label">Deductors</div>
+              <div class="stat-card-value" id="statDeductors">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Transactions</div>
+              <div class="stat-card-value" id="statTransactions">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Total Paid</div>
+              <div class="stat-card-value" id="statPaid">₹0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Total TDS</div>
+              <div class="stat-card-value" id="statTds">₹0</div>
+            </div>
+          </div>
+
+          <h3 style="font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--primary); margin: 1.5rem 0 0.8rem;">Preview — Click any deductor row to expand transactions</h3>
+          <div class="preview-table-wrap">
+            <table class="preview-table" id="previewTable">
+              <thead>
+                <tr>
+                  <th style="width:50px;">Sr</th>
+                  <th>Deductor / Section</th>
+                  <th>TAN / Date</th>
+                  <th>Status</th>
+                  <th>Booking Date</th>
+                  <th class="amount-cell" style="text-align:right;">Amount Paid</th>
+                  <th class="amount-cell" style="text-align:right;">Tax Deducted</th>
+                  <th class="amount-cell" style="text-align:right;">TDS Deposited</th>
+                </tr>
+              </thead>
+              <tbody id="previewBody"></tbody>
+            </table>
+          </div>
+
+          <div class="download-bar">
+            <button class="btn btn-primary" id="downloadBtn" onclick="downloadExcel()">
+              <i class="fa-solid fa-file-excel"></i> Download Excel Workbook
+            </button>
+            <button class="btn btn-outline" onclick="resetAll()">
+              <i class="fa-solid fa-rotate-right"></i> Convert Another PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block" id="sec-extracts">
+        <h2><span>🔍</span> What This Tool Extracts</h2>
+        <p>The parser auto-detects the TRACES 26AS layout and extracts <strong>every data point</strong> needed for reconciliation:</p>
+
+        <h3>📌 Assessee Metadata</h3>
+        <ul class="feature-list">
+          <li>PAN, Status, and Assessee Name</li>
+          <li>Financial Year &amp; Assessment Year</li>
+          <li>File name and extraction timestamp</li>
+        </ul>
+
+        <h3>🏢 Deductor Summary (Sheet 1)</h3>
+        <ul class="feature-list">
+          <li>Serial number from the original PDF</li>
+          <li>Full Deductor Name &amp; TAN</li>
+          <li>Total Amount Paid / Credited</li>
+          <li>Total Tax Deducted &amp; Total TDS Deposited</li>
+        </ul>
+
+        <h3>📊 Detailed Transactions (Sheet 2)</h3>
+        <ul class="feature-list">
+          <li>Every transaction line with its parent deductor mapped</li>
+          <li>Section code (194C, 194JA, 194JB, 194H, 194A, etc.)</li>
+          <li>Transaction Date, Status of Booking, Date of Booking</li>
+          <li>Remarks (lower deduction certificate, rectifications, reversals)</li>
+          <li>Amount Paid, Tax Deducted, TDS Deposited — as numeric values</li>
+        </ul>
+      </div>
+
+      <div class="section-block" id="sec-faq">
+        <h2><span>❓</span> Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              Is my 26AS PDF uploaded to any server?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">No. The entire conversion happens inside your browser using JavaScript. Your PDF never leaves your device, making this tool safe to use even for confidential client data.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              Will it work on a password-protected 26AS PDF?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">No. Please open your password-protected 26AS in any PDF reader, save it as an unlocked copy (e.g., Print → Save as PDF), and then upload that file. The password on the TRACES 26AS is typically your PAN in lowercase + DOB.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              What does the Confidence Score mean?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner"><strong>High</strong> — every deductor's transaction subtotals match the printed totals. <strong>Medium</strong> — minor mismatches (often due to reversals or remarks). <strong>Low</strong> — significant discrepancies; please verify the output manually before relying on it.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              My PDF is scanned — will it work?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">This tool reads embedded text from native TRACES PDFs. If your PDF is a scanned image, the text layer is missing and extraction will fail. The original 26AS downloaded from the TRACES portal is always a native PDF and will work perfectly.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+              Does it handle reversals and negative entries (Status = B)?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner">Yes. Negative amounts (shown as -42,500.00 etc.) and rectification remarks like A, B, D, E, F, G are captured faithfully in the output Excel.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-block section-block" id="sec-cta">
+        <h3>Need Expert Help With Tax Filing?</h3>
+        <p>Once you have your 26AS in Excel, the next step is reconciling it with your books and filing your return without errors. We can take that off your plate.</p>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-right"></i> Book a Free Consultation
+        </a>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <h4>Tool Index</h4>
+        <ul class="toc-list">
+          <li><a href="#sec-intro"><span class="toc-num">01</span> Introduction</a></li>
+          <li><a href="#sec-converter"><span class="toc-num">02</span> Upload &amp; Convert</a></li>
+          <li><a href="#sec-extracts"><span class="toc-num">03</span> What It Extracts</a></li>
+          <li><a href="#sec-faq"><span class="toc-num">04</span> FAQs</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h4>Tool Info</h4>
+        <div class="stat-row">
+          <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-shield-halved" style="margin-right:5px;"></i> Privacy</span><span class="stat-value">100% Local</span></div>
+          <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-code-branch" style="margin-right:5px;"></i> Version</span><span class="stat-value">v1.0 · 2026</span></div>
+          <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-tag" style="margin-right:5px;"></i> Category</span><span class="stat-value">Tax Utility</span></div>
+          <div class="stat-item"><span class="stat-label"><i class="fa-solid fa-user" style="margin-right:5px;"></i> Developer</span><span class="stat-value">Harshith G S</span></div>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <h4>Share This Tool</h4>
+        <div class="share-btns">
+          <button class="share-btn" onclick="shareArticle('linkedin')"><i class="fa-brands fa-linkedin-in"></i></button>
+          <button class="share-btn" onclick="shareArticle('whatsapp')"><i class="fa-brands fa-whatsapp"></i></button>
+          <button class="share-btn" onclick="copyLink(this)" style="flex:100%;"><i class="fa-solid fa-link"></i> Copy Link</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+      <img src="logo.png" alt="Growitharshiee Logo" onerror="this.style.display='none'">
+      growitharshiee<span>.</span>
+    </a>
+    <p style="margin-top:0.5rem;">&copy; 2026 Growitharshiee Financial Services. All rights reserved.</p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ── PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // ── UI helpers ──
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+    });
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.section-block').forEach(el => revealObserver.observe(el));
+    const sections = document.querySelectorAll('.section-block[id]');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('toc-active'));
+          const active = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+          if (active) active.classList.add('toc-active');
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => tocObserver.observe(s));
+
+    function toggleFAQ(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+    }
+    function shareArticle(platform) {
+      const url = encodeURIComponent(window.location.href);
+      if (platform === 'linkedin') window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+      else if (platform === 'whatsapp') window.open(`https://wa.me/?text=Check%20out%20this%20free%20Form%2026AS%20to%20Excel%20Converter!%20${url}`, '_blank');
+    }
+    function copyLink(btn) {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        btn.style.background = '#dcfce7'; btn.style.color = '#166534';
+        setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; btn.style.color = ''; }, 2000);
+      });
+    }
+
+    function showToast(message, type = 'success') {
+      const t = document.getElementById('toast');
+      t.className = 'toast ' + type + ' show';
+      t.innerHTML = (type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : type === 'error' ? '<i class="fa-solid fa-circle-exclamation"></i>' : '<i class="fa-solid fa-circle-info"></i>') + ' ' + message;
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║          26AS PDF → STRUCTURED DATA PARSER                   ║
+    // ╚══════════════════════════════════════════════════════════════╝
+
+    const TAN_RE = /\b([A-Z]{4}[0-9]{5}[A-Z])\b/;
+    const PAN_RE = /\b([A-Z]{5}[0-9]{4}[A-Z])\b/;
+    const SECTION_RE = /\b(192A?|193|194[A-Z]{0,2}|195|196[A-Z]?|206C[A-Z]{0,2})\b/;
+    const DATE_RE = /(\d{1,2})-([A-Za-z]{3})-(\d{4})/g;
+    const STATUS_RE = /^[FUMPOZ]$/;
+    const AMOUNT_RE = /-?\d{1,3}(?:,\d{3})*(?:\.\d{1,2})|-?\d+\.\d{1,2}/g;
+
+    function parseAmount(str) {
+      if (str == null) return null;
+      const cleaned = String(str).replace(/,/g, '').replace(/\s/g, '').trim();
+      if (cleaned === '' || cleaned === '-') return null;
+      if (/^-?\d+(\.\d{1,2})?$/.test(cleaned)) return parseFloat(cleaned);
+      return null;
+    }
+
+    function formatINR(num) {
+      if (num == null || isNaN(num)) return '₹0';
+      return '₹' + Number(num).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function compactINR(num) {
+      if (num == null || isNaN(num)) return '₹0';
+      const n = Number(num);
+      if (Math.abs(n) >= 1e7) return '₹' + (n/1e7).toFixed(2) + ' Cr';
+      if (Math.abs(n) >= 1e5) return '₹' + (n/1e5).toFixed(2) + ' L';
+      if (Math.abs(n) >= 1e3) return '₹' + (n/1e3).toFixed(1) + ' K';
+      return '₹' + n.toFixed(2);
+    }
+
+    async function extractTextRows(file) {
+      const buffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
+      const allRows = [];
+
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page = await pdf.getPage(p);
+        const content = await page.getTextContent();
+
+        // Group items into rows by Y-coordinate with tolerance
+        const rowMap = [];
+        for (const item of content.items) {
+          if (!item.str || !item.str.trim()) continue;
+          const y = item.transform[5];
+          const x = item.transform[4];
+          let row = rowMap.find(r => Math.abs(r.y - y) <= 3);
+          if (!row) { row = { y, items: [] }; rowMap.push(row); }
+          row.items.push({ text: item.str, x });
+        }
+
+        rowMap.sort((a, b) => b.y - a.y);
+        for (const r of rowMap) {
+          r.items.sort((a, b) => a.x - b.x);
+          // Merge items that are tightly adjacent on x into single tokens (e.g. split chars)
+          const merged = [];
+          let prev = null;
+          for (const it of r.items) {
+            if (prev && (it.x - (prev.x + prev.text.length * 4)) < 2 && !it.text.startsWith(' ')) {
+              prev.text += it.text;
+            } else {
+              prev = { text: it.text, x: it.x };
+              merged.push(prev);
+            }
+          }
+          const cells = merged.map(i => i.text.trim()).filter(t => t.length > 0);
+          const text = cells.join(' ').replace(/\s+/g, ' ').trim();
+          if (text.length > 0) allRows.push({ page: p, text, cells });
+        }
+      }
+      return allRows;
+    }
+
+    function parse26AS(rows) {
+      const result = {
+        metadata: { pan: '', name: '', fy: '', ay: '', status: '' },
+        deductors: [],
+        warnings: []
+      };
+
+      // ── Pass 1: Metadata
+      for (const r of rows) {
+        const t = r.text;
+        if (!result.metadata.pan) {
+          const m = t.match(/Permanent Account Number[^A-Z0-9]*([A-Z]{5}[0-9]{4}[A-Z])/i);
+          if (m) result.metadata.pan = m[1];
+          else if (t.match(/^[A-Z]{5}[0-9]{4}[A-Z]$/)) result.metadata.pan = t;
+        }
+        if (!result.metadata.fy) {
+          const m = t.match(/Financial Year[^0-9]*(\d{4}-\d{2})/i);
+          if (m) result.metadata.fy = m[1];
+        }
+        if (!result.metadata.ay) {
+          const m = t.match(/Assessment Year[^0-9]*(\d{4}-\d{2})/i);
+          if (m) result.metadata.ay = m[1];
+        }
+        if (!result.metadata.name) {
+          const m = t.match(/Name of Assessee\s+(.+?)(?:\s+Address|$)/i);
+          if (m) result.metadata.name = m[1].trim();
+        }
+        if (!result.metadata.status) {
+          const m = t.match(/Current Status of PAN\s+(\w+)/i);
+          if (m) result.metadata.status = m[1];
+        }
+      }
+
+      // ── Pass 2: Walk rows and identify deductor / transaction lines
+      let currentDeductor = null;
+      let stopAtPartII = false;
+
+      for (const r of rows) {
+        const t = r.text;
+
+        // Stop when we hit Part II / non-TDS sections
+        if (/PART-?\s*II/i.test(t) || /PART-?\s*III/i.test(t) || /PART-?\s*IV/i.test(t) ||
+            /PART-?\s*V/i.test(t) || /PART-?\s*VI/i.test(t) || /PART-?\s*VII/i.test(t) ||
+            /PART-?\s*VIII/i.test(t) || /PART-?\s*IX/i.test(t) || /PART X/i.test(t)) {
+          stopAtPartII = true;
+          continue;
+        }
+        if (stopAtPartII) continue;
+
+        // Skip pure header rows
+        if (/Sr\.?\s*No\.?\s*Name of Deductor/i.test(t)) continue;
+        if (/Sr\.?\s*No\.?\s*Section.*Transaction Date/i.test(t)) continue;
+        if (/Total Amount Paid\/?\s*Credited.*Total Tax Deducted/i.test(t)) continue;
+        if (/Status of Booking.*Date of Booking/i.test(t)) continue;
+        if (/Annual Tax Statement|TRACES|Centralized Processing Cell|TDS Reconciliation/i.test(t)) continue;
+        if (/Data updated till|Assessee PAN:|Assessment Year:/i.test(t)) continue;
+        if (/^\s*Sr\.?\s*No\.?\s*$/i.test(t)) continue;
+
+        // Try deductor summary row: has TAN, no section, starts with small integer, has 3 amounts
+        const tanMatch = t.match(TAN_RE);
+        const hasSection = SECTION_RE.test(t);
+
+        if (tanMatch && !hasSection) {
+          const tan = tanMatch[1];
+          const tanIdx = tanMatch.index;
+          const beforeTan = t.substring(0, tanIdx).trim();
+          const afterTan = t.substring(tanIdx + tan.length).trim();
+
+          // Sr.No at start
+          const srMatch = beforeTan.match(/^(\d{1,4})\s+(.+)/);
+          if (!srMatch) continue;
+          const srNo = parseInt(srMatch[1]);
+          const name = srMatch[2].trim().replace(/\s+/g, ' ');
+
+          // 3 amounts after TAN
+          const amountMatches = afterTan.match(AMOUNT_RE) || [];
+          const amounts = amountMatches.map(a => parseAmount(a)).filter(a => a !== null);
+          if (amounts.length < 3) continue;
+
+          currentDeductor = {
+            srNo, name, tan,
+            totalPaid: amounts[0],
+            totalTax: amounts[1],
+            totalTDS: amounts[2],
+            transactions: []
+          };
+          result.deductors.push(currentDeductor);
+          continue;
+        }
+
+        // Try transaction row: section code, two dates, status, amounts
+        if (hasSection && currentDeductor) {
+          const sectionMatch = t.match(SECTION_RE);
+          if (!sectionMatch) continue;
+
+          // Reset date regex
+          const dateMatches = [...t.matchAll(/(\d{1,2})-([A-Za-z]{3})-(\d{4})/g)];
+          if (dateMatches.length < 2) continue;
+
+          // Sr.No at very start (small int)
+          const startMatch = t.match(/^\s*(\d{1,4})\s+(192A?|193|194[A-Z]{0,2}|195|196[A-Z]?|206C[A-Z]{0,2})\s/);
+          if (!startMatch) continue;
+
+          const srNo = parseInt(startMatch[1]);
+          const section = startMatch[2];
+          const transactionDate = `${dateMatches[0][1].padStart(2,'0')}-${dateMatches[0][2]}-${dateMatches[0][3]}`;
+          const bookingDate = `${dateMatches[1][1].padStart(2,'0')}-${dateMatches[1][2]}-${dateMatches[1][3]}`;
+
+          // Status: single letter between first and second date
+          const d1End = dateMatches[0].index + dateMatches[0][0].length;
+          const d2Start = dateMatches[1].index;
+          const between = t.substring(d1End, d2Start).trim();
+          let status = '';
+          const statusMatch = between.match(/^([FUMPOZ])(?:\s|$)/);
+          if (statusMatch) status = statusMatch[1];
+
+          // After second date: remarks + amounts
+          const d2End = d2Start + dateMatches[1][0].length;
+          const afterDate2 = t.substring(d2End).trim();
+
+          // Remarks: typically '-' or single uppercase letter (A,B,D,E,F,G,T,W)
+          let remarks = '-';
+          const remarkMatch = afterDate2.match(/^([\-A-Z])\s/);
+          if (remarkMatch) remarks = remarkMatch[1];
+
+          // Find amounts at end
+          const allAmts = (afterDate2.match(AMOUNT_RE) || []).map(parseAmount).filter(a => a !== null);
+          if (allAmts.length < 3) continue;
+          const tailAmts = allAmts.slice(-3);
+
+          currentDeductor.transactions.push({
+            srNo, section, transactionDate, status, bookingDate, remarks,
+            amountPaid: tailAmts[0],
+            taxDeducted: tailAmts[1],
+            tdsDeposited: tailAmts[2]
+          });
+        }
+      }
+
+      // ── Validation: compute confidence
+      let mismatches = 0;
+      let totalDeductors = result.deductors.length;
+      for (const d of result.deductors) {
+        const sumPaid = d.transactions.reduce((s, x) => s + (x.amountPaid || 0), 0);
+        const sumTds = d.transactions.reduce((s, x) => s + (x.tdsDeposited || 0), 0);
+        const diffPaid = Math.abs(sumPaid - d.totalPaid);
+        const diffTds = Math.abs(sumTds - d.totalTDS);
+        if (diffPaid > 1 || diffTds > 1) mismatches++;
+      }
+      result.confidence = totalDeductors === 0 ? 'low'
+        : (mismatches === 0 ? 'high' : mismatches <= Math.max(1, Math.floor(totalDeductors * 0.1)) ? 'medium' : 'low');
+      result.stats = { mismatches, totalDeductors };
+
+      return result;
+    }
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║          STATE + UI WIRING                                   ║
+    // ╚══════════════════════════════════════════════════════════════╝
+
+    let parsedData = null;
+    let currentFileName = '';
+
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+
+    ['dragenter', 'dragover'].forEach(evt => {
+      dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('dragover'); });
+    });
+    ['dragleave', 'drop'].forEach(evt => {
+      dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('dragover'); });
+    });
+    dropZone.addEventListener('drop', e => {
+      const files = [...e.dataTransfer.files].filter(f => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf'));
+      if (files.length === 0) { showToast('Please drop a PDF file', 'error'); return; }
+      handleFiles(files);
+    });
+    dropZone.addEventListener('click', e => {
+      if (e.target.closest('.browse-btn')) return;
+      fileInput.click();
+    });
+    fileInput.addEventListener('change', e => handleFiles([...e.target.files]));
+
+    async function handleFiles(files) {
+      for (const file of files) {
+        if (file.size > 25 * 1024 * 1024) {
+          showToast(`${file.name} is over 25 MB`, 'error');
+          continue;
+        }
+        const id = 'f_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+        addFileCard(id, file);
+        try {
+          await processFile(id, file);
+        } catch (err) {
+          console.error(err);
+          updateFileCard(id, 'error', err.message || 'Processing failed');
+          showToast(`Failed: ${file.name}`, 'error');
+        }
+      }
+    }
+
+    function addFileCard(id, file) {
+      const card = document.createElement('div');
+      card.className = 'file-item';
+      card.id = id;
+      card.innerHTML = `
+        <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
+        <div class="file-info">
+          <div class="file-name">${escapeHtml(file.name)}</div>
+          <div class="file-meta">
+            <span>${(file.size/1024/1024).toFixed(2)} MB</span>
+            <span class="file-status status-processing"><span class="spinner" style="width:10px;height:10px;border-width:2px;"></span> Processing…</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar-fill"></div></div>
+        </div>
+        <button class="file-remove" onclick="removeFile('${id}')" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+      `;
+      fileList.appendChild(card);
+    }
+
+    function updateFileCard(id, status, msg) {
+      const card = document.getElementById(id);
+      if (!card) return;
+      const statusEl = card.querySelector('.file-status');
+      const fill = card.querySelector('.progress-bar-fill');
+      if (status === 'success') {
+        statusEl.className = 'file-status status-success';
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${msg}`;
+        if (fill) fill.style.width = '100%';
+      } else if (status === 'error') {
+        statusEl.className = 'file-status status-error';
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${msg}`;
+        if (fill) { fill.style.background = 'var(--danger)'; fill.style.width = '100%'; }
+      } else {
+        statusEl.innerHTML = `<span class="spinner" style="width:10px;height:10px;border-width:2px;"></span> ${msg}`;
+        if (fill) fill.style.width = (status || 30) + '%';
+      }
+    }
+
+    function removeFile(id) {
+      const card = document.getElementById(id);
+      if (card) card.remove();
+    }
+
+    async function processFile(id, file) {
+      currentFileName = file.name;
+      updateFileCard(id, 25, 'Reading PDF…');
+      const rows = await extractTextRows(file);
+      if (!rows.length) throw new Error('No text found in PDF (might be scanned)');
+
+      updateFileCard(id, 65, 'Parsing structure…');
+      const data = parse26AS(rows);
+      data.fileName = file.name;
+      data.extractedAt = new Date().toLocaleString('en-IN');
+
+      if (data.deductors.length === 0) {
+        throw new Error('No deductors detected — is this a valid 26AS?');
+      }
+
+      parsedData = data;
+      updateFileCard(id, 'success', `${data.deductors.length} deductors, ${data.deductors.reduce((s,d)=>s+d.transactions.length,0)} transactions`);
+      renderResults(data);
+      showToast(`Extracted ${data.deductors.length} deductors successfully`, 'success');
+    }
+
+    function renderResults(data) {
+      const wrap = document.getElementById('resultsWrap');
+      wrap.classList.add('visible');
+
+      // Metadata
+      const meta = document.getElementById('metadataGrid');
+      meta.innerHTML = `
+        <div class="metadata-item"><div class="label">PAN</div><div class="value">${escapeHtml(data.metadata.pan || '—')}</div></div>
+        <div class="metadata-item"><div class="label">Assessee Name</div><div class="value">${escapeHtml(data.metadata.name || '—')}</div></div>
+        <div class="metadata-item"><div class="label">Financial Year</div><div class="value">${escapeHtml(data.metadata.fy || '—')}</div></div>
+        <div class="metadata-item"><div class="label">Assessment Year</div><div class="value">${escapeHtml(data.metadata.ay || '—')}</div></div>
+      `;
+
+      // Confidence
+      const conf = document.getElementById('confidenceBanner');
+      const totalTxn = data.deductors.reduce((s,d)=>s+d.transactions.length, 0);
+      if (data.confidence === 'high') {
+        conf.className = 'confidence-banner confidence-high';
+        conf.innerHTML = `<i class="fa-solid fa-shield-halved"></i> <span><strong>High confidence —</strong> ${data.deductors.length} deductors extracted, all transaction subtotals match the printed totals (${totalTxn} transactions).</span>`;
+      } else if (data.confidence === 'medium') {
+        conf.className = 'confidence-banner confidence-medium';
+        conf.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span><strong>Medium confidence —</strong> ${data.deductors.length} deductors extracted. ${data.stats.mismatches} deductor(s) show minor subtotal differences (often due to reversals). Please spot-check the output.</span>`;
+      } else {
+        conf.className = 'confidence-banner confidence-low';
+        conf.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> <span><strong>Low confidence —</strong> ${data.stats.mismatches} of ${data.deductors.length} deductors show subtotal mismatches. Manual review strongly recommended before relying on the output.</span>`;
+      }
+
+      // Stats
+      const totalPaid = data.deductors.reduce((s,d)=>s+d.totalPaid, 0);
+      const totalTds = data.deductors.reduce((s,d)=>s+d.totalTDS, 0);
+      document.getElementById('statDeductors').textContent = data.deductors.length;
+      document.getElementById('statTransactions').textContent = totalTxn;
+      document.getElementById('statPaid').textContent = compactINR(totalPaid);
+      document.getElementById('statTds').textContent = compactINR(totalTds);
+
+      // Preview table
+      const tbody = document.getElementById('previewBody');
+      tbody.innerHTML = '';
+      data.deductors.forEach((d, idx) => {
+        const headerRow = document.createElement('tr');
+        headerRow.className = 'deductor-toggle';
+        headerRow.dataset.deductorIdx = idx;
+        headerRow.innerHTML = `
+          <td>${d.srNo}</td>
+          <td colspan="2"><span class="toggle-icon">▼</span> ${escapeHtml(d.name)} <span style="color:var(--muted);font-weight:500;">· ${escapeHtml(d.tan)}</span></td>
+          <td colspan="2" style="color:var(--muted);font-weight:500;font-family:var(--font-body);font-size:0.78rem;">${d.transactions.length} transaction${d.transactions.length === 1 ? '' : 's'}</td>
+          <td class="amount-cell">${formatINR(d.totalPaid)}</td>
+          <td class="amount-cell">${formatINR(d.totalTax)}</td>
+          <td class="amount-cell">${formatINR(d.totalTDS)}</td>
+        `;
+        tbody.appendChild(headerRow);
+
+        d.transactions.forEach(tx => {
+          const txRow = document.createElement('tr');
+          txRow.className = 'tx-row tx-of-' + idx;
+          txRow.innerHTML = `
+            <td style="color:var(--muted);font-weight:500;">${tx.srNo}</td>
+            <td style="font-weight:600;color:var(--primary);">${escapeHtml(tx.section)}</td>
+            <td>${escapeHtml(tx.transactionDate)}</td>
+            <td><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:${tx.status === 'F' ? 'var(--success-soft)' : 'var(--surface-alt)'};color:${tx.status === 'F' ? 'var(--success)' : 'var(--muted)'};font-weight:600;font-size:0.78rem;">${escapeHtml(tx.status || '—')}</span></td>
+            <td>${escapeHtml(tx.bookingDate)}</td>
+            <td class="amount-cell">${formatINR(tx.amountPaid)}</td>
+            <td class="amount-cell">${formatINR(tx.taxDeducted)}</td>
+            <td class="amount-cell">${formatINR(tx.tdsDeposited)}</td>
+          `;
+          tbody.appendChild(txRow);
+        });
+
+        headerRow.addEventListener('click', () => {
+          headerRow.classList.toggle('collapsed');
+          const collapsed = headerRow.classList.contains('collapsed');
+          document.querySelectorAll('.tx-of-' + idx).forEach(r => r.style.display = collapsed ? 'none' : '');
+        });
+      });
+
+      // Scroll into view
+      setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+
+    // ╔══════════════════════════════════════════════════════════════╗
+    // ║          EXCEL EXPORT                                        ║
+    // ╚══════════════════════════════════════════════════════════════╝
+
+    function downloadExcel() {
+      if (!parsedData) { showToast('Upload and convert a PDF first', 'error'); return; }
+      const d = parsedData;
+      const wb = XLSX.utils.book_new();
+
+      // Sheet 1: Summary
+      const sumHeader = ['Sr. No.', 'Deductor Name', 'TAN', 'Total Amount Paid/Credited', 'Total Tax Deducted', 'Total TDS Deposited', 'No. of Transactions'];
+      const sumRows = d.deductors.map(x => [x.srNo, x.name, x.tan, x.totalPaid, x.totalTax, x.totalTDS, x.transactions.length]);
+      const totalRow = [
+        '', 'TOTAL', '',
+        d.deductors.reduce((s,x)=>s+x.totalPaid,0),
+        d.deductors.reduce((s,x)=>s+x.totalTax,0),
+        d.deductors.reduce((s,x)=>s+x.totalTDS,0),
+        d.deductors.reduce((s,x)=>s+x.transactions.length,0)
+      ];
+      const ws1 = XLSX.utils.aoa_to_sheet([sumHeader, ...sumRows, [], totalRow]);
+      ws1['!cols'] = [{wch:8},{wch:48},{wch:14},{wch:22},{wch:20},{wch:20},{wch:18}];
+      // Currency formatting
+      const sumRowCount = sumRows.length + 1;
+      for (let r = 1; r <= sumRowCount + 1; r++) {
+        for (const c of ['D','E','F']) {
+          const cellRef = c + (r + 1);
+          if (ws1[cellRef] && typeof ws1[cellRef].v === 'number') ws1[cellRef].z = '#,##0.00';
+        }
+      }
+      XLSX.utils.book_append_sheet(wb, ws1, 'Summary');
+
+      // Sheet 2: Detailed Transactions
+      const txHeader = ['Sr. No.', 'Deductor Sr. No.', 'Deductor Name', 'TAN', 'Section', 'Transaction Date', 'Status of Booking', 'Date of Booking', 'Remarks', 'Amount Paid/Credited', 'Tax Deducted', 'TDS Deposited'];
+      const txRows = [];
+      let runningSr = 1;
+      d.deductors.forEach(ded => {
+        ded.transactions.forEach(tx => {
+          txRows.push([
+            runningSr++, ded.srNo, ded.name, ded.tan, tx.section,
+            tx.transactionDate, tx.status, tx.bookingDate, tx.remarks,
+            tx.amountPaid, tx.taxDeducted, tx.tdsDeposited
+          ]);
+        });
+      });
+      const txTotal = ['', '', 'TOTAL', '', '', '', '', '', '',
+        txRows.reduce((s,x)=>s+(x[9]||0),0),
+        txRows.reduce((s,x)=>s+(x[10]||0),0),
+        txRows.reduce((s,x)=>s+(x[11]||0),0)
+      ];
+      const ws2 = XLSX.utils.aoa_to_sheet([txHeader, ...txRows, [], txTotal]);
+      ws2['!cols'] = [{wch:8},{wch:12},{wch:42},{wch:14},{wch:10},{wch:14},{wch:10},{wch:14},{wch:10},{wch:20},{wch:18},{wch:18}];
+      for (let r = 1; r <= txRows.length + 2; r++) {
+        for (const c of ['J','K','L']) {
+          const cellRef = c + (r + 1);
+          if (ws2[cellRef] && typeof ws2[cellRef].v === 'number') ws2[cellRef].z = '#,##0.00';
+        }
+      }
+      XLSX.utils.book_append_sheet(wb, ws2, 'Detailed Transactions');
+
+      // Sheet 3: Metadata
+      const metaRows = [
+        ['Field', 'Value'],
+        ['PAN', d.metadata.pan || ''],
+        ['Status of PAN', d.metadata.status || ''],
+        ['Assessee Name', d.metadata.name || ''],
+        ['Financial Year', d.metadata.fy || ''],
+        ['Assessment Year', d.metadata.ay || ''],
+        ['Source File', d.fileName || ''],
+        ['Extraction Timestamp', d.extractedAt || ''],
+        ['Total Deductors', d.deductors.length],
+        ['Total Transactions', d.deductors.reduce((s,x)=>s+x.transactions.length, 0)],
+        ['Total Amount Paid (₹)', d.deductors.reduce((s,x)=>s+x.totalPaid,0)],
+        ['Total Tax Deducted (₹)', d.deductors.reduce((s,x)=>s+x.totalTax,0)],
+        ['Total TDS Deposited (₹)', d.deductors.reduce((s,x)=>s+x.totalTDS,0)],
+        ['Confidence Score', d.confidence.toUpperCase()],
+        ['Subtotal Mismatches', d.stats.mismatches],
+        [],
+        ['Generated by', 'Growitharshiee Form 26AS to Excel Converter'],
+        ['Tool URL', 'https://harshiee-s.github.io/growitharshiee-financial-services/']
+      ];
+      const ws3 = XLSX.utils.aoa_to_sheet(metaRows);
+      ws3['!cols'] = [{wch:28},{wch:55}];
+      for (let r = 11; r <= 13; r++) {
+        const cellRef = 'B' + r;
+        if (ws3[cellRef] && typeof ws3[cellRef].v === 'number') ws3[cellRef].z = '#,##0.00';
+      }
+      XLSX.utils.book_append_sheet(wb, ws3, 'Metadata');
+
+      const fname = `Form26AS_${d.metadata.pan || 'output'}_${(d.metadata.ay || '').replace('-','_')}.xlsx`;
+      XLSX.writeFile(wb, fname);
+      showToast(`Excel downloaded: ${fname}`, 'success');
+    }
+
+    function resetAll() {
+      parsedData = null;
+      currentFileName = '';
+      document.getElementById('resultsWrap').classList.remove('visible');
+      document.getElementById('previewBody').innerHTML = '';
+      document.getElementById('fileList').innerHTML = '';
+      fileInput.value = '';
+      document.getElementById('sec-converter').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
