@@ -493,78 +493,85 @@
       margin-top: 3.5rem;
     }
 
-    /* --- REDESIGNED TOOLS SECTION (Premium Light Theme) --- */
+    /* --- REDESIGNED TOOLS SECTION (Dark Blue Glassmorphism Theme) --- */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
       margin-top: 1rem;
     }
-    .tool-card {
-      background: #ffffff;
-      border: 1px solid rgba(10, 37, 64, 0.08);
+    /* Dark Theme variations for Tool Cards */
+    .dark-section .tool-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: var(--glass-border-dark);
       border-radius: 24px;
       padding: 2.5rem 2rem;
       position: relative;
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 10px 30px rgba(10, 37, 64, 0.02);
+      box-shadow: var(--shadow-strong);
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
-    .tool-card:hover {
+    .dark-section .tool-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       border-color: rgba(212, 175, 55, 0.4);
+      background: rgba(255, 255, 255, 0.08);
     }
-    .tool-card::before {
+    .dark-section .tool-card::before {
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: rgba(10, 37, 64, 0.05); transition: background 0.3s;
+      background: rgba(255, 255, 255, 0.1); transition: background 0.3s;
     }
-    .tool-card:hover::before {
+    .dark-section .tool-card:hover::before {
       background: var(--color-accent);
     }
-    .featured-tool {
-      background: linear-gradient(145deg, #ffffff, rgba(212, 175, 55, 0.04));
-      border-color: rgba(212, 175, 55, 0.2);
+    .dark-section .featured-tool {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(212, 175, 55, 0.05));
+      border-color: rgba(212, 175, 55, 0.3);
     }
-    .tool-badge {
+    .dark-section .tool-badge {
       position: absolute; top: 1.5rem; right: 1.5rem;
-      background: var(--color-accent-soft); color: #b8962c;
+      background: rgba(212, 175, 55, 0.2); color: var(--color-accent);
       font-size: 0.75rem; font-family: var(--font-subheading); font-weight: 600;
       padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase;
+      border: 1px solid rgba(212, 175, 55, 0.3);
     }
-    .explore-badge { background: rgba(10, 37, 64, 0.08); color: var(--color-primary); }
-    .tool-icon-wrap {
+    .dark-section .explore-badge { 
+      background: rgba(255, 255, 255, 0.1); color: var(--color-text-light); border-color: rgba(255, 255, 255, 0.2); 
+    }
+    .dark-section .tool-icon-wrap {
       width: 65px; height: 65px; border-radius: 18px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.8rem; margin-bottom: 1.8rem;
       transition: transform 0.3s ease;
     }
-    .featured-tool .tool-icon-wrap {
+    .dark-section .featured-tool .tool-icon-wrap {
       background: var(--color-accent); color: var(--color-primary);
-      box-shadow: 0 10px 20px var(--color-accent-soft);
+      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
     }
-    .regular-icon {
-      background: var(--color-primary-soft); color: var(--color-primary);
+    .dark-section .regular-icon {
+      background: rgba(255, 255, 255, 0.1); color: var(--color-accent);
     }
-    .tool-card:hover .tool-icon-wrap {
+    .dark-section .tool-card:hover .tool-icon-wrap {
       transform: scale(1.05) rotate(-5deg);
     }
-    .tool-title {
-      font-size: 1.3rem; color: var(--color-primary); margin-bottom: 0.8rem;
+    .dark-section .tool-title {
+      font-size: 1.3rem; color: var(--color-text-light); margin-bottom: 0.8rem;
     }
-    .tool-desc {
-      font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 2rem; flex-grow: 1; line-height: 1.6;
+    .dark-section .tool-desc {
+      font-size: 0.95rem; color: var(--color-text-light-muted); margin-bottom: 2rem; flex-grow: 1; line-height: 1.6;
     }
-    .tool-link {
+    .dark-section .tool-link {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--font-subheading); font-weight: 600; font-size: 0.95rem;
-      color: var(--color-primary); transition: color 0.3s; margin-top: auto; text-decoration: none;
+      color: var(--color-text-light); transition: color 0.3s; margin-top: auto; text-decoration: none;
     }
-    .tool-link i { font-size: 0.85rem; transition: transform 0.3s; color: var(--color-accent); }
-    .tool-link:hover { color: var(--color-accent-hover); }
-    .tool-link:hover i { transform: translateX(5px); }
+    .dark-section .tool-link i { font-size: 0.85rem; transition: transform 0.3s; color: var(--color-accent); }
+    .dark-section .tool-link:hover { color: var(--color-accent); }
+    .dark-section .tool-link:hover i { transform: translateX(5px); }
 
     /* --- Skill Badges (About Me Section) --- */
     .skill-badges { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.5rem 0 2.5rem 0; }
@@ -1156,9 +1163,9 @@
       </div>
     </section>
     
-    <!-- TOOLS SECTION -->
-    <section id="tools" class="wrapper bg-desk" style="background: none; padding-top: 5rem;">
-      <div class="reveal">
+    <!-- TOOLS SECTION (Restored Blue Transparent Theme) -->
+    <section id="tools" class="dark-section bg-corporate" style="padding-top: 5rem; padding-bottom: 5rem;">
+      <div class="wrapper reveal">
         <div class="section-header">
           <div class="section-kicker">Free Resources</div>
           <h2 class="section-title">Client <span class="italic-gold">Toolbox</span></h2>
@@ -1199,7 +1206,7 @@
           </div>
 
           <!-- Tool 4: More Tools -->
-          <div class="tool-card" style="background: linear-gradient(145deg, rgba(10, 37, 64, 0.02), #ffffff);">
+          <div class="tool-card">
             <div class="tool-badge explore-badge">Explore</div>
             <div class="tool-icon-wrap regular-icon">
               <i class="fa-solid fa-toolbox"></i>
@@ -1477,17 +1484,12 @@
 
           <h4 class="q-links-header">Quick Links</h4>
           <div class="q-links-grid">
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Core Services</a>
+            <a href="#why-us" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Core Services</a>
             <a href="#pricing" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Pricing Plans</a>
             <a href="#tools" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Free Calculators</a>
             <a href="#insights" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Tax Insights</a>
             <a href="brochure.pdf" download class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Download Brochure</a>
             <a href="#case-study" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Success Stories</a>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/PDF-Tool/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> PDF Toolkit</a>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/bank-statement-to-excel/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i>Statement Converter</a>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/2B%20ITC%20Reconciliation/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i>2B ITC Reconciliation</a>
-
-
           </div>
         </div>
 
