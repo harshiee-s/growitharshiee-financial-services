@@ -151,10 +151,14 @@
     h3, h4 { font-family: var(--font-subheading); }
     
     .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-header.left-align { text-align: left; }
     .section-kicker { font-family: var(--font-subheading); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-accent); font-weight: 600; margin-bottom: 0.8rem; }
     .section-title { font-size: 2.8rem; margin-bottom: 1rem; color: var(--color-primary); }
     .section-subtitle { color: var(--color-text-muted); max-width: 650px; margin: 0 auto; font-size: 1.05rem;}
+    .section-header.left-align .section-subtitle { margin: 0; max-width: 100%; }
     
+    .italic-gold { font-family: var(--font-heading); font-style: italic; color: var(--color-accent); }
+
     .dark-section .section-title { color: var(--color-text-light); }
     .dark-section .section-subtitle { color: var(--color-text-light-muted); }
 
@@ -297,7 +301,7 @@
     .trust-item h4 { font-size: 2rem; color: var(--color-accent); margin-bottom: 0.2rem;}
     .trust-item p { font-size: 0.9rem; color: var(--color-text-light-muted); font-weight: 500; font-family: var(--font-subheading); text-transform: uppercase; letter-spacing: 1px;}
 
-    /* --- Cards (Light Theme) --- */
+    /* --- Cards (Light Theme Base) --- */
     .card {
       background: var(--color-surface-light);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
@@ -316,6 +320,277 @@
     }
     .dark-section .card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: rgba(212, 175, 55, 0.4); }
 
+    /* --- WHY US SECTION --- */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .num-card {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.8rem;
+      background: #ffffff;
+      border: 1px solid rgba(10, 37, 64, 0.05);
+      border-radius: 16px;
+      margin-bottom: 1.2rem;
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+    .num-card:hover {
+      transform: translateX(8px);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 10px 25px rgba(10, 37, 64, 0.08);
+    }
+    .num-card .num {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--color-accent);
+      font-weight: 700;
+      line-height: 1;
+      min-width: 35px;
+    }
+    .num-card-content h4 {
+      font-size: 1.15rem;
+      color: var(--color-primary);
+      margin-bottom: 0.6rem;
+    }
+    .num-card-content p {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    .cred-box {
+      border: 1px solid rgba(10, 37, 64, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+    }
+    .cred-header {
+      font-family: var(--font-subheading);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-primary);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .cred-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .cred-item {
+      background: #ffffff;
+      border: 1px solid rgba(10, 37, 64, 0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+    .cred-item:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-3px);
+    }
+    .cred-item i {
+      font-size: 1.5rem;
+      color: var(--color-accent);
+      margin-bottom: 0.8rem;
+    }
+    .cred-item h5 {
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin-bottom: 0.2rem;
+    }
+    .cred-item span {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .feat-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.5rem;
+      background: #ffffff;
+      border: 1px solid rgba(10, 37, 64, 0.05);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: transform var(--transition-fast);
+    }
+    .feat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(10, 37, 64, 0.06);
+    }
+    .feat-icon-box {
+      width: 45px;
+      height: 45px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .feat-content h5 {
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin-bottom: 0.2rem;
+    }
+    .feat-content p {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* --- SERVICES SUMMARY SECTION --- */
+    .service-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .service-summary-card {
+      background: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(10, 37, 64, 0.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .service-summary-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: 0 10px 30px rgba(10, 37, 64, 0.08);
+    }
+    .service-summary-icon {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+    }
+    .service-summary-title {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      font-family: var(--font-heading);
+    }
+    .service-summary-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .services-cta-container {
+      text-align: center;
+      margin-top: 3.5rem;
+    }
+
+    /* --- REDESIGNED TOOLS SECTION (Premium Light Theme) --- */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .tool-card {
+      background: #ffffff;
+      border: 1px solid rgba(10, 37, 64, 0.08);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 10px 30px rgba(10, 37, 64, 0.02);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .tool-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+    .tool-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+      background: rgba(10, 37, 64, 0.05); transition: background 0.3s;
+    }
+    .tool-card:hover::before {
+      background: var(--color-accent);
+    }
+    .featured-tool {
+      background: linear-gradient(145deg, #ffffff, rgba(212, 175, 55, 0.04));
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+    .tool-badge {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: var(--color-accent-soft); color: #b8962c;
+      font-size: 0.75rem; font-family: var(--font-subheading); font-weight: 600;
+      padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .explore-badge { background: rgba(10, 37, 64, 0.08); color: var(--color-primary); }
+    .tool-icon-wrap {
+      width: 65px; height: 65px; border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin-bottom: 1.8rem;
+      transition: transform 0.3s ease;
+    }
+    .featured-tool .tool-icon-wrap {
+      background: var(--color-accent); color: var(--color-primary);
+      box-shadow: 0 10px 20px var(--color-accent-soft);
+    }
+    .regular-icon {
+      background: var(--color-primary-soft); color: var(--color-primary);
+    }
+    .tool-card:hover .tool-icon-wrap {
+      transform: scale(1.05) rotate(-5deg);
+    }
+    .tool-title {
+      font-size: 1.3rem; color: var(--color-primary); margin-bottom: 0.8rem;
+    }
+    .tool-desc {
+      font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 2rem; flex-grow: 1; line-height: 1.6;
+    }
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-subheading); font-weight: 600; font-size: 0.95rem;
+      color: var(--color-primary); transition: color 0.3s; margin-top: auto; text-decoration: none;
+    }
+    .tool-link i { font-size: 0.85rem; transition: transform 0.3s; color: var(--color-accent); }
+    .tool-link:hover { color: var(--color-accent-hover); }
+    .tool-link:hover i { transform: translateX(5px); }
+
+    /* --- Skill Badges (About Me Section) --- */
+    .skill-badges { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.5rem 0 2.5rem 0; }
+    .skill-badge {
+      background: var(--color-primary);
+      color: var(--color-text-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-pill);
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-family: var(--font-subheading);
+      font-weight: 500;
+      display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 10px rgba(10, 37, 64, 0.1);
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+    .skill-badge:hover { transform: translateY(-2px); border-color: var(--color-accent); }
+    .skill-badge i { color: var(--color-accent); font-size: 0.9rem; }
+    
+    .profile-card.premium-style {
+      border: none; padding: 10px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(10, 37, 64, 0.1));
+      border-radius: calc(var(--radius-lg) + 10px);
+    }
+    .profile-card.premium-style img { border-radius: var(--radius-lg); border: 4px solid #fff; }
+
     /* --- Scroll Reveal Base --- */
     .reveal {
       opacity: 0; 
@@ -329,13 +604,6 @@
     .reveal:not(.active) { 
       transition-delay: 0s !important; 
     }
-
-    /* --- Why Choose Me --- */
-    .icon-box { 
-      width: 60px; height: 60px; background: var(--color-primary); color: var(--color-accent); 
-      border-radius: 16px; display: flex; align-items: center; justify-content: center; 
-      font-size: 1.8rem; margin-bottom: 1.5rem; box-shadow: 0 10px 20px var(--color-primary-soft);
-    }
     
     /* --- Case Study --- */
     .case-study-card { 
@@ -346,18 +614,6 @@
     .cs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; margin-top: 2.5rem; }
     .cs-item h4 { color: var(--color-primary); margin-bottom: 1rem; font-size: 1.25rem; }
     .cs-item p { font-size: 1rem; color: var(--color-text-muted); }
-
-    /* --- PROFILE PHOTO CARD --- */
-    .profile-card {
-      border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: var(--shadow-strong); border: 8px solid white;
-      max-width: 350px; margin: 0 auto; position: relative;
-    }
-    .profile-card img { width: 100%; height: 400px; object-fit: cover; display: block; }
-    .profile-card::after {
-      content: ''; position: absolute; inset: 0;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); border-radius: calc(var(--radius-lg) - 8px); pointer-events: none;
-    }
 
     /* --- Video Integrations (Insights) --- */
     .media-card {
@@ -405,17 +661,57 @@
     .pricing-features li { margin-bottom: 1.2rem; font-size: 1rem; display: flex; gap: 15px; color: var(--color-text-dark);}
     .pricing-features li::before { content: "✓"; color: var(--color-accent); font-weight: bold; font-size: 1.2rem;}
 
-    /* --- Testimonials --- */
-    .testimonial { position: relative; padding-top: 3.5rem; }
-    .testimonial::before { content: '"'; position: absolute; top: 10px; left: 25px; font-size: 5rem; color: var(--color-accent-soft); font-family: serif; line-height: 1;}
-    .t-content { font-style: italic; margin-bottom: 2rem; font-size: 1rem; position: relative; z-index: 1; color: inherit;}
+    /* --- TESTIMONIALS MARQUEE --- */
+    .testimonial-marquee-wrap {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      overflow: hidden;
+      padding: 2rem 0;
+    }
+    .testimonial-track {
+      display: flex;
+      width: max-content;
+      animation: scroll-testimonials 40s linear infinite;
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+    .testimonial-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scroll-testimonials {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 1rem)); }
+    }
+    .testimonial-card {
+      width: 400px;
+      flex-shrink: 0;
+      position: relative;
+      padding: 3.5rem 2.5rem 2.5rem 2.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: var(--glass-border-dark);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all var(--transition-fast);
+    }
+    .testimonial-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-5px);
+    }
+    .testimonial-card::before { 
+      content: '"'; position: absolute; top: 10px; left: 25px; 
+      font-size: 5rem; color: var(--color-accent-soft); font-family: serif; line-height: 1;
+    }
+    .t-content { font-style: italic; margin-bottom: 2rem; font-size: 1rem; position: relative; z-index: 1; color: var(--color-text-light);}
     .t-author { display: flex; align-items: center; gap: 15px; }
-    .t-avatar { width: 45px; height: 45px; background: var(--color-primary); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;}
-    .t-name { font-weight: 600; font-size: 1.05rem; color: var(--color-primary);}
-    .t-role { font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em;}
-    
-    .dark-section .t-name { color: var(--color-text-light); }
-    .dark-section .t-role { color: var(--color-text-light-muted); }
+    .t-avatar { width: 45px; height: 45px; background: var(--color-primary); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; border: 1px solid rgba(212, 175, 55, 0.5);}
+    .t-name { font-weight: 600; font-size: 1.05rem; color: var(--color-text-light);}
+    .t-role { font-size: 0.85rem; color: var(--color-text-light-muted); text-transform: uppercase; letter-spacing: 0.05em;}
 
     /* --- Form & Inputs --- */
     .form-group { margin-bottom: 1.8rem; text-align: left; }
@@ -435,7 +731,7 @@
       border-bottom: 2px solid var(--color-accent);
     }
     .ticker { display: inline-block; white-space: nowrap; animation: ticker-anim 35s linear infinite; }
-    .ticker-wrap:hover .ticker { animation-play-state: paused; } /* Added hover pause */
+    .ticker-wrap:hover .ticker { animation-play-state: paused; }
     .ticker span { margin: 0 2rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); font-family: var(--font-subheading);}
     @keyframes ticker-anim { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
@@ -503,7 +799,7 @@
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
       color: #ffffff; display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem; transition: all var(--transition-fast); text-decoration: none;
-      cursor: pointer; /* Ensure pointer is shown for buttons */
+      cursor: pointer;
     }
     .circle-btn:hover {
       background: var(--color-accent); color: var(--color-primary); 
@@ -526,8 +822,7 @@
 
     /* --- Responsive Breakpoints --- */
     @media (max-width: 1024px) {
-      /* Tablet Breakpoint */
-      .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3, .grid-4, .why-grid { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
       .hero-inner { grid-template-columns: 1fr; }
       .pricing-card.popular { transform: none; }
@@ -538,9 +833,12 @@
     }
 
     @media (max-width: 768px) {
-      /* Mobile Breakpoint */
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .service-summary-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
       .cs-grid { grid-template-columns: 1fr; }
+      .cred-grid { grid-template-columns: 1fr; }
+      .testimonial-card { width: 300px; padding: 2.5rem 2rem 2rem 2rem; }
     }
   </style>
 </head>
@@ -558,11 +856,11 @@
     <div class="wrapper nav">
       <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
         <img src="logo.png" alt="Growitharshiee Logo" style="height: 40px; width: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-       <span></span>
+        <span></span>
       </a>
       <nav class="nav-links">
         <a href="#home">Home</a>
-        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services">Services</a>
+        <a href="#why-us">Services</a>
         <a href="#about">About Us</a>
         <a href="#pricing">Pricing</a>
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools">Tools</a>
@@ -659,79 +957,153 @@
       </div>
     </section>
 
-    <section id="services" class="wrapper bg-desk" style="background: none;">
-      <div class="section-header reveal">
-        <div class="section-kicker">The Difference</div>
-        <h2 class="section-title">Why work with me?</h2>
-        <p class="section-subtitle">Finance shouldn't feel like a foreign language. Here is how I make it simple.</p>
-      </div>
-      <div class="grid-4" style="margin-bottom: 4rem;">
-        <div class="card reveal">
-          <div class="icon-box">🗣️</div>
-          <h3>Simple Explanations</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 0.8rem;">No heavy accounting jargon. I explain what you are paying, why you are paying it, and how to optimize it.</p>
+    <section id="why-us" class="wrapper bg-desk" style="background: none;">
+      <div class="why-grid">
+        
+        <div class="reveal">
+          <div class="section-header left-align" style="margin-bottom: 2rem;">
+            <div class="section-kicker">Why Growitharshiee</div>
+            <h2 class="section-title">Built for the pace of <span class="italic-gold">modern business</span></h2>
+            <p class="section-subtitle" style="margin-top: 1rem;">Traditional accounting firms were built for a different era. We're designed for founders and freelancers who need speed, clarity, and genuine expertise — not a helpdesk ticket.</p>
+          </div>
+
+          <div class="num-card">
+            <div class="num">01</div>
+            <div class="num-card-content">
+              <h4>Jargon-Free Communication</h4>
+              <p>We translate complex financial and tax concepts into plain language. You'll always know what you're paying, why, and how to optimise it.</p>
+            </div>
+          </div>
+          
+          <div class="num-card">
+            <div class="num">02</div>
+            <div class="num-card-content">
+              <h4>Direct Access, No Intermediaries</h4>
+              <p>Your accounts are handled by a qualified CA aspirant, not delegated to trainees. Every query gets a precise, accountable answer.</p>
+            </div>
+          </div>
+
+          <div class="num-card">
+            <div class="num">03</div>
+            <div class="num-card-content">
+              <h4>WhatsApp-Speed Responsiveness</h4>
+              <p>Startups can't wait 3 business days. Most queries are resolved within the same working day via WhatsApp or email.</p>
+            </div>
+          </div>
+
+          <div class="num-card">
+            <div class="num">04</div>
+            <div class="num-card-content">
+              <h4>Proactive, Not Reactive</h4>
+              <p>We don't wait for you to ask. Deadline alerts, ITC mismatches, and tax-saving opportunities come to you before they become problems.</p>
+            </div>
+          </div>
         </div>
-        <div class="card reveal" style="transition-delay: 0.1s;">
-          <div class="icon-box">🛠️</div>
-          <h3>Practical Approach</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 0.8rem;">Tailored solutions that fit your specific business model, not just a copy-paste textbook answer.</p>
-        </div>
-        <div class="card reveal" style="transition-delay: 0.2s;">
-          <div class="icon-box">⚡</div>
-          <h3>Fast Responses</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 0.8rem;">Startups move fast. You get quick, reliable answers via email or WhatsApp without the long wait times.</p>
-        </div>
-        <div class="card reveal" style="transition-delay: 0.3s;">
-          <div class="icon-box">🤝</div>
-          <h3>Personal Support</h3>
-          <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 0.8rem;">You deal directly with me. Your financial data isn't passed down to junior trainees.</p>
-        </div>
-      </div>
-      
-      <h2 class="section-title text-center reveal" style="text-align: center; margin-bottom: 2.5rem; font-size: 2.2rem;">Core Services</h2>
-      <div class="grid-4">
-        <div class="card reveal" style="transition-delay: 0.1s;">
-          <h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem; display: inline-block;">Accounting</h3>
-          <ul class="pricing-features" style="margin-top: 0;">
-            <li>Daily Ledger Maintenance</li>
-            <li>Bank Reconciliation</li>
-            <li>Financial Statements</li>
-            <li>Payroll Processing</li>
-          </ul>
-        </div>
-        <div class="card reveal" style="transition-delay: 0.2s;">
-          <h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem; display: inline-block;">Taxation</h3>
-          <ul class="pricing-features" style="margin-top: 0;">
-            <li>GST Registration</li>
-            <li>Periodic Return Filing</li>
-            <li>TDS & TCS Compliance</li>
-            <li>ITR Filing</li>
-          </ul>
-        </div>
-        <div class="card reveal" style="transition-delay: 0.3s;">
-          <h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem; display: inline-block;">Consulting</h3>
-          <ul class="pricing-features" style="margin-top: 0;">
-            <li>Cash Flow Management</li>
-            <li>Internal Audit Assit.</li>
-            <li>ITC Reconciliation</li>
-            <li>Virtual CFO Services</li>
-          </ul>
-        </div>
-        <div class="card reveal" style="transition-delay: 0.4s;">
-          <h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem; display: inline-block;">Registration</h3>
-          <ul class="pricing-features" style="margin-top: 0;">
-            <li>MSME / Udyam</li>
-            <li>PAN & TAN Apps</li>
-            <li>Entity Incorporation</li>
-            <li>PF & ESI Setup</li>
-          </ul>
+
+        <div class="reveal" style="transition-delay: 0.2s; margin-top: 1.5rem;">
+          
+          <div class="cred-box">
+            <div class="cred-header">Credentials & Tools</div>
+            <div class="cred-grid">
+              <div class="cred-item">
+                <i class="fa-solid fa-book-open"></i>
+                <h5>CA Inter</h5>
+                <span>ICAI Certified</span>
+              </div>
+              <div class="cred-item">
+                <i class="fa-solid fa-file-invoice"></i>
+                <h5>Tally ERP 9</h5>
+                <span>Power User</span>
+              </div>
+              <div class="cred-item">
+                <i class="fa-solid fa-cloud"></i>
+                <h5>Zoho Books</h5>
+                <span>Certified Expert</span>
+              </div>
+              <div class="cred-item">
+                <i class="fa-solid fa-building-flag"></i>
+                <h5>IN</h5>
+                <span>GST Portal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon-box"><i class="fa-solid fa-bolt"></i></div>
+            <div class="feat-content">
+              <h5>Same-Day Query Resolution</h5>
+              <p>Urgent queries answered within working hours</p>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon-box"><i class="fa-solid fa-lock"></i></div>
+            <div class="feat-content">
+              <h5>Data Confidentiality Assured</h5>
+              <p>All client data handled under strict NDA</p>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon-box"><i class="fa-solid fa-globe"></i></div>
+            <div class="feat-content">
+              <h5>Pan-India Remote Services</h5>
+              <p>Serving clients across all Indian states online</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <section id="about" class="wrapper bg-desk" style="padding-top: 2rem;">
+    <!-- SERVICES SECTION -->
+    <section id="services-suite" class="wrapper bg-desk" style="background: none; padding-top: 2rem;">
+      <div class="reveal">
+        <div class="section-header">
+          <div class="section-kicker">Core Expertise</div>
+          <h2 class="section-title">Comprehensive financial <span class="italic-gold">services suite</span></h2>
+          <p class="section-subtitle">We handle the entire compliance lifecycle—from day-one registrations to ongoing GST returns and advanced tax strategies—so you can focus strictly on growth.</p>
+        </div>
+
+        <div class="service-summary-grid">
+          
+          <div class="service-summary-card">
+            <div class="service-summary-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <h3 class="service-summary-title">GST & Indirect Tax</h3>
+            <p class="service-summary-desc">End-to-end GST compliance including new registrations, routine GSTR-1 & 3B filings, and thorough ITC reconciliation.</p>
+          </div>
+
+          <div class="service-summary-card">
+            <div class="service-summary-icon"><i class="fa-solid fa-wallet"></i></div>
+            <h3 class="service-summary-title">Bookkeeping</h3>
+            <p class="service-summary-desc">Precise, real-time financial records via Tally and Zoho Books to ensure you have full visibility into your cash flow at all times.</p>
+          </div>
+
+          <div class="service-summary-card">
+            <div class="service-summary-icon"><i class="fa-solid fa-chart-simple"></i></div>
+            <h3 class="service-summary-title">Income Tax & TDS</h3>
+            <p class="service-summary-desc">Strategic tax planning, advance tax computation, and timely ITR and TDS/TCS filings to minimize your liabilities.</p>
+          </div>
+
+          <div class="service-summary-card">
+            <div class="service-summary-icon"><i class="fa-solid fa-rocket"></i></div>
+            <h3 class="service-summary-title">Startup & Advisory</h3>
+            <p class="service-summary-desc">Company formation, MSME registrations, and Virtual CFO services offering budget vs actuals and strategic financial planning.</p>
+          </div>
+
+        </div>
+
+        <div class="services-cta-container">
+          <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services" class="btn btn-accent">
+            Explore All Detailed Services <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="wrapper bg-desk" style="padding-top: 4rem; background: none;">
       <div class="grid-2 reveal">
-        <div class="profile-card">
+        <div class="profile-card premium-style">
           <img src="profile.jpg" alt="Harshith G S - Financial Consultant" loading="lazy">        
         </div>
         <div>
@@ -740,9 +1112,21 @@
           <p style="color: var(--color-text-muted); margin-bottom: 1.5rem; font-size: 1.1rem;">
             I am a CA Inter student operating out of Bengaluru. I bridge the gap between complex financial theory and practical business application. 
           </p>
-          <p style="color: var(--color-text-muted); margin-bottom: 2.5rem; font-size: 1.1rem;">
+          <p style="color: var(--color-text-muted); font-size: 1.1rem;">
             Whether you need help getting your new startup registered, or need an experienced hand to clean up months of messy bookkeeping, I bring academic rigor and hands-on tool experience (Tally, Zoho) to your business.
           </p>
+          
+          <div class="skill-badges">
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> GST Specialist</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> Tally Expert</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> Zoho Books Certified</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> Income Tax</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> Startup Advisory</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> Virtual CFO</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> ITC Reconciliation</span>
+            <span class="skill-badge"><i class="fa-solid fa-check"></i> Pan-India Remote</span>
+          </div>
+
           <a href="https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/" target="_blank" rel="noopener" class="btn btn-primary">View My Portfolio</a>
         </div>
       </div>
@@ -772,42 +1156,59 @@
       </div>
     </section>
     
-    <section id="tools" class="dark-section bg-corporate">
-      <div class="wrapper">
-        <div class="section-header reveal">
-          <div class="section-kicker" style="color: var(--color-accent);">Free Resources</div>
-          <h2 class="section-title">Calculators & Downloads</h2>
+    <!-- TOOLS SECTION -->
+    <section id="tools" class="wrapper bg-desk" style="background: none; padding-top: 5rem;">
+      <div class="reveal">
+        <div class="section-header">
+          <div class="section-kicker">Free Resources</div>
+          <h2 class="section-title">Client <span class="italic-gold">Toolbox</span></h2>
           <p class="section-subtitle">Use these free tools to quickly estimate your taxes or download our complete service overview.</p>
         </div>
-        
-        <div class="grid-4">
-          <div class="card reveal" style="text-align: center;">
-            <div class="icon-box" style="margin: 0 auto 1.5rem; background: rgba(255,255,255,0.1); color: var(--color-accent);">📊</div>
-            <h3 style="color: #fff;">TDS Calculator</h3>
-            <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin: 1rem 0 2rem;">Instantly calculate GST, TDS, and net payable amounts for your vendor invoices.</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/TDS/" class="btn btn-outline-light" style="width: 100%;">Open Calculator</a>
+
+        <div class="tools-grid">
+          
+          <!-- Tool 1: Income Tax (Featured) -->
+          <div class="tool-card featured-tool">
+            <div class="tool-badge">Most Used</div>
+            <div class="tool-icon-wrap">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <h3 class="tool-title">Income Tax Calculator</h3>
+            <p class="tool-desc">Estimate your annual tax liability instantly based on the latest Indian tax slabs (New vs Old Regime).</p>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tax/" class="tool-link">Calculate Tax <i class="fa-solid fa-arrow-right"></i></a>
           </div>
 
-          <div class="card reveal" style="text-align: center; border: 2px solid var(--color-accent); transition-delay: 0.1s;">
-            <div class="icon-box" style="margin: 0 auto 1.5rem; background: var(--color-accent); color: var(--color-primary);">🧮</div>
-            <h3 style="color: #fff;">Income Tax Calculator</h3>
-            <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin: 1rem 0 2rem;">Estimate your annual tax liability based on the latest Indian tax slabs.</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tax/" class="btn btn-accent" style="width: 100%;">Calculate Tax</a>
+          <!-- Tool 2: TDS -->
+          <div class="tool-card">
+            <div class="tool-icon-wrap regular-icon">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+            </div>
+            <h3 class="tool-title">TDS Calculator</h3>
+            <p class="tool-desc">Instantly calculate GST, TDS, and net payable amounts for your vendor invoices to avoid compliance errors.</p>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/TDS/" class="tool-link">Open Calculator <i class="fa-solid fa-arrow-right"></i></a>
           </div>
 
-          <div class="card reveal" style="text-align: center; transition-delay: 0.2s;">
-            <div class="icon-box" style="margin: 0 auto 1.5rem; background: rgba(255,255,255,0.1); color: var(--color-accent);">📄</div>
-            <h3 style="color: #fff;">Service Brochure</h3>
-            <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin: 1rem 0 2rem;">Download the full catalog of our services, pricing tiers, and startup checklists.</p>
-            <a href="brochure.pdf" download class="btn btn-primary" style="width: 100%; background: #fff; color: var(--color-primary);">Download PDF</a>
+          <!-- Tool 3: Converter -->
+          <div class="tool-card">
+            <div class="tool-icon-wrap regular-icon">
+              <i class="fa-solid fa-file-export"></i>
+            </div>
+            <h3 class="tool-title">Statement Converter</h3>
+            <p class="tool-desc">Quickly convert your raw bank statements into standard journal entries for easy, error-free bookkeeping.</p>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Converter/" class="tool-link">Convert Statement <i class="fa-solid fa-arrow-right"></i></a>
           </div>
 
-          <div class="card reveal" style="text-align: center; border: 2px solid var(--color-accent); transition-delay: 0.1s;">
-            <div class="icon-box" style="margin: 0 auto 1.5rem; background: var(--color-accent); color: var(--color-primary);">🔄</div>
-            <h3 style="color: #fff;">Statement Converter</h3>
-            <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin: 1rem 0 2rem;">Quickly convert your raw bank statements into standard journal entries for easy bookkeeping.</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Converter/" class="btn btn-accent" style="width: 100%;">Open Converter</a>
+          <!-- Tool 4: More Tools -->
+          <div class="tool-card" style="background: linear-gradient(145deg, rgba(10, 37, 64, 0.02), #ffffff);">
+            <div class="tool-badge explore-badge">Explore</div>
+            <div class="tool-icon-wrap regular-icon">
+              <i class="fa-solid fa-toolbox"></i>
+            </div>
+            <h3 class="tool-title">More Tools</h3>
+            <p class="tool-desc">Access our complete library of financial calculators, compliance trackers, and accounting templates.</p>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools" class="tool-link">View All Tools <i class="fa-solid fa-arrow-right"></i></a>
           </div>
+
         </div>
       </div>
     </section>
@@ -899,14 +1300,19 @@
       </div>
     </section>
 
+    <!-- TESTIMONIALS (MARQUEE) -->
     <section id="testimonials" class="dark-section bg-corporate">
       <div class="wrapper">
         <div class="section-header reveal">
           <div class="section-kicker" style="color: var(--color-accent);">Trust & Proof</div>
           <h2 class="section-title">What clients are saying</h2>
         </div>
-        <div class="grid-3">
-          <div class="card testimonial reveal">
+      </div>
+      
+      <div class="testimonial-marquee-wrap">
+        <div class="testimonial-track">
+          <!-- Card Set 1 -->
+          <div class="testimonial-card">
             <p class="t-content">Harshiee explained the composition scheme to me in under 10 minutes. I finally understand how my billing works. Highly recommended for creative pros.</p>
             <div class="t-author">
               <div class="t-avatar">P</div>
@@ -916,7 +1322,8 @@
               </div>
             </div>
           </div>
-          <div class="card testimonial reveal" style="transition-delay: 0.1s;">
+          
+          <div class="testimonial-card">
             <p class="t-content">He saved us from a major penalty by catching a mismatch in our input tax credit. The monthly reporting from Zoho Books is flawless.</p>
             <div class="t-author">
               <div class="t-avatar">R</div>
@@ -926,13 +1333,92 @@
               </div>
             </div>
           </div>
-          <div class="card testimonial reveal" style="transition-delay: 0.2s;">
+          
+          <div class="testimonial-card">
             <p class="t-content">Moves at startup speed. If I have a quick question about a vendor invoice, I just drop a WhatsApp and get a clear, legally sound answer immediately.</p>
             <div class="t-author">
               <div class="t-avatar">A</div>
               <div>
                 <div class="t-name">Anita S.</div>
                 <div class="t-role">Agency Owner</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="t-content">The transition from our old accountant was seamless. Harshiee handled all the legacy filings and brought our compliance completely up to date within weeks.</p>
+            <div class="t-author">
+              <div class="t-avatar">V</div>
+              <div>
+                <div class="t-name">Vikram D.</div>
+                <div class="t-role">E-commerce Founder</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="t-content">Finally, an accountant who speaks plain English! The initial consultation alone gave me more clarity than months of searching online.</p>
+            <div class="t-author">
+              <div class="t-avatar">S</div>
+              <div>
+                <div class="t-name">Sneha K.</div>
+                <div class="t-role">Independent Consultant</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Set 2 (Duplicated for seamless infinite scrolling) -->
+          <div class="testimonial-card">
+            <p class="t-content">Harshiee explained the composition scheme to me in under 10 minutes. I finally understand how my billing works. Highly recommended for creative pros.</p>
+            <div class="t-author">
+              <div class="t-avatar">P</div>
+              <div>
+                <div class="t-name">Priya R.</div>
+                <div class="t-role">Freelance Designer</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card">
+            <p class="t-content">He saved us from a major penalty by catching a mismatch in our input tax credit. The monthly reporting from Zoho Books is flawless.</p>
+            <div class="t-author">
+              <div class="t-avatar">R</div>
+              <div>
+                <div class="t-name">Rahul M.</div>
+                <div class="t-role">Tech Founder</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card">
+            <p class="t-content">Moves at startup speed. If I have a quick question about a vendor invoice, I just drop a WhatsApp and get a clear, legally sound answer immediately.</p>
+            <div class="t-author">
+              <div class="t-avatar">A</div>
+              <div>
+                <div class="t-name">Anita S.</div>
+                <div class="t-role">Agency Owner</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="t-content">The transition from our old accountant was seamless. Harshiee handled all the legacy filings and brought our compliance completely up to date within weeks.</p>
+            <div class="t-author">
+              <div class="t-avatar">V</div>
+              <div>
+                <div class="t-name">Vikram D.</div>
+                <div class="t-role">E-commerce Founder</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="t-content">Finally, an accountant who speaks plain English! The initial consultation alone gave me more clarity than months of searching online.</p>
+            <div class="t-author">
+              <div class="t-avatar">S</div>
+              <div>
+                <div class="t-name">Sneha K.</div>
+                <div class="t-role">Independent Consultant</div>
               </div>
             </div>
           </div>
@@ -1072,7 +1558,6 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
           } else {
-            // Animation resets and replays every time the user scrolls up or down.
             entry.target.classList.remove("active");
           }
         });
