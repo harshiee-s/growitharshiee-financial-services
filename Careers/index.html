@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Careers — Growitharshiee</title>
+<meta name="description" content="Explore open positions at Growitharshiee. Join our team of finance, CA, and growth professionals." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+:root {
+  --primary: #0A2540;
+  --primary-soft: rgba(10,37,64,0.07);
+  --accent: #D4AF37;
+  --accent-soft: rgba(212,175,55,0.13);
+  --accent-gradient: linear-gradient(135deg,#E6C265,#D4AF37);
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --text: #0f172a;
+  --muted: #5a6a82;
+  --border: rgba(10,37,64,0.09);
+  --shadow: 0 4px 24px rgba(10,37,64,0.07);
+  --shadow-md: 0 8px 36px rgba(10,37,64,0.11);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --font-heading: "Playfair Display",serif;
+  --font-body: "Poppins",sans-serif;
+  --font-read: "Inter",sans-serif;
+  --transition: 0.28s ease;
+  --green: #16a34a;
+  --green-soft: rgba(22,163,74,0.1);
+  --red: #be123c;
+  --red-soft: rgba(244,63,94,0.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-read);background:var(--bg);color:var(--text);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--accent-gradient);z-index:999;transition:width .1s linear;box-shadow:0 0 8px rgba(212,175,55,.5)}
+
+.dgv-background{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:.5}
+.dgv-background svg{width:100%;height:100%}
+.dgv-line{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4000;stroke-dashoffset:4000;animation:drawDGV 15s cubic-bezier(.4,0,.2,1) infinite alternate}
+.dgv-line-1{stroke:var(--accent);stroke-width:3px;opacity:.5;filter:drop-shadow(0 0 10px rgba(212,175,55,.6))}
+.dgv-line-2{stroke:var(--primary);stroke-width:1.5px;opacity:.2;animation-delay:-5s}
+.dgv-line-3{stroke:var(--accent);stroke-width:1px;opacity:.3;animation-delay:-10s}
+@keyframes drawDGV{0%{stroke-dashoffset:4000}100%{stroke-dashoffset:0}}
+
+.floating-icons-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden}
+.floating-icon{position:absolute;color:var(--primary);opacity:0;font-family:var(--font-body);font-weight:600;animation:floatAnim 20s infinite linear}
+@keyframes floatAnim{0%{transform:translateY(110vh) rotate(0deg) scale(.8);opacity:0}10%{opacity:.06}90%{opacity:.06}100%{transform:translateY(-10vh) rotate(360deg) scale(1.2);opacity:0}}
+.icon-1{left:8%;animation-duration:18s;font-size:2rem}
+.icon-2{left:20%;animation-duration:22s;animation-delay:2s;font-size:1.5rem;color:var(--accent)}
+.icon-3{left:85%;animation-duration:15s;animation-delay:5s;font-size:1.8rem}
+.icon-4{left:75%;animation-duration:25s;animation-delay:1s;font-size:1.2rem}
+
+header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(10,37,64,.05)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1280px;margin:0 auto;padding:0 2rem}
+.brand{font-family:var(--font-heading);font-weight:700;font-size:1.25rem;color:var(--primary);display:flex;align-items:center;gap:10px}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;font-family:var(--font-body);font-size:.9rem;font-weight:500}
+.nav-links a{color:var(--muted);transition:color var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--primary);font-weight:600}
+.btn{border-radius:var(--radius-pill);padding:.65rem 1.5rem;font-size:.88rem;font-weight:600;cursor:pointer;border:none;font-family:var(--font-body);letter-spacing:.03em;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all var(--transition)}
+.btn-primary{background:var(--accent-gradient);color:var(--primary);box-shadow:0 4px 16px var(--accent-soft)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(212,175,55,.3)}
+
+.hero-banner{background:linear-gradient(135deg,var(--primary) 0%,#163a61 60%,#0d2d50 100%);padding:4.5rem 2rem 3.5rem;position:relative;overflow:hidden;z-index:2}
+.hero-banner::before{content:'';position:absolute;top:-80px;right:-80px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.25) 0%,transparent 70%);pointer-events:none}
+.hero-banner::after{content:'';position:absolute;bottom:-60px;left:10%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.1) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.hero-top{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.badge{font-family:var(--font-body);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .85rem;border-radius:var(--radius-pill)}
+.badge-accent{background:var(--accent);color:var(--primary)}
+.badge-outline{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.2)}
+.live-dot{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-body);font-size:.75rem;font-weight:700;color:rgba(255,255,255,.85);margin-left:.3rem}
+.live-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.5);animation:livePulse 2s ease-out infinite}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.hero-title{font-family:var(--font-heading);font-size:clamp(1.8rem,3.5vw,2.7rem);color:#fff;line-height:1.2;margin-bottom:1.2rem;font-weight:700}
+.hero-title .highlight{color:var(--accent)}
+.hero-desc{font-size:1.05rem;color:rgba(255,255,255,.78);line-height:1.65;margin-bottom:1.8rem;max-width:720px;font-family:var(--font-body)}
+.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap;font-family:var(--font-body)}
+.hero-stat{display:flex;flex-direction:column}
+.hero-stat .hs-num{font-family:var(--font-heading);font-size:2rem;font-weight:700;color:var(--accent);line-height:1;transition:all .4s}
+.hero-stat .hs-lbl{font-size:.78rem;color:rgba(255,255,255,.6);margin-top:.2rem;font-weight:500}
+
+.highlights-strip{background:var(--surface);border-bottom:1px solid var(--border);position:relative;z-index:2}
+.highlights-inner{max-width:1200px;margin:0 auto;padding:1.5rem 2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.highlight-chip{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.1rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);border-left:3px solid var(--accent)}
+.highlight-chip .chip-icon{font-size:1.3rem;flex-shrink:0}
+.highlight-chip .chip-text{font-size:.82rem;font-weight:600;color:var(--primary);font-family:var(--font-body);line-height:1.3}
+
+.page-wrap{max-width:1200px;margin:0 auto;padding:3rem 2rem 5rem;position:relative;z-index:2}
+
+.meta-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.8rem;flex-wrap:wrap;gap:.8rem}
+.last-updated{font-family:var(--font-body);font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.last-updated i{color:var(--accent)}
+.auto-refresh-note{font-family:var(--font-body);font-size:.78rem;display:flex;align-items:center;gap:.4rem;padding:.35rem .85rem;background:var(--green-soft);border-radius:var(--radius-pill);border:1px solid rgba(22,163,74,.2);color:var(--green);font-weight:600}
+
+.controls-bar{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.search-wrap{flex:1;min-width:220px;position:relative}
+.search-wrap i{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+.search-wrap input{width:100%;padding:.72rem 1rem .72rem 2.4rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);font-family:var(--font-body);font-size:.88rem;color:var(--text);outline:none;transition:all .2s}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.filter-wrap{display:flex;gap:.6rem;flex-wrap:wrap}
+.filter-select{padding:.68rem 2.2rem .68rem .9rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);font-family:var(--font-body);font-size:.85rem;color:var(--text);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6a82' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;transition:all .2s}
+.filter-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.results-count{font-family:var(--font-body);font-size:.82rem;color:var(--muted);font-weight:500;white-space:nowrap}
+.results-count strong{color:var(--primary);font-weight:700}
+.refresh-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:.68rem 1.1rem;font-family:var(--font-body);font-size:.82rem;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:all var(--transition);font-weight:600}
+.refresh-btn:hover{border-color:var(--accent);color:var(--primary);background:var(--accent-soft)}
+.refresh-btn.spinning i{animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.table-wrap{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:2rem}
+.jobs-table{width:100%;border-collapse:collapse;font-family:var(--font-body)}
+.jobs-table thead{background:linear-gradient(135deg,var(--primary) 0%,#163a61 100%)}
+.jobs-table thead th{padding:1rem 1.3rem;text-align:left;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);white-space:nowrap}
+.jobs-table thead th:last-child{text-align:center}
+.jobs-table tbody tr{border-bottom:1px solid var(--border);transition:background .18s;opacity:0;transform:translateY(8px);animation:rowIn .35s ease forwards}
+@keyframes rowIn{to{opacity:1;transform:translateY(0)}}
+.jobs-table tbody tr:last-child{border-bottom:none}
+.jobs-table tbody tr:hover{background:var(--surface-alt)}
+.jobs-table td{padding:1.15rem 1.3rem;font-size:.9rem;color:var(--text);vertical-align:middle}
+.jobs-table td:last-child{text-align:center}
+
+.industry-chip{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .8rem;border-radius:var(--radius-pill);font-size:.74rem;font-weight:700;white-space:nowrap;border:1px solid transparent}
+.pos-title{font-weight:700;color:var(--primary);font-size:.95rem;line-height:1.3}
+.exp-badge{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .75rem;border-radius:var(--radius-pill);font-size:.78rem;font-weight:600;white-space:nowrap;background:var(--accent-soft);color:#8a7320;border:1px solid rgba(212,175,55,.3)}
+.location-cell{display:flex;align-items:center;gap:.45rem;font-size:.88rem;color:var(--muted)}
+.location-cell i{color:var(--accent);font-size:.78rem}
+.apply-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.2rem;border-radius:var(--radius-pill);background:var(--accent-gradient);color:var(--primary);font-family:var(--font-body);font-size:.8rem;font-weight:700;border:none;cursor:pointer;white-space:nowrap;transition:all var(--transition);text-decoration:none;box-shadow:0 2px 10px rgba(212,175,55,.2)}
+.apply-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(212,175,55,.38)}
+.apply-btn.disabled{opacity:.5;pointer-events:none;background:#e5e7eb;color:#94a3b8;box-shadow:none}
+
+.state-block{padding:4rem 2rem;text-align:center;font-family:var(--font-body)}
+.state-icon{width:68px;height:68px;border-radius:20px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:1.7rem}
+.state-icon.loading{background:var(--accent-soft);color:#b8962c;animation:pulseGlow 2s ease-out infinite}
+.state-icon.empty{background:var(--primary-soft);color:var(--muted)}
+.state-icon.error{background:var(--red-soft);color:var(--red)}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.4)}50%{box-shadow:0 0 0 16px rgba(212,175,55,0)}}
+.state-block h3{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:.5rem}
+.state-block p{font-size:.9rem;color:var(--muted);max-width:520px;margin:0 auto 1.2rem;line-height:1.7}
+.state-block .retry-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.3rem;background:var(--accent-gradient);color:var(--primary);border:none;border-radius:var(--radius-pill);font-family:var(--font-body);font-size:.84rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 2px 10px rgba(212,175,55,.25)}
+.state-block .retry-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(212,175,55,.35)}
+
+.cta-block{background:linear-gradient(135deg,var(--primary) 0%,#163a61 100%);border-radius:var(--radius);padding:3rem 2.5rem;text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.cta-block::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.3) 0%,transparent 70%)}
+.cta-block::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.15) 0%,transparent 70%)}
+.cta-block h3{font-family:var(--font-heading);font-size:1.7rem;color:#fff;margin-bottom:.8rem;position:relative;z-index:2}
+.cta-block p{color:rgba(255,255,255,.78);font-size:1rem;margin-bottom:2rem;position:relative;z-index:2;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-block .btn{position:relative;z-index:2}
+
+footer{background:#fff;border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;position:relative;z-index:5}
+footer .brand{justify-content:center;margin-bottom:1rem;font-size:1.1rem}
+footer p{font-size:.85rem;color:var(--muted);font-family:var(--font-body)}
+
+.tg-float{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#2AABEE,#229ED9);color:#FFF;border-radius:50px;padding:14px 24px;display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:600;font-family:var(--font-body);box-shadow:0 8px 24px rgba(42,171,238,.35);z-index:1000;transition:all .3s cubic-bezier(.175,.885,.32,1.275);border:none;cursor:pointer}
+.tg-float:hover{transform:scale(1.05) translateY(-5px);color:#fff;box-shadow:0 12px 30px rgba(42,171,238,.45)}
+.tg-icon{width:24px;height:24px;fill:currentColor}
+
+#toastWrap{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:.6rem;width:340px}
+.toast{display:flex;align-items:flex-start;gap:.8rem;padding:.85rem 1rem;background:var(--surface);border:1px solid;border-radius:var(--radius-sm);box-shadow:var(--shadow-md);font-size:.88rem;line-height:1.4;transform:translateX(120%);transition:transform .35s cubic-bezier(.2,.8,.2,1);font-family:var(--font-body)}
+.toast.show{transform:translateX(0)}
+.toast.success{border-color:rgba(22,163,74,.4);color:var(--green)}
+.toast.error{border-color:rgba(244,63,94,.4);color:var(--red)}
+.toast.info{border-color:var(--accent);color:#8a7320}
+
+@media(max-width:900px){.jobs-table thead th:nth-child(1),.jobs-table td:nth-child(1){display:none}}
+@media(max-width:768px){.highlights-inner{grid-template-columns:1fr;gap:.6rem;padding:1.2rem 1.5rem}.hero-stats{gap:1.5rem}.controls-bar{flex-direction:column;align-items:stretch}.filter-select{flex:1;min-width:140px}.table-wrap{overflow-x:auto}.jobs-table{min-width:540px}}
+@media(max-width:640px){.hero-banner{padding:3rem 1.2rem 2.5rem}.page-wrap{padding:2rem 1.2rem 4rem}.nav{padding:0 1rem}.nav-links{display:none}#toastWrap{right:12px;left:12px;width:auto}}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="dgv-background" aria-hidden="true">
+  <svg viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="dgv-line dgv-line-1" d="M-100,750 C150,650 300,500 650,450 C1000,400 1200,200 1500,100"/>
+    <path class="dgv-line dgv-line-2" d="M-100,800 C250,700 450,550 800,500 C1100,450 1300,300 1500,150"/>
+    <path class="dgv-line dgv-line-3" d="M-100,850 C350,750 550,650 900,550 C1250,450 1400,350 1500,200"/>
+  </svg>
+</div>
+<div class="floating-icons-overlay" aria-hidden="true">
+  <div class="floating-icon icon-1">CA</div>
+  <div class="floating-icon icon-2">GST</div>
+  <div class="floating-icon icon-3">CFO</div>
+  <div class="floating-icon icon-4">🎯</div>
+</div>
+
+<header>
+  <div class="nav">
+<a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
+        <img src="logo.png" alt="Growitharshiee Logo" style="height: 40px; width: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <span></span>
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Tools</a>
+      <a href="#" class="active">Careers</a>
+    </nav>
+    <a href="#" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book Consultation</a>
+  </div>
+</header>
+
+<section class="hero-banner">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <span class="badge badge-accent">🚀 We're Hiring</span>
+      <span class="badge badge-outline">Careers · Growitharshiee</span>
+      <span class="live-dot">Live openings</span>
+    </div>
+    <h1 class="hero-title">Grow your career with<br><span class="highlight">people who mean business</span></h1>
+    <p class="hero-desc">Join a fast-moving finance and consulting team. We're building something ambitious — and we want sharp, driven professionals who take ownership and create impact.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hs-num" id="statOpen">—</span><span class="hs-lbl">Open Positions</span></div>
+      <div class="hero-stat"><span class="hs-num" id="statIndustries">—</span><span class="hs-lbl">Industries</span></div>
+      <div class="hero-stat"><span class="hs-num" id="statLocations">—</span><span class="hs-lbl">Locations</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="highlights-strip">
+  <div class="highlights-inner">
+    <div class="highlight-chip"><span class="chip-icon">💼</span><span class="chip-text">Finance · Accounting · Consulting · Tech Roles</span></div>
+    <div class="highlight-chip"><span class="chip-icon">📍</span><span class="chip-text">Pan-India · Remote-Friendly Positions</span></div>
+    <div class="highlight-chip"><span class="chip-icon">⚡</span><span class="chip-text">Live Openings — Auto-synced from Google Sheets</span></div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <div class="meta-bar">
+    <span class="last-updated" id="lastUpdated"><i class="fa-solid fa-clock-rotate-left"></i> Connecting to sheet…</span>
+    <span class="auto-refresh-note"><i class="fa-solid fa-rotate"></i> Auto-refreshes every 60 s</span>
+  </div>
+
+  <div class="controls-bar">
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search position, industry, location…" oninput="filterJobs()" />
+    </div>
+    <div class="filter-wrap">
+      <select class="filter-select" id="industryFilter" onchange="filterJobs()"><option value="">All Industries</option></select>
+      <select class="filter-select" id="locationFilter" onchange="filterJobs()"><option value="">All Locations</option></select>
+    </div>
+    <span class="results-count" id="resultsCount"><strong>—</strong> openings</span>
+    <button class="refresh-btn" id="refreshBtn" onclick="fetchJobs(true)">
+      <i class="fa-solid fa-rotate-right"></i> Refresh
+    </button>
+  </div>
+
+  <div class="table-wrap" id="tableWrap">
+    <div class="state-block">
+      <div class="state-icon loading"><i class="fa-solid fa-spinner fa-spin"></i></div>
+      <h3>Loading live openings…</h3>
+      <p>Connecting to your Google Sheet. Just a moment.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h3>Don't see the right role yet?</h3>
+    <p>We're always on the lookout for exceptional talent. Send us your profile and we'll reach out when something fits.</p>
+    <a href="https://t.me/growitharshiee" target="_blank" class="btn btn-primary">
+      <i class="fa-brands fa-telegram"></i> Send Your Profile
+    </a>
+  </div>
+</div>
+
+<footer>
+  <a href="#" class="brand">growitharshiee<span>.</span></a>
+  <p>&copy; <span id="year"></span> Growitharshiee Financial Services. All rights reserved.</p>
+</footer>
+
+<button onclick="window.open('https://t.me/growitharshiee','_blank')" class="tg-float" aria-label="Chat on Telegram">
+  <svg class="tg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.654-.643.135-.953l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
+  Chat on Telegram
+</button>
+<div id="toastWrap"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   BACKEND CONFIG
+   ═══════════════════════════════════════════════════ */
+const SHEET_ID  = '1tMOm6E6XmDiBI2W5Lf2kkxWjBnpjdiKL3ry0XD9pyCI';
+const SHEET_GID = '0';
+const AUTO_REFRESH_MS = 60000;
+
+/* Two Google endpoints — gviz/tq is often more CORS-friendly than /export */
+const SOURCE_URLS = [
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${SHEET_GID}&_=${Date.now()}`,
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}&_=${Date.now()}`
+];
+
+/* CORS proxy fallback chain — tried in order if direct fetch fails.
+   Note: public proxies can rate-limit or go down. If all fail, the
+   permanent fix is to host your own proxy or use a backend endpoint. */
+const PROXIES = [
+  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  url => `https://api.codetabs.com/v1/proxy?quest=${url}`,
+  url => `https://thingproxy.freeboard.io/fetch/${url}`,
+  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
+];
+
+/* ═══════════════════════════════════════════════════ */
+
+let allJobs = [];
+
+/* ── Helpers ── */
+const esc = s => String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toast(msg, type='success') {
+  const icons={success:'<i class="fa-solid fa-circle-check"></i>',error:'<i class="fa-solid fa-circle-exclamation"></i>',info:'<i class="fa-solid fa-circle-info"></i>'};
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`${icons[type]}<div>${msg}</div>`;
+  document.getElementById('toastWrap').appendChild(el);
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),400);},4200);
+}
+
+function setLastUpdated(d) {
+  const t=d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const dt=d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('lastUpdated').innerHTML=`<i class="fa-solid fa-clock-rotate-left"></i> Last synced: ${dt} at ${t}`;
+}
+
+/* ── CSV parser (handles quoted fields & commas inside cells) ── */
+function parseCSV(text) {
+  const rows=[];
+  const lines=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  for(const line of lines){
+    if(!line.trim()) continue;
+    const row=[];let cur='';let inQ=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
+      else if(c===','&&!inQ){row.push(cur.trim());cur='';}
+      else cur+=c;
+    }
+    row.push(cur.trim());
+    rows.push(row);
+  }
+  return rows;
+}
+
+function rowsToJobs(rows){
+  if(!rows.length) return [];
+  const first=rows[0].map(c=>c.toLowerCase().trim());
+  const isHeader=first.some(c=>['industry','position','experience','location','apply','apply link'].includes(c));
+  return (isHeader?rows.slice(1):rows)
+    .map(r=>({
+      industry:(r[0]||'').trim(),
+      position:(r[1]||'').trim(),
+      experience:(r[2]||'').trim(),
+      location:(r[3]||'').trim(),
+      applyLink:(r[4]||'').trim()
+    }))
+    .filter(j=>j.position);
+}
+
+/* ── Sanity check: does the fetched text actually look like our CSV? ── */
+function looksLikeValidCSV(text){
+  if(!text || text.length < 10) return false;
+  /* Guard against Google's HTML "please sign in" page */
+  if(text.toLowerCase().includes('<!doctype html')) return false;
+  if(text.toLowerCase().includes('<html')) return false;
+  return true;
+}
+
+/* ── Smart fetch: try direct, then each proxy, for each source URL ── */
+async function smartFetch() {
+  const errors = [];
+
+  for(const sourceUrl of SOURCE_URLS) {
+    /* 1. Try direct first */
+    try {
+      const r = await fetch(sourceUrl, { cache:'no-store', mode:'cors', credentials:'omit' });
+      if(r.ok) {
+        const text = await r.text();
+        if(looksLikeValidCSV(text)) return { text, via:'direct' };
+      }
+    } catch(e) { errors.push(`direct: ${e.message}`); }
+
+    /* 2. Try each proxy */
+    for(const buildProxy of PROXIES) {
+      try {
+        const proxyUrl = buildProxy(sourceUrl);
+        const r = await fetch(proxyUrl, { cache:'no-store' });
+        if(!r.ok) { errors.push(`proxy ${new URL(proxyUrl).host}: HTTP ${r.status}`); continue; }
+        const ct = r.headers.get('content-type') || '';
+        let text;
+        if(ct.includes('application/json')) {
+          const payload = await r.json();
+          text = payload.contents ?? payload.data ?? '';
+        } else {
+          text = await r.text();
+        }
+        if(looksLikeValidCSV(text)) return { text, via: new URL(proxyUrl).host };
+      } catch(e) { errors.push(`proxy: ${e.message}`); }
+    }
+  }
+  throw new Error('All fetch attempts failed. Make sure the sheet is shared as "Anyone with the link → Viewer". Details logged to console.');
+}
+
+/* ── Main fetch ── */
+async function fetchJobs(manual=false) {
+  const btn=document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  if(!manual && !allJobs.length) showState('loading','Loading live openings…','Syncing with your Google Sheet — just a moment.');
+
+  try {
+    const { text, via } = await smartFetch();
+    console.log(`[Careers] Loaded via: ${via}`);
+    const rows  = parseCSV(text);
+    const jobs  = rowsToJobs(rows);
+
+    if(!jobs.length){
+      showState('empty','No openings right now','Your sheet is connected but has no job rows yet. Add rows and this page updates automatically.');
+      updateStats([]);
+      setLastUpdated(new Date());
+      btn.classList.remove('spinning');
+      return;
+    }
+
+    const changed = JSON.stringify(jobs) !== JSON.stringify(allJobs);
+    if(changed || manual){
+      allJobs = jobs;
+      populateFilters();
+      filterJobs();
+      updateStats(allJobs);
+    }
+    setLastUpdated(new Date());
+    if(manual) toast(`${allJobs.length} opening${allJobs.length!==1?'s':''} refreshed.`,'success');
+
+  } catch(err){
+    console.error('[Careers]', err);
+    if(!allJobs.length) showState('error','Could not load jobs',err.message);
+    if(manual) toast('Refresh failed — check console.','error');
+  }
+  btn.classList.remove('spinning');
+}
+
+/* ── Render ── */
+function chipStyle(industry){
+  const k=(industry||'').toLowerCase();
+  if(k.includes('finance'))   return['#dbeafe','#1d4ed8'];
+  if(k.includes('account'))   return['#dcfce7','#15803d'];
+  if(k.includes('tax'))       return['#fef9c3','#a16207'];
+  if(k.includes('audit'))     return['#ede9fe','#6d28d9'];
+  if(k.includes('consult'))   return['#fff7ed','#c2410c'];
+  if(k.includes('tech')||k.includes('it')||k.includes('soft')) return['#f0fdf4','#16a34a'];
+  if(k.includes('hr')||k.includes('human')) return['#fdf2f8','#9d174d'];
+  if(k.includes('legal'))     return['#f1f5f9','#475569'];
+  if(k.includes('market'))    return['#fff1f2','#be123c'];
+  if(k.includes('ops')||k.includes('operat')) return['#fefce8','#854d0e'];
+  return['rgba(10,37,64,.07)','#0A2540'];
+}
+
+/* Detect whether the Apply Link cell is actually a usable URL */
+function isValidUrl(s){
+  if(!s) return false;
+  const v = s.trim();
+  /* Accept full URLs, or bare domains like linkedin.com/jobs/... */
+  return /^https?:\/\//i.test(v) || /^www\./i.test(v) || /^[\w-]+\.[a-z]{2,}/i.test(v);
+}
+
+function renderTable(jobs){
+  document.getElementById('resultsCount').innerHTML=`<strong>${jobs.length}</strong> opening${jobs.length!==1?'s':''}`;
+  if(!jobs.length){ showState('empty','No results match your search','Try clearing your filters or using a broader term.'); return; }
+  let rows='';
+  jobs.forEach((job,i)=>{
+    const[bg,fg]=chipStyle(job.industry);
+    const hasLink = isValidUrl(job.applyLink);
+    const link = hasLink ? (job.applyLink.startsWith('http') ? job.applyLink : 'https://' + job.applyLink.replace(/^www\./,'')) : '';
+    const applyCell = hasLink
+      ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer" class="apply-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i>Click here to apply</a>`
+      : `<span class="apply-btn disabled" title="Add a URL in the Apply Link column"><i class="fa-solid fa-lock"></i>Link pending</span>`;
+    rows+=`
+      <tr style="animation-delay:${i*.04}s">
+        <td><span class="industry-chip" style="background:${bg};color:${fg};border-color:${bg};">${esc(job.industry||'—')}</span></td>
+        <td><div class="pos-title">${esc(job.position)}</div></td>
+        <td><span class="exp-badge"><i class="fa-solid fa-clock"></i>${esc(job.experience||'—')}</span></td>
+        <td><div class="location-cell"><i class="fa-solid fa-location-dot"></i>${esc(job.location||'—')}</div></td>
+        <td>${applyCell}</td>
+      </tr>`;
+  });
+  document.getElementById('tableWrap').innerHTML=`
+    <table class="jobs-table">
+      <thead><tr>
+        <th><i class="fa-solid fa-layer-group" style="margin-right:5px;"></i>Industry</th>
+        <th><i class="fa-solid fa-briefcase" style="margin-right:5px;"></i>Position</th>
+        <th><i class="fa-solid fa-clock" style="margin-right:5px;"></i>Experience</th>
+        <th><i class="fa-solid fa-location-dot" style="margin-right:5px;"></i>Location</th>
+        <th><i class="fa-solid fa-paper-plane" style="margin-right:5px;"></i>Apply</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function showState(type,title,desc){
+  const icons={loading:'fa-spinner fa-spin',empty:'fa-briefcase',error:'fa-triangle-exclamation'};
+  const retry=type==='error'?`<button class="retry-btn" onclick="fetchJobs(true)"><i class="fa-solid fa-rotate-right"></i> Try Again</button>`:'';
+  document.getElementById('tableWrap').innerHTML=`
+    <div class="state-block">
+      <div class="state-icon ${type}"><i class="fa-solid ${icons[type]}"></i></div>
+      <h3>${esc(title)}</h3><p>${esc(desc)}</p>${retry}
+    </div>`;
+  document.getElementById('resultsCount').innerHTML='<strong>—</strong> openings';
+}
+
+/* ── Stats counter ── */
+function updateStats(jobs){
+  const ind=new Set(jobs.map(j=>j.industry).filter(Boolean));
+  const loc=new Set(jobs.map(j=>j.location).filter(Boolean));
+  animateNum('statOpen',jobs.length);
+  animateNum('statIndustries',ind.size);
+  animateNum('statLocations',loc.size);
+}
+function animateNum(id,target){
+  const el=document.getElementById(id);if(!el)return;
+  const start=parseInt(el.textContent)||0;
+  const t0=performance.now();const dur=600;
+  const step=t=>{const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(start+(target-start)*p);if(p<1)requestAnimationFrame(step);else el.textContent=target;};
+  requestAnimationFrame(step);
+}
+
+/* ── Filters ── */
+function populateFilters(){
+  const inds=[...new Set(allJobs.map(j=>j.industry).filter(Boolean))].sort();
+  const locs=[...new Set(allJobs.map(j=>j.location).filter(Boolean))].sort();
+  const iS=document.getElementById('industryFilter'),lS=document.getElementById('locationFilter');
+  const iv=iS.value,lv=lS.value;
+  iS.innerHTML='<option value="">All Industries</option>'+inds.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  lS.innerHTML='<option value="">All Locations</option>'+locs.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  iS.value=iv;lS.value=lv;
+}
+function filterJobs(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const iv=document.getElementById('industryFilter').value;
+  const lv=document.getElementById('locationFilter').value;
+  const f=allJobs.filter(j=>{
+    const txt=[j.position,j.industry,j.location,j.experience].join(' ').toLowerCase();
+    return(!q||txt.includes(q))&&(!iv||j.industry===iv)&&(!lv||j.location===lv);
+  });
+  renderTable(f);
+}
+
+/* ── Scroll progress bar ── */
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('progress-bar').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100||0)+'%';
+});
+
+/* ── Boot ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('year').textContent=new Date().getFullYear();
+  fetchJobs();
+  setInterval(()=>fetchJobs(false),AUTO_REFRESH_MS);
+});
+</script>
+</body>
+</html>
