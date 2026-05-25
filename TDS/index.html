@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Favicon -->
-<link rel="icon" type="image/png" href="SVG.png" />
-<link rel="shortcut icon" type="image/png" href="SVG.png" />
-<link rel="apple-touch-icon" href="SVG.png" />
+  <link rel="icon" type="image/png" href="SVG.png" />
+  <link rel="shortcut icon" type="image/png" href="SVG.png" />
+  <link rel="apple-touch-icon" href="SVG.png" />
   <title>Premium TDS & GST Calculator | Growitharshiee</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Instantly calculate GST, applicable TDS, and the final net payable amount for your invoices." />
@@ -14,6 +13,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- jsPDF for client-side PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
     :root {
@@ -54,7 +55,6 @@
 
     a { text-decoration: none; color: inherit; }
 
-    /* ── PROGRESS BAR ── */
     #progress-bar {
       position: fixed; top: 0; left: 0; height: 3px; width: 0%;
       background: var(--accent-gradient);
@@ -62,7 +62,6 @@
       box-shadow: 0 0 8px rgba(212,175,55,0.5);
     }
 
-    /* ── HEADER ── */
     header {
       position: sticky; top: 0; z-index: 200;
       background: rgba(255,255,255,0.96);
@@ -99,8 +98,12 @@
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(212,175,55,0.3); filter: brightness(1.04); }
     .btn-outline { border: 1px solid var(--border); background: transparent; color: var(--text); }
     .btn-outline:hover { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+    .btn-pdf {
+      background: linear-gradient(135deg, #0A2540, #163a61); color: #fff;
+      box-shadow: 0 4px 16px rgba(10,37,64,0.2);
+    }
+    .btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(10,37,64,0.3); filter: brightness(1.1); }
 
-    /* ── BACKGROUNDS ── */
     .dgv-background {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 0; pointer-events: none; opacity: 0.5;
@@ -136,7 +139,6 @@
     .icon-3 { left: 85%; animation-duration: 15s; animation-delay: 5s; font-size: 1.8rem; }
     .icon-4 { left: 75%; animation-duration: 25s; animation-delay: 1s; font-size: 1.2rem; }
 
-    /* ── HERO BANNER ── */
     .hero-banner {
       background: linear-gradient(135deg, var(--primary) 0%, #163a61 60%, #0d2d50 100%);
       padding: 4.5rem 2rem 3.5rem; position: relative; overflow: hidden;
@@ -147,12 +149,8 @@
       background: radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%);
       pointer-events: none;
     }
-    .hero-inner {
-      max-width: 820px; margin: 0 auto; position: relative; z-index: 2;
-    }
-    .hero-top {
-      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap;
-    }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
     .badge {
       font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.08em; padding: 0.3rem 0.85rem;
@@ -175,9 +173,7 @@
       font-family: var(--font-body); font-size: 0.82rem; color: rgba(255,255,255,0.6);
     }
     .hero-meta .sep { opacity: 0.3; }
-    .author-chip {
-      display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: rgba(255,255,255,0.85);
-    }
+    .author-chip { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: rgba(255,255,255,0.85); }
     .author-avatar {
       width: 30px; height: 30px; border-radius: 50%;
       background: var(--accent-gradient); color: var(--primary);
@@ -185,10 +181,7 @@
       font-size: 0.8rem; font-weight: 700;
     }
 
-    /* ── KEY HIGHLIGHTS STRIP ── */
-    .highlights-strip {
-      background: var(--surface); border-bottom: 1px solid var(--border);
-    }
+    .highlights-strip { background: var(--surface); border-bottom: 1px solid var(--border); }
     .highlights-inner {
       max-width: 820px; margin: 0 auto; padding: 1.5rem 2rem;
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
@@ -202,13 +195,11 @@
     .highlight-chip .chip-icon { font-size: 1.3rem; flex-shrink: 0; }
     .highlight-chip .chip-text { font-size: 0.82rem; font-weight: 600; color: var(--primary); font-family: var(--font-body); line-height: 1.3; }
 
-    /* ── LAYOUT ── */
     .page-layout {
       max-width: 1150px; margin: 0 auto; padding: 3rem 2rem 5rem;
       display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start;
     }
 
-    /* ── ARTICLE / CONTENT ── */
     .article-body { min-width: 0; }
     .back-link {
       display: inline-flex; align-items: center; gap: 0.4rem;
@@ -234,26 +225,17 @@
       display: flex; align-items: center; gap: 0.6rem;
       padding-bottom: 0.75rem; border-bottom: 2px solid var(--accent-soft);
     }
-    .section-block h3 {
-      font-family: var(--font-body); font-size: 1.05rem; font-weight: 700;
-      color: var(--text); margin: 1.4rem 0 0.7rem;
-    }
-    .section-block p {
-      font-size: 0.97rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.75;
-    }
+    .section-block h3 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 1.4rem 0 0.7rem; }
+    .section-block p { font-size: 0.97rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.75; }
 
-    /* ── CALCULATOR SPECIFIC STYLES ── */
     .calc-container {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 2rem;
-      margin-top: 1.5rem;
+      background: var(--surface-alt); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 2rem; margin-top: 1.5rem;
     }
     .form-group { margin-bottom: 1.5rem; }
     .form-group label { display: block; font-size: 0.9rem; font-weight: 600; font-family: var(--font-body); margin-bottom: 0.6rem; color: var(--text); }
-    
-    .input-wrapper { position: relative; display: flex; align-items: center;}
+
+    .input-wrapper { position: relative; display: flex; align-items: center; }
     .input-wrapper span { position: absolute; left: 1rem; color: var(--muted); font-weight: 600; }
     .input-wrapper input {
       width: 100%; padding: 0.9rem 1rem 0.9rem 2.2rem;
@@ -278,29 +260,36 @@
     .calc-btn-group { display: flex; gap: 1rem; margin-top: 2rem; }
     .calc-btn-group .btn { flex: 1; padding: 1rem; font-size: 1rem; }
 
-    /* Results Box */
     .result-box {
       display: none; margin-top: 2.5rem;
       background: var(--surface); padding: 2rem;
       border-radius: var(--radius-sm); border: 1px solid var(--border);
       box-shadow: var(--shadow-md); animation: fadeIn 0.4s ease-out;
     }
+    .result-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--accent-soft);
+      flex-wrap: wrap; gap: 0.75rem;
+    }
+    .result-header h3 {
+      font-family: var(--font-body); font-size: 1rem; font-weight: 700;
+      color: var(--primary); display: flex; align-items: center; gap: 0.5rem;
+    }
     .result-row {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 1rem; font-size: 0.95rem; color: var(--muted); font-family: var(--font-body);
     }
-    .result-row span:last-child { font-weight: 600; color: var(--primary); font-family: var(--font-read); font-size: 1.05rem;}
+    .result-row span:last-child { font-weight: 600; color: var(--primary); font-family: var(--font-read); font-size: 1.05rem; }
     .result-total {
       border-top: 1px dashed var(--border);
       padding-top: 1.5rem; margin-top: 1.5rem;
       font-size: 1.2rem; font-weight: 700; color: var(--primary);
     }
-    .result-total span:last-child { color: var(--accent); font-size: 1.4rem;}
+    .result-total span:last-child { color: var(--accent); font-size: 1.4rem; }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Table */
-    .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 1rem; margin-bottom: 1.5rem;}
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 1rem; margin-bottom: 1.5rem; }
     table { width: 100%; border-collapse: collapse; background: #fff; }
     thead tr { background: var(--primary); }
     th { padding: 1rem 1.3rem; text-align: left; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.06em; }
@@ -309,7 +298,6 @@
     td:first-child { font-weight: 700; color: var(--primary); }
     tbody tr:hover { background: var(--surface-alt); }
 
-    /* FAQ Accordion */
     .faq-list { margin-top: 0.5rem; }
     .faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 0.75rem; overflow: hidden; transition: box-shadow var(--transition); }
     .faq-item:hover { box-shadow: var(--shadow); }
@@ -325,7 +313,6 @@
     .faq-answer.open { max-height: 200px; }
     .faq-answer-inner { padding: 0 1.4rem 1.2rem; font-size: 0.93rem; color: var(--muted); line-height: 1.7; }
 
-    /* CTA Block */
     .cta-block {
       background: linear-gradient(135deg, var(--primary) 0%, #163a61 100%);
       border-radius: var(--radius); padding: 3rem 2.5rem; text-align: center;
@@ -337,7 +324,6 @@
     .cta-block p { color: rgba(255,255,255,0.78); font-size: 1rem; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 480px; margin-left: auto; margin-right: auto; }
     .cta-block .btn { position: relative; z-index: 2; font-size: 0.95rem; padding: 0.85rem 2rem; }
 
-    /* ── SIDEBAR ── */
     .sidebar { position: sticky; top: 90px; }
     .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: var(--shadow); }
     .sidebar-card h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--accent-soft); }
@@ -357,12 +343,10 @@
     .share-btn { flex: 1; min-width: 0; padding: 0.55rem 0.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface-alt); color: var(--muted); font-size: 0.8rem; font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: all var(--transition); text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.35rem; }
     .share-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-1px); }
 
-    /* ── FOOTER ── */
     footer { background: #fff; border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
     footer .brand { justify-content: center; margin-bottom: 1rem; font-size: 1.1rem; }
     footer p { font-size: 0.85rem; color: var(--muted); font-family: var(--font-body); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .page-layout { grid-template-columns: 1fr; gap: 2rem; }
       .sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -375,6 +359,7 @@
       .hero-title { font-size: 1.6rem; }
       .sidebar { grid-template-columns: 1fr; }
       .calc-btn-group { flex-direction: column; }
+      .result-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -391,7 +376,7 @@
   </div>
 
   <div class="floating-icons-overlay">
-    <div class="floating-icon icon-1">₹</div>
+    <div class="floating-icon icon-1">&#x20B9;</div>
     <div class="floating-icon icon-2">%</div>
     <div class="floating-icon icon-3">TDS</div>
     <div class="floating-icon icon-4">Calc</div>
@@ -418,18 +403,18 @@
   <section class="hero-banner">
     <div class="hero-inner">
       <div class="hero-top">
-        <span class="badge badge-accent">🧮 Interactive Tool</span>
-        <span class="badge badge-outline">Invoicing & Compliance</span>
+        <span class="badge badge-accent">&#x1F9EE; Interactive Tool</span>
+        <span class="badge badge-outline">Invoicing &amp; Compliance</span>
       </div>
       <h1 class="hero-title">
-        Premium TDS & GST Calculator<br>
+        Premium TDS &amp; GST Calculator<br>
         <span class="highlight">for Businesses and Freelancers</span>
       </h1>
       <p class="hero-desc">Instantly calculate GST, applicable TDS deductions, and the final net payable amount for your invoices to ensure perfect compliance before hitting send.</p>
       <div class="hero-meta">
         <div class="author-chip">
           <div class="author-avatar">H</div>
-          Harshith G S &nbsp;·&nbsp; CA Inter
+          Harshith G S &nbsp;&middot;&nbsp; CA Inter
         </div>
         <span class="sep">|</span>
         <span>Updated for 2026</span>
@@ -440,15 +425,15 @@
   <div class="highlights-strip">
     <div class="highlights-inner">
       <div class="highlight-chip">
-        <span class="chip-icon">🧾</span>
+        <span class="chip-icon">&#x1F9FE;</span>
         <span class="chip-text">Accurate GST Calculations</span>
       </div>
       <div class="highlight-chip">
-        <span class="chip-icon">✂️</span>
+        <span class="chip-icon">&#x2702;&#xFE0F;</span>
         <span class="chip-text">Instant TDS Deductions</span>
       </div>
       <div class="highlight-chip">
-        <span class="chip-icon">💰</span>
+        <span class="chip-icon">&#x1F4B0;</span>
         <span class="chip-text">Clear Net Payable Amounts</span>
       </div>
     </div>
@@ -468,13 +453,13 @@
       </div>
 
       <div class="section-block visible" id="sec-calculator">
-        <h2><span class="h2-icon">🧮</span> TDS & GST Calculator</h2>
-        
+        <h2><span class="h2-icon">&#x1F9EE;</span> TDS &amp; GST Calculator</h2>
+
         <div class="calc-container">
           <div class="form-group">
             <label for="taxable">Taxable Amount (Base Invoice Value)</label>
             <div class="input-wrapper">
-              <span>₹</span>
+              <span>&#x20B9;</span>
               <input type="number" id="taxable" placeholder="e.g. 50000" min="0">
             </div>
           </div>
@@ -492,9 +477,9 @@
             <select id="tdsSection" class="custom-select" onchange="setRate()">
               <option value="">Select Category...</option>
               <option value="2">Contractor (2%)</option>
-              <option value="10">Professional & Technical Fees (10%)</option>
+              <option value="10">Professional &amp; Technical Fees (10%)</option>
               <option value="5">Commission or Brokerage (5%)</option>
-              <option value="10">Rent - Plant & Machinery (2%) / Land & Building (10%)</option>
+              <option value="10">Rent - Plant &amp; Machinery (2%) / Land &amp; Building (10%)</option>
               <option value="0.1">Purchase of Goods (0.1%)</option>
             </select>
           </div>
@@ -513,34 +498,41 @@
           </div>
 
           <div class="result-box" id="result">
+            <div class="result-header">
+              <h3><i class="fa-solid fa-receipt"></i> Calculation Summary</h3>
+              <button class="btn btn-pdf" onclick="downloadPDF()" id="downloadBtn">
+                <i class="fa-solid fa-file-arrow-down"></i> Download PDF
+              </button>
+            </div>
+
             <div class="result-row">
               <span>Base Taxable Amount</span>
-              <span id="resTaxable">₹ 0.00</span>
+              <span id="resTaxable">&#x20B9; 0.00</span>
             </div>
             <div class="result-row">
               <span>GST Added (+)</span>
-              <span id="resGst">₹ 0.00</span>
+              <span id="resGst">&#x20B9; 0.00</span>
             </div>
             <div class="result-row" style="background: var(--bg); padding: 0.8rem; border-radius: var(--radius-sm); margin: 1rem 0;">
               <span style="color: var(--text);">Gross Invoice Total</span>
-              <span id="resInvoiceTotal" style="color: var(--text);">₹ 0.00</span>
+              <span id="resInvoiceTotal" style="color: var(--text);">&#x20B9; 0.00</span>
             </div>
             <div class="result-row">
               <span>TDS Deducted (-)</span>
-              <span id="resTds" style="color: #b91c1c;">₹ 0.00</span>
+              <span id="resTds" style="color: #b91c1c;">&#x20B9; 0.00</span>
             </div>
             <div class="result-row result-total">
               <span>Final Net Payable</span>
-              <span id="resNet">₹ 0.00</span>
+              <span id="resNet">&#x20B9; 0.00</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="section-block" id="sec-reference">
-        <h2><span class="h2-icon">📑</span> Standard TDS Rates Reference</h2>
+        <h2><span class="h2-icon">&#x1F4D1;</span> Standard TDS Rates Reference</h2>
         <p>A quick reference guide for common TDS deduction rates applicable to freelancers and service providers.</p>
-        
+
         <div class="table-wrap">
           <table>
             <thead>
@@ -576,7 +568,7 @@
       </div>
 
       <div class="section-block" id="sec-faq">
-        <h2><span class="h2-icon">❓</span> Frequently Asked Questions</h2>
+        <h2><span class="h2-icon">&#x2753;</span> Frequently Asked Questions</h2>
         <div class="faq-list">
           <div class="faq-item">
             <button class="faq-question" onclick="toggleFAQ(this)">
@@ -602,14 +594,14 @@
               <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
             </button>
             <div class="faq-answer">
-              <div class="faq-answer-inner">TDS and GST are separate compliances. If your income is below the GST threshold (typically ₹20 Lakhs), you do not need to charge GST, but your client may still be required to deduct TDS if the payment exceeds the TDS threshold limit.</div>
+              <div class="faq-answer-inner">TDS and GST are separate compliances. If your income is below the GST threshold (typically Rs.20 Lakhs), you do not need to charge GST, but your client may still be required to deduct TDS if the payment exceeds the TDS threshold limit.</div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="cta-block section-block" id="sec-cta">
-        <h3>Need Help with Invoicing & Compliance?</h3>
+        <h3>Need Help with Invoicing &amp; Compliance?</h3>
         <p>Ensure your business is fully compliant with the latest GST and TDS regulations. Let us handle the numbers so you can focus on growth.</p>
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Form/" class="btn btn-primary">
           <i class="fa-solid fa-arrow-right"></i> Book a Free Consultation
@@ -622,7 +614,7 @@
         <h4>Tool Index</h4>
         <ul class="toc-list">
           <li><a href="#sec-intro"><span class="toc-num">01</span> Introduction</a></li>
-          <li><a href="#sec-calculator"><span class="toc-num">02</span> TDS & GST Calculator</a></li>
+          <li><a href="#sec-calculator"><span class="toc-num">02</span> TDS &amp; GST Calculator</a></li>
           <li><a href="#sec-reference"><span class="toc-num">03</span> TDS Rates Reference</a></li>
           <li><a href="#sec-faq"><span class="toc-num">04</span> FAQs</a></li>
         </ul>
@@ -666,7 +658,10 @@
   </footer>
 
   <script>
-    // --- UI Scripts (TOC, Reveal, FAQ) ---
+    // ── Stored calculation values for PDF ──
+    let calcData = {};
+
+    // ── UI Scripts ──
     window.addEventListener('scroll', () => {
       const doc = document.documentElement;
       const scrolled = doc.scrollTop;
@@ -685,7 +680,7 @@
       entries.forEach(e => {
         if (e.isIntersecting) {
           tocLinks.forEach(l => l.classList.remove('toc-active'));
-          const active = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+          const active = document.querySelector('.toc-list a[href="#' + e.target.id + '"]');
           if (active) active.classList.add('toc-active');
         }
       });
@@ -702,11 +697,10 @@
 
     function shareArticle(platform) {
       const url = encodeURIComponent(window.location.href);
-      const title = encodeURIComponent(document.title);
       if (platform === 'linkedin') {
-        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + url, '_blank');
       } else if (platform === 'whatsapp') {
-        window.open(`https://wa.me/?text=Check out this useful TDS and GST Calculator!%20${url}`, '_blank');
+        window.open('https://wa.me/?text=Check out this useful TDS and GST Calculator! ' + url, '_blank');
       }
     }
 
@@ -716,69 +710,59 @@
         btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
         btn.style.background = '#dcfce7';
         btn.style.color = '#166534';
-        setTimeout(() => {
-          btn.innerHTML = original;
-          btn.style.background = '';
-          btn.style.color = '';
-        }, 2000);
+        setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; btn.style.color = ''; }, 2000);
       });
     }
 
-    // --- CALCULATOR LOGIC ---
+    // ── CALCULATOR LOGIC ──
     function setRate() {
-      // The value of the select option is the rate percentage
-      let selectedVal = document.getElementById("tdsSection").value;
-      
-      // Handle the dual rate option for Rent (defaults to 10% for calculation simplicity, but users can manually edit)
-      if (selectedVal === "10" && document.getElementById("tdsSection").options[document.getElementById("tdsSection").selectedIndex].text.includes("Rent")) {
-        document.getElementById("tdsRate").value = "10"; 
-      } else {
-        document.getElementById("tdsRate").value = selectedVal;
-      }
+      const sel = document.getElementById("tdsSection");
+      document.getElementById("tdsRate").value = sel.value;
     }
 
     function formatCurrency(num) {
-      return "₹ " + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return "Rs. " + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    function animateValue(id, endValue, duration = 800) {
+    function formatCurrencySymbol(num) {
+      return "\u20B9 " + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function animateValue(id, endValue, duration) {
+      duration = duration || 800;
       let element = document.getElementById(id);
-      let startValue = 0;
       let startTimestamp = null;
       const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const current = progress * endValue;
-        element.innerText = formatCurrency(current);
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        } else {
-          element.innerText = formatCurrency(endValue); // Ensure exact final value
-        }
+        element.innerText = formatCurrencySymbol(progress * endValue);
+        if (progress < 1) { window.requestAnimationFrame(step); }
+        else { element.innerText = formatCurrencySymbol(endValue); }
       };
       window.requestAnimationFrame(step);
     }
 
     function calculate() {
-      let taxable = parseFloat(document.getElementById("taxable").value) || 0;
-      let gstRate = parseFloat(document.getElementById("gstRate").value) || 0;
-      let tdsRate = parseFloat(document.getElementById("tdsRate").value) || 0;
+      const taxable  = parseFloat(document.getElementById("taxable").value) || 0;
+      const gstRate  = parseFloat(document.getElementById("gstRate").value) || 0;
+      const tdsRate  = parseFloat(document.getElementById("tdsRate").value) || 0;
+      const tdsLabel = document.getElementById("tdsSection").options[document.getElementById("tdsSection").selectedIndex].text || "N/A";
 
-      let gst = taxable * (gstRate / 100);
-      let invoiceTotal = taxable + gst;
-      // TDS is calculated on the taxable amount (base value), NOT the invoice total with GST
-      let tds = taxable * (tdsRate / 100); 
-      let amountAfterTds = invoiceTotal - tds;
+      const gst           = taxable * (gstRate / 100);
+      const invoiceTotal  = taxable + gst;
+      const tds           = taxable * (tdsRate / 100);
+      const amountAfterTds = invoiceTotal - tds;
+
+      // Store for PDF
+      calcData = { taxable, gstRate, tdsRate, tdsLabel, gst, invoiceTotal, tds, amountAfterTds };
 
       document.getElementById("result").style.display = "block";
-
       animateValue("resTaxable", taxable, 600);
       animateValue("resGst", gst, 600);
       animateValue("resInvoiceTotal", invoiceTotal, 800);
       animateValue("resTds", tds, 600);
       animateValue("resNet", amountAfterTds, 1000);
-      
-      // Scroll smoothly to results
+
       document.getElementById('sec-calculator').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
@@ -788,11 +772,208 @@
       document.getElementById("tdsSection").value = "";
       document.getElementById("tdsRate").value = "";
       document.getElementById("result").style.display = "none";
-      document.getElementById("resTaxable").innerText = "₹ 0.00";
-      document.getElementById("resGst").innerText = "₹ 0.00";
-      document.getElementById("resInvoiceTotal").innerText = "₹ 0.00";
-      document.getElementById("resTds").innerText = "₹ 0.00";
-      document.getElementById("resNet").innerText = "₹ 0.00";
+      calcData = {};
+    }
+
+    // ── PDF DOWNLOAD ──
+    function downloadPDF() {
+      if (!calcData || !calcData.taxable) {
+        alert("Please calculate first before downloading.");
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+      const pageW  = doc.internal.pageSize.getWidth();
+      const pageH  = doc.internal.pageSize.getHeight();
+      const margin = 20;
+      const colR   = pageW - margin;  // right column x
+
+      // ── Colour palette ──
+      const navy  = [10, 37, 64];
+      const gold  = [212, 175, 55];
+      const light = [244, 246, 249];
+      const muted = [90, 106, 130];
+      const white = [255, 255, 255];
+      const red   = [185, 28, 28];
+
+      // ── Header band ──
+      doc.setFillColor(...navy);
+      doc.rect(0, 0, pageW, 40, 'F');
+
+      // Gold accent bar at top
+      doc.setFillColor(...gold);
+      doc.rect(0, 0, pageW, 3, 'F');
+
+      // Brand name
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.setTextColor(...white);
+      doc.text('growitharshiee.', margin, 18);
+
+      // Tagline
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(180, 196, 215);
+      doc.text('Financial Services | Tax & Compliance Tools', margin, 24);
+
+      // Document title (right-aligned)
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13);
+      doc.setTextColor(...gold);
+      doc.text('TDS & GST Calculation Receipt', colR, 16, { align: 'right' });
+
+      // Date
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+      const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(180, 196, 215);
+      doc.text('Generated: ' + dateStr + '  ' + timeStr, colR, 23, { align: 'right' });
+      doc.text('growitharshiee.in | Updated for 2026 Standards', colR, 29, { align: 'right' });
+
+      // ── Info strip ──
+      doc.setFillColor(...light);
+      doc.rect(0, 40, pageW, 18, 'F');
+      doc.setDrawColor(...gold);
+      doc.setLineWidth(0.4);
+      doc.line(margin, 40, colR, 40);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...muted);
+      doc.text('NATURE OF PAYMENT', margin, 49);
+      doc.text('GST RATE', pageW / 2 - 15, 49);
+      doc.text('TDS RATE', pageW - 70, 49);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(...navy);
+      const tdsLabelShort = calcData.tdsLabel.length > 38 ? calcData.tdsLabel.substring(0, 38) + '...' : calcData.tdsLabel;
+      doc.text(tdsLabelShort, margin, 55);
+      doc.text(calcData.gstRate + '%', pageW / 2 - 15, 55);
+      doc.text(calcData.tdsRate + '%', pageW - 70, 55);
+
+      // ── Section title ──
+      let y = 72;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(...navy);
+      doc.text('CALCULATION BREAKDOWN', margin, y);
+      doc.setDrawColor(...gold);
+      doc.setLineWidth(0.6);
+      doc.line(margin, y + 2, colR, y + 2);
+
+      // ── Helper: draw a result row ──
+      function drawRow(label, value, yPos, opts) {
+        opts = opts || {};
+        const bgColor    = opts.bg       || null;
+        const valColor   = opts.valColor || navy;
+        const labelColor = opts.labelColor || muted;
+        const isBold     = opts.bold     || false;
+        const rowH       = opts.rowH     || 10;
+
+        if (bgColor) {
+          doc.setFillColor(...bgColor);
+          doc.rect(margin, yPos - 5, colR - margin, rowH, 'F');
+        }
+
+        doc.setFont('helvetica', isBold ? 'bold' : 'normal');
+        doc.setFontSize(isBold ? 11 : 9.5);
+        doc.setTextColor(...labelColor);
+        doc.text(label, margin + (bgColor ? 4 : 0), yPos);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(isBold ? 12 : 10);
+        doc.setTextColor(...valColor);
+        doc.text(value, colR - (bgColor ? 4 : 0), yPos, { align: 'right' });
+      }
+
+      function fmtPDF(num) {
+        return 'Rs. ' + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      y += 12;
+      drawRow('Base Taxable Amount', fmtPDF(calcData.taxable), y);
+
+      y += 12;
+      drawRow('GST @ ' + calcData.gstRate + '% (+)', fmtPDF(calcData.gst), y, { valColor: [22, 101, 52] });
+
+      y += 6;
+      drawRow('Gross Invoice Total', fmtPDF(calcData.invoiceTotal), y + 8, { bg: [226, 232, 240], bold: true, rowH: 13, valColor: navy, labelColor: navy });
+      y += 16;
+
+      y += 10;
+      drawRow('TDS @ ' + calcData.tdsRate + '% (-)', fmtPDF(calcData.tds), y, { valColor: red });
+
+      // ── Divider ──
+      y += 8;
+      doc.setDrawColor(...gold);
+      doc.setLineWidth(0.5);
+      doc.setLineDash([2, 2], 0);
+      doc.line(margin, y, colR, y);
+      doc.setLineDash([], 0);
+
+      // ── Net payable (highlighted) ──
+      y += 5;
+      doc.setFillColor(...navy);
+      doc.roundedRect(margin, y, colR - margin, 18, 3, 3, 'F');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(...white);
+      doc.text('FINAL NET PAYABLE', margin + 6, y + 10);
+
+      doc.setFontSize(14);
+      doc.setTextColor(...gold);
+      doc.text(fmtPDF(calcData.amountAfterTds), colR - 6, y + 11, { align: 'right' });
+
+      // ── Disclaimer ──
+      y += 30;
+      doc.setFillColor(254, 252, 232);
+      doc.rect(margin, y, colR - margin, 16, 'F');
+      doc.setDrawColor(212, 175, 55);
+      doc.setLineWidth(0.3);
+      doc.rect(margin, y, colR - margin, 16, 'S');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(146, 64, 14);
+      doc.text('DISCLAIMER', margin + 4, y + 6);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(120, 80, 10);
+      doc.text('This receipt is generated for informational purposes only. TDS is calculated on the base taxable amount', margin + 4, y + 11);
+      doc.text('excluding GST (as per CBDT guidelines). Please consult a qualified CA for binding advice.', margin + 4, y + 15.5);
+
+      // ── Footer ──
+      doc.setFillColor(...navy);
+      doc.rect(0, pageH - 18, pageW, 18, 'F');
+      doc.setFillColor(...gold);
+      doc.rect(0, pageH - 18, pageW, 1.5, 'F');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...gold);
+      doc.text('growitharshiee.', margin, pageH - 9);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(180, 196, 215);
+      doc.text('Financial Services | harshiee-s.github.io/growitharshiee-financial-services', margin, pageH - 4.5);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(180, 196, 215);
+      doc.text('Developed by Harshith G S', colR, pageH - 9, { align: 'right' });
+      doc.text('This is a system-generated document.', colR, pageH - 4.5, { align: 'right' });
+
+      // ── Save ──
+      const filename = 'TDS-GST-Receipt-' + now.getFullYear() + ('0' + (now.getMonth() + 1)).slice(-2) + ('0' + now.getDate()).slice(-2) + '.pdf';
+      doc.save(filename);
     }
   </script>
 </body>
