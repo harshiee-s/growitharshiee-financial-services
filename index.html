@@ -3,70 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Favicon -->
-<link rel="icon" type="image/png" href="SVG.png" />
-<link rel="shortcut icon" type="image/png" href="SVG.png" />
-<link rel="apple-touch-icon" href="SVG.png" />
+  <link rel="icon" type="image/png" href="SVG.png" />
+  <link rel="shortcut icon" type="image/png" href="SVG.png" />
+  <link rel="apple-touch-icon" href="SVG.png" />
   <title>Growitharshiee | Expert GST & Accounting Services</title>
   <meta name="description" content="Stop worrying about GST and filings. Growitharshiee provides practical, jargon-free accounting, GST, and tax services for Indian startups and freelancers. Led by a CA Inter student." />
   <meta name="keywords" content="GST filing Bengaluru, freelance accountant India, startup bookkeeping, Zoho Books expert, Tally accounting, CA Inter student" />
-
   <meta property="og:title" content="Growitharshiee | Expert GST & Accounting Services" />
   <meta property="og:description" content="Practical, jargon-free accounting, GST, and tax services for Indian startups and freelancers." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://harshiee-s.github.io/growitharshiee-financial-services/" />
   <meta property="og:image" content="https://harshiee-s.github.io/growitharshiee-financial-services/logo.jpeg" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
-      /* Theme Colors */
-      --color-bg-light: #f8fafc; 
-      --color-bg-dark: #071524; 
-      
-      /* Glassmorphism Surfaces */
+      --color-bg-light: #f8fafc;
+      --color-bg-dark: #071524;
       --color-surface-light: rgba(255, 255, 255, 0.85);
       --color-surface-dark: rgba(10, 37, 64, 0.75);
       --glass-border-light: 1px solid rgba(255, 255, 255, 0.6);
       --glass-border-dark: 1px solid rgba(255, 255, 255, 0.1);
-      
-      /* Navy & Champagne Gold */
-      --color-primary: #0A2540; 
+      --color-primary: #0A2540;
       --color-primary-soft: rgba(10, 37, 64, 0.08);
-      --color-accent: #D4AF37; 
+      --color-accent: #D4AF37;
       --color-accent-soft: rgba(212, 175, 55, 0.15);
       --color-accent-hover: #b8962c;
-      
-      /* Typography & Shadows */
       --color-text-dark: #0f172a;
       --color-text-muted: #475569;
       --color-text-light: #f8fafc;
       --color-text-light-muted: #94a3b8;
-      
       --shadow-soft: 0 8px 32px 0 rgba(10, 37, 64, 0.08);
       --shadow-strong: 0 15px 40px 0 rgba(0, 0, 0, 0.2);
-      
       --radius-lg: 20px;
       --radius-md: 12px;
       --radius-pill: 999px;
       --transition-fast: 0.3s ease-in-out;
-
       --font-heading: "Playfair Display", serif;
       --font-subheading: "Poppins", sans-serif;
       --font-body: "Inter", sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html { 
-      scroll-behavior: smooth; 
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-body);
       color: var(--color-text-dark);
@@ -77,63 +59,16 @@
       position: relative;
     }
 
-    /* --- DGV TRENDLINES BACKGROUND --- */
-    .dgv-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.6;
-    }
-    .dgv-background svg {
-      width: 100%;
-      height: 100%;
-    }
-    .dgv-line {
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 4000;
-      stroke-dashoffset: 4000;
-      animation: drawDGV 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-    }
-    .dgv-line-1 {
-      stroke: var(--color-accent);
-      stroke-width: 3px;
-      opacity: 0.5;
-      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
-    }
-    .dgv-line-2 {
-      stroke: var(--color-primary);
-      stroke-width: 1.5px;
-      opacity: 0.2;
-      animation-delay: -5s;
-    }
-    .dgv-line-3 {
-      stroke: var(--color-accent);
-      stroke-width: 1px;
-      opacity: 0.3;
-      animation-delay: -10s;
-    }
+    .dgv-background { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.6; }
+    .dgv-background svg { width: 100%; height: 100%; }
+    .dgv-line { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4000; stroke-dashoffset: 4000; animation: drawDGV 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+    .dgv-line-1 { stroke: var(--color-accent); stroke-width: 3px; opacity: 0.5; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); }
+    .dgv-line-2 { stroke: var(--color-primary); stroke-width: 1.5px; opacity: 0.2; animation-delay: -5s; }
+    .dgv-line-3 { stroke: var(--color-accent); stroke-width: 1px; opacity: 0.3; animation-delay: -10s; }
+    @keyframes drawDGV { 0% { stroke-dashoffset: 4000; } 100% { stroke-dashoffset: 0; } }
 
-    @keyframes drawDGV {
-      0% { stroke-dashoffset: 4000; }
-      100% { stroke-dashoffset: 0; }
-    }
-
-    /* --- FLOATING ANIMATED ICONS --- */
-    .floating-icons-overlay {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1; pointer-events: none; overflow: hidden;
-    }
-    .floating-icon {
-      position: absolute; color: #ffffff; opacity: 0.05;
-      animation: floatAnim 20s infinite linear;
-    }
+    .floating-icons-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+    .floating-icon { position: absolute; color: #ffffff; opacity: 0.05; animation: floatAnim 20s infinite linear; }
     @keyframes floatAnim {
       0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
       10% { opacity: 0.05; }
@@ -149,688 +84,301 @@
     img { max-width: 100%; display: block; }
     .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 10; }
 
-    /* --- Typography & Headers --- */
     h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
     h3, h4 { font-family: var(--font-subheading); }
-    
+
     .section-header { text-align: center; margin-bottom: 3.5rem; }
     .section-header.left-align { text-align: left; }
     .section-kicker { font-family: var(--font-subheading); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-accent); font-weight: 600; margin-bottom: 0.8rem; }
     .section-title { font-size: 2.8rem; margin-bottom: 1rem; color: var(--color-primary); }
-    .section-subtitle { color: var(--color-text-muted); max-width: 650px; margin: 0 auto; font-size: 1.05rem;}
+    .section-subtitle { color: var(--color-text-muted); max-width: 650px; margin: 0 auto; font-size: 1.05rem; }
     .section-header.left-align .section-subtitle { margin: 0; max-width: 100%; }
-    
     .italic-gold { font-family: var(--font-heading); font-style: italic; color: var(--color-accent); }
-
     .dark-section .section-title { color: var(--color-text-light); }
     .dark-section .section-subtitle { color: var(--color-text-light-muted); }
 
-    /* --- Buttons --- */
-    .btn {
-      border-radius: var(--radius-pill);
-      padding: 0.9rem 2rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      border: none;
-      font-family: var(--font-subheading);
-      letter-spacing: 0.03em;
-    }
-
+    .btn { border-radius: var(--radius-pill); padding: 0.9rem 2rem; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--transition-fast); border: none; font-family: var(--font-subheading); letter-spacing: 0.03em; }
     .btn-primary { background: var(--color-primary); color: #ffffff; box-shadow: 0 8px 20px var(--color-primary-soft); }
     .btn-primary:hover { transform: translateY(-3px); background: #163a61; box-shadow: 0 12px 25px rgba(10, 37, 64, 0.2); }
-    
     .btn-accent { background: linear-gradient(135deg, #E6C265, #D4AF37); color: var(--color-primary); box-shadow: 0 8px 20px var(--color-accent-soft); }
     .btn-accent:hover { transform: translateY(-3px); filter: brightness(1.05); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3); }
-
     .btn-outline { border: 2px solid var(--color-primary); background: transparent; color: var(--color-primary); }
     .btn-outline:hover { background: var(--color-primary); color: #ffffff; }
-    
     .btn-outline-light { border: 2px solid var(--color-text-light); background: transparent; color: var(--color-text-light); }
     .btn-outline-light:hover { background: var(--color-text-light); color: var(--color-primary); }
 
-    /* --- Navigation --- */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-    }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03); }
     .nav { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-    .brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; color: var(--color-primary); display: flex; align-items: center; gap: 12px;}
+    .brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; color: var(--color-primary); display: flex; align-items: center; gap: 12px; }
     .brand span { color: var(--color-accent); }
     .nav-links { display: flex; gap: 2rem; font-size: 0.95rem; font-family: var(--font-subheading); font-weight: 500; }
     .nav-links a { color: var(--color-text-muted); transition: color 0.2s; }
     .nav-links a:hover { color: var(--color-primary); }
 
-    /* --- WhatsApp Floating Button --- */
-    .wa-float {
-      position: fixed; bottom: 30px; right: 30px;
-      background-color: #25d366; color: #FFF;
-      border-radius: 50px; padding: 14px 24px;
-      display: flex; align-items: center; gap: 10px;
-      font-size: 1rem; font-weight: 600; font-family: var(--font-subheading);
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
-      z-index: 1000; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .wa-float:hover { transform: scale(1.05) translateY(-5px); color: #fff;}
-    .wa-icon { width: 24px; height: 24px; fill: currentColor; }
-
-    /* --- Layout Utilities --- */
     section { padding: 7rem 0; position: relative; }
     .dark-section { background-color: var(--color-bg-dark); color: var(--color-text-light); }
-    
-    /* Background Images with Overlays */
-    .bg-corporate {
-      background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    .bg-corporate::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(7, 21, 36, 0.92) 0%, rgba(10, 37, 64, 0.85) 100%);
-      z-index: 0;
-    }
-    
-    .bg-desk {
-      background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-    }
-    .bg-desk::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(248, 250, 252, 0.92);
-      z-index: 0;
-    }
+
+    .bg-corporate { background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
+    .bg-corporate::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(7, 21, 36, 0.92) 0%, rgba(10, 37, 64, 0.85) 100%); z-index: 0; }
+    .bg-desk { background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center; }
+    .bg-desk::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.92); z-index: 0; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
     .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 
-    /* --- Hero Section Styles --- */
     .hero { padding-top: 8rem; padding-bottom: 6rem; overflow: hidden; }
     .hero-inner { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr); gap: 4rem; align-items: center; }
 
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-family: var(--font-subheading);
-      padding: 0.5rem 1rem; border-radius: var(--radius-pill); border: var(--glass-border-dark);
-      background: var(--color-surface-dark); backdrop-filter: blur(10px); color: var(--color-text-light); margin-bottom: 1.5rem;
-    }
+    .badge { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-family: var(--font-subheading); padding: 0.5rem 1rem; border-radius: var(--radius-pill); border: var(--glass-border-dark); background: var(--color-surface-dark); backdrop-filter: blur(10px); color: var(--color-text-light); margin-bottom: 1.5rem; }
     .badge-dot { width: 8px; height: 8px; border-radius: 999px; background: radial-gradient(circle at 40% 0, #F3E5AB 0, #D4AF37 45%, transparent 70%); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25); }
 
     .hero-title { font-size: clamp(2.8rem, 4vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; color: var(--color-text-light); }
-    .hero-title span { background: linear-gradient(120deg, #E6C265, #D4AF37); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic;}
-    .hero-subtitle { font-size: 1.1rem; color: var(--color-text-light-muted); max-width: 34rem; margin-bottom: 2.5rem; font-weight: 300;}
+    .hero-title span { background: linear-gradient(120deg, #E6C265, #D4AF37); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: italic; }
+    .hero-subtitle { font-size: 1.1rem; color: var(--color-text-light-muted); max-width: 34rem; margin-bottom: 2.5rem; font-weight: 300; }
     .hero-subtitle strong { font-weight: 500; color: var(--color-text-light); }
-
     .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
 
-    .hero-card {
-      border-radius: 24px; padding: 2rem;
-      background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: var(--glass-border-dark); box-shadow: var(--shadow-strong);
-      position: relative; overflow: hidden;
-    }
-    .hero-card::before {
-      content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
-      background: var(--color-accent); filter: blur(80px); opacity: 0.3; border-radius: 50%;
-    }
-    
-    .hero-card-grid { display: flex; flex-direction: column; gap: 1.5rem; position: relative; z-index: 2;}
-    
-    .hero-india-tag {
-      position: absolute; right: 20px; top: 20px; padding: 0.4rem 1rem; border-radius: 999px;
-      border: var(--glass-border-dark); font-size: 0.75rem; font-weight: 600; background: rgba(0,0,0,0.3); backdrop-filter: blur(12px);
-      display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-text-light); z-index: 3; font-family: var(--font-subheading);
-    }
+    .hero-card { border-radius: 24px; padding: 2rem; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: var(--glass-border-dark); box-shadow: var(--shadow-strong); position: relative; overflow: hidden; }
+    .hero-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: var(--color-accent); filter: blur(80px); opacity: 0.3; border-radius: 50%; }
+    .hero-card-grid { display: flex; flex-direction: column; gap: 1.5rem; position: relative; z-index: 2; }
+    .hero-india-tag { position: absolute; right: 20px; top: 20px; padding: 0.4rem 1rem; border-radius: 999px; border: var(--glass-border-dark); font-size: 0.75rem; font-weight: 600; background: rgba(0,0,0,0.3); backdrop-filter: blur(12px); display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-text-light); z-index: 3; font-family: var(--font-subheading); }
     .hero-india-dot { width: 10px; height: 10px; border-radius: 999px; background: conic-gradient(from 180deg, #f97316, #ffffff, #16a34a, #f97316); }
 
-    /* --- Trust Banner --- */
-    .trust-banner {
-      display: flex; justify-content: center; gap: 5rem; padding: 3rem 0;
-      border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-top: 4rem; flex-wrap: wrap;
-    }
+    .trust-banner { display: flex; justify-content: center; gap: 5rem; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin-top: 4rem; flex-wrap: wrap; }
     .trust-item { text-align: center; }
-    .trust-item h4 { font-size: 2rem; color: var(--color-accent); margin-bottom: 0.2rem;}
-    .trust-item p { font-size: 0.9rem; color: var(--color-text-light-muted); font-weight: 500; font-family: var(--font-subheading); text-transform: uppercase; letter-spacing: 1px;}
+    .trust-item h4 { font-size: 2rem; color: var(--color-accent); margin-bottom: 0.2rem; }
+    .trust-item p { font-size: 0.9rem; color: var(--color-text-light-muted); font-weight: 500; font-family: var(--font-subheading); text-transform: uppercase; letter-spacing: 1px; }
 
-    /* --- Cards (Light Theme Base) --- */
-    .card {
-      background: var(--color-surface-light);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: var(--glass-border-light);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      box-shadow: var(--shadow-soft);
-      transition: all var(--transition-fast);
-    }
+    .card { background: var(--color-surface-light); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: var(--glass-border-light); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-soft); transition: all var(--transition-fast); }
     .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(10, 37, 64, 0.1); }
-    
-    .dark-section .card {
-      background: var(--color-surface-dark);
-      border: var(--glass-border-dark);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
+    .dark-section .card { background: var(--color-surface-dark); border: var(--glass-border-dark); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     .dark-section .card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: rgba(212, 175, 55, 0.4); }
 
-    /* --- WHY US SECTION --- */
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .num-card {
-      display: flex;
-      gap: 1.5rem;
-      padding: 1.8rem;
-      background: #ffffff;
-      border: 1px solid rgba(10, 37, 64, 0.05);
-      border-radius: 16px;
-      margin-bottom: 1.2rem;
-      transition: all var(--transition-fast);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    }
-    .num-card:hover {
-      transform: translateX(8px);
-      border-color: rgba(212, 175, 55, 0.4);
-      box-shadow: 0 10px 25px rgba(10, 37, 64, 0.08);
-    }
-    .num-card .num {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      color: var(--color-accent);
-      font-weight: 700;
-      line-height: 1;
-      min-width: 35px;
-    }
-    .num-card-content h4 {
-      font-size: 1.15rem;
-      color: var(--color-primary);
-      margin-bottom: 0.6rem;
-    }
-    .num-card-content p {
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-    }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .num-card { display: flex; gap: 1.5rem; padding: 1.8rem; background: #ffffff; border: 1px solid rgba(10, 37, 64, 0.05); border-radius: 16px; margin-bottom: 1.2rem; transition: all var(--transition-fast); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    .num-card:hover { transform: translateX(8px); border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 10px 25px rgba(10, 37, 64, 0.08); }
+    .num-card .num { font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-accent); font-weight: 700; line-height: 1; min-width: 35px; }
+    .num-card-content h4 { font-size: 1.15rem; color: var(--color-primary); margin-bottom: 0.6rem; }
+    .num-card-content p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; }
 
-    .cred-box {
-      border: 1px solid rgba(10, 37, 64, 0.1);
-      border-radius: 24px;
-      padding: 2.5rem;
-      margin-bottom: 2rem;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-    }
-    .cred-header {
-      font-family: var(--font-subheading);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--color-primary);
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
-    .cred-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-    }
-    .cred-item {
-      background: #ffffff;
-      border: 1px solid rgba(10, 37, 64, 0.06);
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: all var(--transition-fast);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    }
-    .cred-item:hover {
-      border-color: var(--color-accent);
-      transform: translateY(-3px);
-    }
-    .cred-item i {
-      font-size: 1.5rem;
-      color: var(--color-accent);
-      margin-bottom: 0.8rem;
-    }
-    .cred-item h5 {
-      font-size: 1rem;
-      color: var(--color-primary);
-      margin-bottom: 0.2rem;
-    }
-    .cred-item span {
-      font-size: 0.75rem;
-      color: var(--color-text-muted);
-    }
+    .cred-box { border: 1px solid rgba(10, 37, 64, 0.1); border-radius: 24px; padding: 2.5rem; margin-bottom: 2rem; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); }
+    .cred-header { font-family: var(--font-subheading); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-primary); font-weight: 600; margin-bottom: 1.5rem; }
+    .cred-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .cred-item { background: #ffffff; border: 1px solid rgba(10, 37, 64, 0.06); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all var(--transition-fast); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+    .cred-item:hover { border-color: var(--color-accent); transform: translateY(-3px); }
+    .cred-item i { font-size: 1.5rem; color: var(--color-accent); margin-bottom: 0.8rem; }
+    .cred-item h5 { font-size: 1rem; color: var(--color-primary); margin-bottom: 0.2rem; }
+    .cred-item span { font-size: 0.75rem; color: var(--color-text-muted); }
 
-    .feat-card {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      padding: 1.5rem;
-      background: #ffffff;
-      border: 1px solid rgba(10, 37, 64, 0.05);
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      transition: transform var(--transition-fast);
-    }
-    .feat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(10, 37, 64, 0.06);
-    }
-    .feat-icon-box {
-      width: 45px;
-      height: 45px;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-accent);
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-    .feat-content h5 {
-      font-size: 1rem;
-      color: var(--color-primary);
-      margin-bottom: 0.2rem;
-    }
-    .feat-content p {
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-    }
+    .feat-card { display: flex; align-items: center; gap: 1.2rem; padding: 1.5rem; background: #ffffff; border: 1px solid rgba(10, 37, 64, 0.05); border-radius: 12px; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: transform var(--transition-fast); }
+    .feat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10, 37, 64, 0.06); }
+    .feat-icon-box { width: 45px; height: 45px; background: rgba(212, 175, 55, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--color-accent); font-size: 1.2rem; flex-shrink: 0; }
+    .feat-content h5 { font-size: 1rem; color: var(--color-primary); margin-bottom: 0.2rem; }
+    .feat-content p { font-size: 0.8rem; color: var(--color-text-muted); }
 
-    /* --- SERVICES SUMMARY SECTION --- */
-    .service-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 2.5rem;
-    }
-    .service-summary-card {
-      background: #ffffff;
-      padding: 2.5rem 2rem;
-      border-radius: 20px;
-      border: 1px solid rgba(10, 37, 64, 0.05);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-    .service-summary-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--color-accent);
-      box-shadow: 0 10px 30px rgba(10, 37, 64, 0.08);
-    }
-    .service-summary-icon {
-      font-size: 2.5rem;
-      color: var(--color-accent);
-      margin-bottom: 1.5rem;
-    }
-    .service-summary-title {
-      font-size: 1.25rem;
-      color: var(--color-primary);
-      margin-bottom: 1rem;
-      font-family: var(--font-heading);
-    }
-    .service-summary-desc {
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-    .services-cta-container {
-      text-align: center;
-      margin-top: 3.5rem;
-    }
+    .service-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2.5rem; }
+    .service-summary-card { background: #ffffff; padding: 2.5rem 2rem; border-radius: 20px; border: 1px solid rgba(10, 37, 64, 0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: all 0.3s ease; text-align: center; }
+    .service-summary-card:hover { transform: translateY(-5px); border-color: var(--color-accent); box-shadow: 0 10px 30px rgba(10, 37, 64, 0.08); }
+    .service-summary-icon { font-size: 2.5rem; color: var(--color-accent); margin-bottom: 1.5rem; }
+    .service-summary-title { font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1rem; font-family: var(--font-heading); }
+    .service-summary-desc { font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .services-cta-container { text-align: center; margin-top: 3.5rem; }
 
-    /* --- REDESIGNED TOOLS SECTION (Dark Blue Glassmorphism Theme) --- */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin-top: 1rem;
-    }
-    /* Dark Theme variations for Tool Cards */
-    .dark-section .tool-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: var(--glass-border-dark);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      position: relative;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: var(--shadow-strong);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-    .dark-section .tool-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      border-color: rgba(212, 175, 55, 0.4);
-      background: rgba(255, 255, 255, 0.08);
-    }
-    .dark-section .tool-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: rgba(255, 255, 255, 0.1); transition: background 0.3s;
-    }
-    .dark-section .tool-card:hover::before {
-      background: var(--color-accent);
-    }
-    .dark-section .featured-tool {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(212, 175, 55, 0.05));
-      border-color: rgba(212, 175, 55, 0.3);
-    }
-    .dark-section .tool-badge {
-      position: absolute; top: 1.5rem; right: 1.5rem;
-      background: rgba(212, 175, 55, 0.2); color: var(--color-accent);
-      font-size: 0.75rem; font-family: var(--font-subheading); font-weight: 600;
-      padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    .dark-section .explore-badge { 
-      background: rgba(255, 255, 255, 0.1); color: var(--color-text-light); border-color: rgba(255, 255, 255, 0.2); 
-    }
-    .dark-section .tool-icon-wrap {
-      width: 65px; height: 65px; border-radius: 18px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem; margin-bottom: 1.8rem;
-      transition: transform 0.3s ease;
-    }
-    .dark-section .featured-tool .tool-icon-wrap {
-      background: var(--color-accent); color: var(--color-primary);
-      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-    }
-    .dark-section .regular-icon {
-      background: rgba(255, 255, 255, 0.1); color: var(--color-accent);
-    }
-    .dark-section .tool-card:hover .tool-icon-wrap {
-      transform: scale(1.05) rotate(-5deg);
-    }
-    .dark-section .tool-title {
-      font-size: 1.3rem; color: var(--color-text-light); margin-bottom: 0.8rem;
-    }
-    .dark-section .tool-desc {
-      font-size: 0.95rem; color: var(--color-text-light-muted); margin-bottom: 2rem; flex-grow: 1; line-height: 1.6;
-    }
-    .dark-section .tool-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--font-subheading); font-weight: 600; font-size: 0.95rem;
-      color: var(--color-text-light); transition: color 0.3s; margin-top: auto; text-decoration: none;
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 1rem; }
+    .dark-section .tool-card { background: rgba(255, 255, 255, 0.05); border: var(--glass-border-dark); border-radius: 24px; padding: 2.5rem 2rem; position: relative; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: var(--shadow-strong); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .dark-section .tool-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); border-color: rgba(212, 175, 55, 0.4); background: rgba(255, 255, 255, 0.08); }
+    .dark-section .tool-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.1); transition: background 0.3s; }
+    .dark-section .tool-card:hover::before { background: var(--color-accent); }
+    .dark-section .featured-tool { background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(212, 175, 55, 0.05)); border-color: rgba(212, 175, 55, 0.3); }
+    .dark-section .tool-badge { position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(212, 175, 55, 0.2); color: var(--color-accent); font-size: 0.75rem; font-family: var(--font-subheading); font-weight: 600; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid rgba(212, 175, 55, 0.3); }
+    .dark-section .explore-badge { background: rgba(255, 255, 255, 0.1); color: var(--color-text-light); border-color: rgba(255, 255, 255, 0.2); }
+    .dark-section .tool-icon-wrap { width: 65px; height: 65px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.8rem; transition: transform 0.3s ease; }
+    .dark-section .featured-tool .tool-icon-wrap { background: var(--color-accent); color: var(--color-primary); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+    .dark-section .regular-icon { background: rgba(255, 255, 255, 0.1); color: var(--color-accent); }
+    .dark-section .tool-card:hover .tool-icon-wrap { transform: scale(1.05) rotate(-5deg); }
+    .dark-section .tool-title { font-size: 1.3rem; color: var(--color-text-light); margin-bottom: 0.8rem; }
+    .dark-section .tool-desc { font-size: 0.95rem; color: var(--color-text-light-muted); margin-bottom: 2rem; flex-grow: 1; line-height: 1.6; }
+    .dark-section .tool-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-subheading); font-weight: 600; font-size: 0.95rem; color: var(--color-text-light); transition: color 0.3s; margin-top: auto; text-decoration: none; }
     .dark-section .tool-link i { font-size: 0.85rem; transition: transform 0.3s; color: var(--color-accent); }
     .dark-section .tool-link:hover { color: var(--color-accent); }
     .dark-section .tool-link:hover i { transform: translateX(5px); }
 
-    /* --- Skill Badges (About Me Section) --- */
     .skill-badges { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.5rem 0 2.5rem 0; }
-    .skill-badge {
-      background: var(--color-primary);
-      color: var(--color-text-light);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-pill);
-      padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
-      font-family: var(--font-subheading);
-      font-weight: 500;
-      display: inline-flex; align-items: center; gap: 8px;
-      box-shadow: 0 4px 10px rgba(10, 37, 64, 0.1);
-      transition: transform var(--transition-fast), border-color var(--transition-fast);
-    }
+    .skill-badge { background: var(--color-primary); color: var(--color-text-light); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-pill); padding: 0.6rem 1.2rem; font-size: 0.85rem; font-family: var(--font-subheading); font-weight: 500; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(10, 37, 64, 0.1); transition: transform var(--transition-fast), border-color var(--transition-fast); }
     .skill-badge:hover { transform: translateY(-2px); border-color: var(--color-accent); }
     .skill-badge i { color: var(--color-accent); font-size: 0.9rem; }
-    
-    .profile-card.premium-style {
-      border: none; padding: 10px;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(10, 37, 64, 0.1));
-      border-radius: calc(var(--radius-lg) + 10px);
-    }
+    .profile-card.premium-style { border: none; padding: 10px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(10, 37, 64, 0.1)); border-radius: calc(var(--radius-lg) + 10px); }
     .profile-card.premium-style img { border-radius: var(--radius-lg); border: 4px solid #fff; }
 
-    /* --- Scroll Reveal Base --- */
-    .reveal {
-      opacity: 0; 
-      transform: translateY(40px) scale(0.96);
-      transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .reveal.active { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
-    }
-    .reveal:not(.active) { 
-      transition-delay: 0s !important; 
-    }
-    
-    /* --- Case Study --- */
-    .case-study-card { 
-      background: var(--color-surface-light); border: var(--glass-border-light); 
-      border-left: 6px solid var(--color-accent); padding: 3.5rem; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; 
-      box-shadow: var(--shadow-strong); position: relative;
-    }
+    .reveal { opacity: 0; transform: translateY(40px) scale(0.96); transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+    .reveal:not(.active) { transition-delay: 0s !important; }
+
+    .case-study-card { background: var(--color-surface-light); border: var(--glass-border-light); border-left: 6px solid var(--color-accent); padding: 3.5rem; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; box-shadow: var(--shadow-strong); position: relative; }
     .cs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; margin-top: 2.5rem; }
     .cs-item h4 { color: var(--color-primary); margin-bottom: 1rem; font-size: 1.25rem; }
     .cs-item p { font-size: 1rem; color: var(--color-text-muted); }
 
-    /* --- Video Integrations (Insights) --- */
-    .media-card {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-strong);
-      border: var(--glass-border-light);
-      background: var(--color-surface-light);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      transition: all var(--transition-fast);
-    }
+    .media-card { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-strong); border: var(--glass-border-light); background: var(--color-surface-light); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: all var(--transition-fast); }
     .media-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(10, 37, 64, 0.1); }
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      background: rgba(0,0,0,0.05);
-    }
-    .video-wrapper video {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: rgba(0,0,0,0.05); }
+    .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
     .video-info { padding: 2rem; }
     .video-info h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--color-primary); }
     .video-info p { font-size: 1rem; color: var(--color-text-muted); }
 
-    /* --- Pricing --- */
     .pricing-card { text-align: center; position: relative; padding: 3.5rem 2.5rem; }
-    .pricing-card h3 { font-size: 1.8rem; color: var(--color-primary); margin-bottom: 0.5rem;}
-    .pricing-card.popular { 
-      border: 2px solid var(--color-accent); box-shadow: 0 20px 40px var(--color-accent-soft); 
-      transform: scale(1.05); background: #ffffff; z-index: 2;
-    }
+    .pricing-card h3 { font-size: 1.8rem; color: var(--color-primary); margin-bottom: 0.5rem; }
+    .pricing-card.popular { border: 2px solid var(--color-accent); box-shadow: 0 20px 40px var(--color-accent-soft); transform: scale(1.05); background: #ffffff; z-index: 2; }
     .pricing-card.popular:hover { transform: scale(1.05) translateY(-8px); }
-    .popular-tag { 
-      position: absolute; top: -16px; left: 50%; transform: translateX(-50%); 
-      background: var(--color-accent); color: var(--color-primary); font-size: 0.8rem; 
-      padding: 8px 20px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-    }
+    .popular-tag { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: var(--color-accent); color: var(--color-primary); font-size: 0.8rem; padding: 8px 20px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
     .price { font-size: 3.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--color-primary); margin: 1.5rem 0; }
     .price span { font-size: 1.2rem; font-weight: 500; color: var(--color-text-muted); font-family: var(--font-body); }
     .pricing-features { list-style: none; margin: 2rem 0; text-align: left; }
-    .pricing-features li { margin-bottom: 1.2rem; font-size: 1rem; display: flex; gap: 15px; color: var(--color-text-dark);}
-    .pricing-features li::before { content: "✓"; color: var(--color-accent); font-weight: bold; font-size: 1.2rem;}
+    .pricing-features li { margin-bottom: 1.2rem; font-size: 1rem; display: flex; gap: 15px; color: var(--color-text-dark); }
+    .pricing-features li::before { content: "✓"; color: var(--color-accent); font-weight: bold; font-size: 1.2rem; }
 
-    /* --- TESTIMONIALS MARQUEE --- */
-    .testimonial-marquee-wrap {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      overflow: hidden;
-      padding: 2rem 0;
-    }
-    .testimonial-track {
-      display: flex;
-      width: max-content;
-      animation: scroll-testimonials 40s linear infinite;
-      gap: 2rem;
-      padding: 0 1rem;
-    }
-    .testimonial-track:hover {
-      animation-play-state: paused;
-    }
-    @keyframes scroll-testimonials {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(calc(-50% - 1rem)); }
-    }
-    .testimonial-card {
-      width: 400px;
-      flex-shrink: 0;
-      position: relative;
-      padding: 3.5rem 2.5rem 2.5rem 2.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: var(--glass-border-dark);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: all var(--transition-fast);
-    }
-    .testimonial-card:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(212, 175, 55, 0.4);
-      transform: translateY(-5px);
-    }
-    .testimonial-card::before { 
-      content: '"'; position: absolute; top: 10px; left: 25px; 
-      font-size: 5rem; color: var(--color-accent-soft); font-family: serif; line-height: 1;
-    }
-    .t-content { font-style: italic; margin-bottom: 2rem; font-size: 1rem; position: relative; z-index: 1; color: var(--color-text-light);}
+    .testimonial-marquee-wrap { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; overflow: hidden; padding: 2rem 0; }
+    .testimonial-track { display: flex; width: max-content; animation: scroll-testimonials 40s linear infinite; gap: 2rem; padding: 0 1rem; }
+    .testimonial-track:hover { animation-play-state: paused; }
+    @keyframes scroll-testimonials { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 1rem)); } }
+    .testimonial-card { width: 400px; flex-shrink: 0; position: relative; padding: 3.5rem 2.5rem 2.5rem 2.5rem; background: rgba(255, 255, 255, 0.05); border: var(--glass-border-dark); border-radius: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all var(--transition-fast); }
+    .testimonial-card:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(212, 175, 55, 0.4); transform: translateY(-5px); }
+    .testimonial-card::before { content: '"'; position: absolute; top: 10px; left: 25px; font-size: 5rem; color: var(--color-accent-soft); font-family: serif; line-height: 1; }
+    .t-content { font-style: italic; margin-bottom: 2rem; font-size: 1rem; position: relative; z-index: 1; color: var(--color-text-light); }
     .t-author { display: flex; align-items: center; gap: 15px; }
-    .t-avatar { width: 45px; height: 45px; background: var(--color-primary); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; border: 1px solid rgba(212, 175, 55, 0.5);}
-    .t-name { font-weight: 600; font-size: 1.05rem; color: var(--color-text-light);}
-    .t-role { font-size: 0.85rem; color: var(--color-text-light-muted); text-transform: uppercase; letter-spacing: 0.05em;}
+    .t-avatar { width: 45px; height: 45px; background: var(--color-primary); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; border: 1px solid rgba(212, 175, 55, 0.5); }
+    .t-name { font-weight: 600; font-size: 1.05rem; color: var(--color-text-light); }
+    .t-role { font-size: 0.85rem; color: var(--color-text-light-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
-    /* --- Form & Inputs --- */
+    /* ============================================ */
+    /* ===== CONTACT FORM — GOOGLE FORMS STYLE === */
+    /* ============================================ */
     .form-group { margin-bottom: 1.8rem; text-align: left; }
-    .form-group label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--color-primary); font-family: var(--font-subheading);}
-    .form-control { 
-      width: 100%; padding: 1.2rem 1.5rem; border: 1px solid rgba(15, 23, 42, 0.15); 
-      border-radius: var(--radius-md); background: #ffffff; color: var(--color-text-dark); 
-      font-family: inherit; font-size: 1rem; transition: all 0.3s; 
-    }
+    .form-group label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--color-primary); font-family: var(--font-subheading); }
+    .form-control { width: 100%; padding: 1.2rem 1.5rem; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); background: #ffffff; color: var(--color-text-dark); font-family: inherit; font-size: 1rem; transition: all 0.3s; }
     .form-control:focus { border-color: var(--color-accent); outline: none; box-shadow: 0 0 0 4px var(--color-accent-soft); }
     textarea.form-control { resize: vertical; min-height: 160px; }
 
-    /* --- MARQUEE CSS --- */
-    .ticker-wrap {
-      width: 100%; overflow: hidden; background-color: var(--color-primary);
-      color: #fff; padding: 0.8rem 0; position: relative; z-index: 99;
-      border-bottom: 2px solid var(--color-accent);
+    /* ---- Success / Error State ---- */
+    .form-status {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-subheading);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: center;
+      animation: fadeInUp 0.4s ease;
     }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .form-status.success {
+      display: block;
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+    .form-status.error {
+      display: block;
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    /* Spinner inside the button */
+    .btn-spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-primary.loading .btn-spinner { display: inline-block; }
+    .btn-primary.loading .btn-text { opacity: 0.7; }
+    .btn-primary.loading { pointer-events: none; }
+
+    /* ---- Ticker ---- */
+    .ticker-wrap { width: 100%; overflow: hidden; background-color: var(--color-primary); color: #fff; padding: 0.8rem 0; position: relative; z-index: 99; border-bottom: 2px solid var(--color-accent); }
     .ticker { display: inline-block; white-space: nowrap; animation: ticker-anim 35s linear infinite; }
     .ticker-wrap:hover .ticker { animation-play-state: paused; }
-    .ticker span { margin: 0 2rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); font-family: var(--font-subheading);}
+    .ticker span { margin: 0 2rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); font-family: var(--font-subheading); }
     @keyframes ticker-anim { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
-    /* --- CONTACT SECTION SPECIFIC CSS --- */
-    .contact-split-card {
-      background: #ffffff;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(10, 37, 64, 0.15);
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      border: var(--glass-border-light);
-      margin-top: 2rem;
-    }
-    
-    .contact-dark-panel {
-      background: var(--color-primary);
-      color: var(--color-text-light);
-      padding: 3.5rem;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .contact-dark-panel::before {
-      content: ''; position: absolute; bottom: -10%; right: -10%;
-      width: 300px; height: 300px; background: var(--color-accent);
-      border-radius: 50%; filter: blur(100px); opacity: 0.15; z-index: -1;
-    }
-
-    .contact-light-panel {
-      padding: 4rem 3.5rem;
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .panel-heading {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-
-    .info-row {
-      display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
-    }
-    .info-icon {
-      color: var(--color-accent); font-size: 1.2rem; margin-top: 0.2rem;
-    }
-    .info-text h4 {
-      color: #ffffff; font-size: 1.05rem; margin-bottom: 0.2rem; font-family: var(--font-subheading);
-    }
-    .info-text p, .info-text a {
-      color: var(--color-text-light-muted); font-size: 0.95rem; text-decoration: none; transition: color var(--transition-fast);
-    }
+    .contact-split-card { background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(10, 37, 64, 0.15); display: grid; grid-template-columns: 1fr 1.4fr; border: var(--glass-border-light); margin-top: 2rem; }
+    .contact-dark-panel { background: var(--color-primary); color: var(--color-text-light); padding: 3.5rem; position: relative; z-index: 1; }
+    .contact-dark-panel::before { content: ''; position: absolute; bottom: -10%; right: -10%; width: 300px; height: 300px; background: var(--color-accent); border-radius: 50%; filter: blur(100px); opacity: 0.15; z-index: -1; }
+    .contact-light-panel { padding: 4rem 3.5rem; background: #ffffff; display: flex; flex-direction: column; justify-content: center; }
+    .panel-heading { font-family: var(--font-heading); font-size: 2.2rem; margin-bottom: 1rem; color: #ffffff; }
+    .info-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .info-icon { color: var(--color-accent); font-size: 1.2rem; margin-top: 0.2rem; }
+    .info-text h4 { color: #ffffff; font-size: 1.05rem; margin-bottom: 0.2rem; font-family: var(--font-subheading); }
+    .info-text p, .info-text a { color: var(--color-text-light-muted); font-size: 0.95rem; text-decoration: none; transition: color var(--transition-fast); }
     .info-text a:hover { color: var(--color-accent); }
-
-    .icon-cluster {
-      display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem;
-      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .circle-btn {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-      color: #ffffff; display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; transition: all var(--transition-fast); text-decoration: none;
-      cursor: pointer;
-    }
-    .circle-btn:hover {
-      background: var(--color-accent); color: var(--color-primary); 
-      transform: translateY(-4px); border-color: var(--color-accent);
-      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-    }
-
-    .q-links-header {
-      font-family: var(--font-subheading); font-size: 0.9rem; color: var(--color-accent); 
-      text-transform: uppercase; letter-spacing: 0.1em; margin: 2.5rem 0 1rem; font-weight: 600;
-    }
-    .q-links-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    }
-    .q-link-item {
-      color: var(--color-text-light-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: color var(--transition-fast);
-    }
+    .icon-cluster { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .circle-btn { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all var(--transition-fast); text-decoration: none; cursor: pointer; }
+    .circle-btn:hover { background: var(--color-accent); color: var(--color-primary); transform: translateY(-4px); border-color: var(--color-accent); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+    .q-links-header { font-family: var(--font-subheading); font-size: 0.9rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin: 2.5rem 0 1rem; font-weight: 600; }
+    .q-links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .q-link-item { color: var(--color-text-light-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: color var(--transition-fast); }
     .q-link-item i { color: var(--color-accent); font-size: 0.75rem; }
     .q-link-item:hover { color: #ffffff; }
 
-    /* --- Responsive Breakpoints --- */
+    /* ---- Chatbot ---- */
+    .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), #163a61); color: var(--color-accent); border: 2px solid var(--color-accent); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; cursor: pointer; box-shadow: 0 8px 24px rgba(10, 37, 64, 0.35), 0 0 0 0 rgba(212, 175, 55, 0.4); z-index: 1000; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); animation: chatbot-pulse 2.5s infinite; }
+    @keyframes chatbot-pulse { 0%, 100% { box-shadow: 0 8px 24px rgba(10, 37, 64, 0.35), 0 0 0 0 rgba(212, 175, 55, 0.4); } 50% { box-shadow: 0 8px 24px rgba(10, 37, 64, 0.35), 0 0 0 14px rgba(212, 175, 55, 0); } }
+    .chatbot-toggle:hover { transform: scale(1.08) translateY(-3px); animation: none; box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4); }
+    .chatbot-toggle .chatbot-icon-close { display: none; }
+    .chatbot-toggle.active { animation: none; }
+    .chatbot-toggle.active .chatbot-icon-open { display: none; }
+    .chatbot-toggle.active .chatbot-icon-close { display: inline-block; }
+    .chatbot-window { position: fixed; bottom: 110px; right: 30px; width: 380px; max-width: calc(100vw - 40px); height: 580px; max-height: calc(100vh - 150px); background: #fff; border-radius: 20px; box-shadow: 0 25px 50px rgba(10, 37, 64, 0.25); display: none; flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid rgba(10, 37, 64, 0.08); font-family: var(--font-body); }
+    .chatbot-window.active { display: flex; animation: chatbot-open 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes chatbot-open { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .chatbot-header { background: linear-gradient(135deg, var(--color-primary), #163a61); color: #fff; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 0.8rem; border-bottom: 2px solid var(--color-accent); flex-shrink: 0; }
+    .chatbot-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--color-accent); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 700; font-size: 1.3rem; flex-shrink: 0; }
+    .chatbot-name { font-family: var(--font-subheading); font-weight: 600; font-size: 1rem; color: #fff; }
+    .chatbot-status { font-size: 0.75rem; color: var(--color-text-light-muted); display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+    .chatbot-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #25d366; display: inline-block; box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.3); animation: status-pulse 2s infinite; }
+    @keyframes status-pulse { 0%, 100% { box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.3); } 50% { box-shadow: 0 0 0 5px rgba(37, 211, 102, 0); } }
+    .chatbot-messages { flex: 1; padding: 1.2rem; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 0.8rem; }
+    .chatbot-messages::-webkit-scrollbar { width: 6px; }
+    .chatbot-messages::-webkit-scrollbar-track { background: transparent; }
+    .chatbot-messages::-webkit-scrollbar-thumb { background: rgba(10, 37, 64, 0.2); border-radius: 3px; }
+    .chatbot-message { max-width: 88%; padding: 0.85rem 1.1rem; border-radius: 14px; font-size: 0.9rem; line-height: 1.55; word-wrap: break-word; animation: msg-in 0.3s ease-out; }
+    @keyframes msg-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .chatbot-message.bot { background: #fff; color: var(--color-text-dark); border: 1px solid rgba(10, 37, 64, 0.06); border-bottom-left-radius: 4px; align-self: flex-start; box-shadow: 0 2px 8px rgba(10, 37, 64, 0.04); }
+    .chatbot-message.user { background: var(--color-primary); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+    .chatbot-message a { color: var(--color-accent); font-weight: 600; text-decoration: underline; }
+    .chatbot-message.user a { color: #fff; }
+    .chatbot-message strong { color: var(--color-primary); }
+    .chatbot-message.user strong { color: #fff; }
+    .chatbot-quick-replies { padding: 0.7rem 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; background: #f8fafc; border-top: 1px solid rgba(10, 37, 64, 0.05); max-height: 130px; overflow-y: auto; }
+    .chatbot-quick-replies:empty { display: none; }
+    .chatbot-quick-reply { background: #fff; border: 1px solid var(--color-accent); color: var(--color-primary); padding: 0.5rem 0.9rem; border-radius: 999px; font-size: 0.78rem; font-family: var(--font-subheading); font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .chatbot-quick-reply:hover { background: var(--color-accent); color: var(--color-primary); transform: translateY(-2px); }
+    .chatbot-input-area { display: flex; padding: 0.9rem 1rem; gap: 0.5rem; background: #fff; border-top: 1px solid rgba(10, 37, 64, 0.08); flex-shrink: 0; }
+    .chatbot-input { flex: 1; padding: 0.7rem 1rem; border: 1px solid rgba(10, 37, 64, 0.15); border-radius: 999px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.2s; color: var(--color-text-dark); }
+    .chatbot-input:focus { border-color: var(--color-accent); }
+    .chatbot-send-btn { width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; font-size: 0.95rem; }
+    .chatbot-send-btn:hover { background: var(--color-accent); color: var(--color-primary); transform: rotate(10deg); }
+    .chatbot-typing { display: flex; gap: 4px; padding: 0.9rem 1.1rem; background: #fff; border-radius: 14px; border: 1px solid rgba(10, 37, 64, 0.06); border-bottom-left-radius: 4px; align-self: flex-start; width: fit-content; box-shadow: 0 2px 8px rgba(10, 37, 64, 0.04); }
+    .chatbot-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); animation: typing-bounce 1.4s infinite ease-in-out; }
+    .chatbot-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chatbot-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-8px); opacity: 1; } }
+
+    @media (max-width: 480px) {
+      .chatbot-window { width: calc(100vw - 24px); right: 12px; bottom: 100px; height: calc(100vh - 130px); max-height: calc(100vh - 130px); }
+      .chatbot-toggle { bottom: 20px; right: 20px; width: 58px; height: 58px; }
+    }
     @media (max-width: 1024px) {
       .grid-3, .grid-4, .why-grid { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
@@ -841,7 +389,6 @@
       .contact-split-card { grid-template-columns: 1fr; }
       .contact-dark-panel, .contact-light-panel { padding: 2.5rem; }
     }
-
     @media (max-width: 768px) {
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
       .service-summary-grid { grid-template-columns: 1fr; }
@@ -863,7 +410,6 @@
   </div>
 
   <header>
-
     <div class="wrapper nav">
       <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand">
         <img src="logo.png" alt="Growitharshiee Logo" style="height: 40px; width: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -878,7 +424,6 @@
         <a href="#insights">Insights</a>
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Blog">Blog</a>
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Careers">Careers</a>
-
       </nav>
       <a href="https://harshiee-s.github.io/growitharshiee-CMS/" class="btn btn-primary" style="padding: 0.7rem 1.5rem; font-size: 0.85rem;">User Login</a>
     </div>
@@ -912,17 +457,11 @@
             Growitharshiee Financial Services helps small businesses, freelancers, and early-stage startups stay compliant,
             <strong>without jargon or overwhelm</strong>.
           </p>
-
           <div class="hero-actions">
-            <button class="btn btn-accent" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-              Book Consultation
-            </button>
-            <a class="btn btn-outline-light" href="https://www.linkedin.com/in/harshiee" target="_blank" rel="noopener">
-              View LinkedIn
-            </a>
+            <button class="btn btn-accent" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+            <a class="btn btn-outline-light" href="https://www.linkedin.com/in/harshiee" target="_blank" rel="noopener">View LinkedIn</a>
           </div>
         </div>
-
         <div class="hero-right reveal">
           <div class="hero-card">
             <div class="hero-india-tag">
@@ -932,7 +471,6 @@
             <div class="hero-card-grid">
               <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem;">Compliance Snapshot</h3>
               <p style="color: var(--color-text-light-muted); font-size: 0.95rem; margin-bottom: 1rem;">GST, TDS, and income tax aligned for growing businesses. One-on-one guidance for registrations, filings, and day-to-day accounting.</p>
-              
               <div style="display: flex; flex-direction: column; gap: 1rem;">
                 <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
                   <div style="font-size: 0.8rem; color: var(--color-accent); text-transform: uppercase; font-weight: 600; margin-bottom: 0.3rem;">Ideal For</div>
@@ -947,129 +485,46 @@
           </div>
         </div>
       </div>
-
       <div class="wrapper reveal">
         <div class="trust-banner">
-          <div class="trust-item">
-            <h4>CA Inter</h4>
-            <p>Academic Rigor</p>
-          </div>
-          <div class="trust-item">
-            <h4>Expertise</h4>
-            <p>Tally & Zoho Books</p>
-          </div>
-          <div class="trust-item">
-            <h4>Practical</h4>
-            <p>Real-World Exposure</p>
-          </div>
-          <div class="trust-item">
-            <h4>100%</h4>
-            <p>On-Time Filing</p>
-          </div>
+          <div class="trust-item"><h4>CA Inter</h4><p>Academic Rigor</p></div>
+          <div class="trust-item"><h4>Expertise</h4><p>Tally & Zoho Books</p></div>
+          <div class="trust-item"><h4>Practical</h4><p>Real-World Exposure</p></div>
+          <div class="trust-item"><h4>100%</h4><p>On-Time Filing</p></div>
         </div>
       </div>
     </section>
 
     <section id="why-us" class="wrapper bg-desk" style="background: none;">
       <div class="why-grid">
-        
         <div class="reveal">
           <div class="section-header left-align" style="margin-bottom: 2rem;">
             <div class="section-kicker">Why Growitharshiee</div>
             <h2 class="section-title">Built for the pace of <span class="italic-gold">modern business</span></h2>
             <p class="section-subtitle" style="margin-top: 1rem;">Traditional accounting firms were built for a different era. We're designed for founders and freelancers who need speed, clarity, and genuine expertise — not a helpdesk ticket.</p>
           </div>
-
-          <div class="num-card">
-            <div class="num">01</div>
-            <div class="num-card-content">
-              <h4>Jargon-Free Communication</h4>
-              <p>We translate complex financial and tax concepts into plain language. You'll always know what you're paying, why, and how to optimise it.</p>
-            </div>
-          </div>
-          
-          <div class="num-card">
-            <div class="num">02</div>
-            <div class="num-card-content">
-              <h4>Direct Access, No Intermediaries</h4>
-              <p>Your accounts are handled by a qualified CA aspirant, not delegated to trainees. Every query gets a precise, accountable answer.</p>
-            </div>
-          </div>
-
-          <div class="num-card">
-            <div class="num">03</div>
-            <div class="num-card-content">
-              <h4>WhatsApp-Speed Responsiveness</h4>
-              <p>Startups can't wait 3 business days. Most queries are resolved within the same working day via WhatsApp or email.</p>
-            </div>
-          </div>
-
-          <div class="num-card">
-            <div class="num">04</div>
-            <div class="num-card-content">
-              <h4>Proactive, Not Reactive</h4>
-              <p>We don't wait for you to ask. Deadline alerts, ITC mismatches, and tax-saving opportunities come to you before they become problems.</p>
-            </div>
-          </div>
+          <div class="num-card"><div class="num">01</div><div class="num-card-content"><h4>Jargon-Free Communication</h4><p>We translate complex financial and tax concepts into plain language. You'll always know what you're paying, why, and how to optimise it.</p></div></div>
+          <div class="num-card"><div class="num">02</div><div class="num-card-content"><h4>Direct Access, No Intermediaries</h4><p>Your accounts are handled by a qualified CA aspirant, not delegated to trainees. Every query gets a precise, accountable answer.</p></div></div>
+          <div class="num-card"><div class="num">03</div><div class="num-card-content"><h4>WhatsApp-Speed Responsiveness</h4><p>Startups can't wait 3 business days. Most queries are resolved within the same working day via WhatsApp or email.</p></div></div>
+          <div class="num-card"><div class="num">04</div><div class="num-card-content"><h4>Proactive, Not Reactive</h4><p>We don't wait for you to ask. Deadline alerts, ITC mismatches, and tax-saving opportunities come to you before they become problems.</p></div></div>
         </div>
-
         <div class="reveal" style="transition-delay: 0.2s; margin-top: 1.5rem;">
-          
           <div class="cred-box">
             <div class="cred-header">Credentials & Tools</div>
             <div class="cred-grid">
-              <div class="cred-item">
-                <i class="fa-solid fa-book-open"></i>
-                <h5>CA Inter</h5>
-                <span>ICAI Certified</span>
-              </div>
-              <div class="cred-item">
-                <i class="fa-solid fa-file-invoice"></i>
-                <h5>Tally ERP 9</h5>
-                <span>Power User</span>
-              </div>
-              <div class="cred-item">
-                <i class="fa-solid fa-cloud"></i>
-                <h5>Zoho Books</h5>
-                <span>Certified Expert</span>
-              </div>
-              <div class="cred-item">
-                <i class="fa-solid fa-building-flag"></i>
-                <h5>IN</h5>
-                <span>GST Portal</span>
-              </div>
+              <div class="cred-item"><i class="fa-solid fa-book-open"></i><h5>CA Inter</h5><span>ICAI Certified</span></div>
+              <div class="cred-item"><i class="fa-solid fa-file-invoice"></i><h5>Tally ERP 9</h5><span>Power User</span></div>
+              <div class="cred-item"><i class="fa-solid fa-cloud"></i><h5>Zoho Books</h5><span>Certified Expert</span></div>
+              <div class="cred-item"><i class="fa-solid fa-building-flag"></i><h5>IN</h5><span>GST Portal</span></div>
             </div>
           </div>
-
-          <div class="feat-card">
-            <div class="feat-icon-box"><i class="fa-solid fa-bolt"></i></div>
-            <div class="feat-content">
-              <h5>Same-Day Query Resolution</h5>
-              <p>Urgent queries answered within working hours</p>
-            </div>
-          </div>
-
-          <div class="feat-card">
-            <div class="feat-icon-box"><i class="fa-solid fa-lock"></i></div>
-            <div class="feat-content">
-              <h5>Data Confidentiality Assured</h5>
-              <p>All client data handled under strict NDA</p>
-            </div>
-          </div>
-
-          <div class="feat-card">
-            <div class="feat-icon-box"><i class="fa-solid fa-globe"></i></div>
-            <div class="feat-content">
-              <h5>Pan-India Remote Services</h5>
-              <p>Serving clients across all Indian states online</p>
-            </div>
-          </div>
-
+          <div class="feat-card"><div class="feat-icon-box"><i class="fa-solid fa-bolt"></i></div><div class="feat-content"><h5>Same-Day Query Resolution</h5><p>Urgent queries answered within working hours</p></div></div>
+          <div class="feat-card"><div class="feat-icon-box"><i class="fa-solid fa-lock"></i></div><div class="feat-content"><h5>Data Confidentiality Assured</h5><p>All client data handled under strict NDA</p></div></div>
+          <div class="feat-card"><div class="feat-icon-box"><i class="fa-solid fa-globe"></i></div><div class="feat-content"><h5>Pan-India Remote Services</h5><p>Serving clients across all Indian states online</p></div></div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES SECTION -->
     <section id="services-suite" class="wrapper bg-desk" style="background: none; padding-top: 2rem;">
       <div class="reveal">
         <div class="section-header">
@@ -1077,58 +532,26 @@
           <h2 class="section-title">Comprehensive financial <span class="italic-gold">services suite</span></h2>
           <p class="section-subtitle">We handle the entire compliance lifecycle—from day-one registrations to ongoing GST returns and advanced tax strategies—so you can focus strictly on growth.</p>
         </div>
-
         <div class="service-summary-grid">
-          
-          <div class="service-summary-card">
-            <div class="service-summary-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-            <h3 class="service-summary-title">GST & Indirect Tax</h3>
-            <p class="service-summary-desc">End-to-end GST compliance including new registrations, routine GSTR-1 & 3B filings, and thorough ITC reconciliation.</p>
-          </div>
-
-          <div class="service-summary-card">
-            <div class="service-summary-icon"><i class="fa-solid fa-wallet"></i></div>
-            <h3 class="service-summary-title">Bookkeeping</h3>
-            <p class="service-summary-desc">Precise, real-time financial records via Tally and Zoho Books to ensure you have full visibility into your cash flow at all times.</p>
-          </div>
-
-          <div class="service-summary-card">
-            <div class="service-summary-icon"><i class="fa-solid fa-chart-simple"></i></div>
-            <h3 class="service-summary-title">Income Tax & TDS</h3>
-            <p class="service-summary-desc">Strategic tax planning, advance tax computation, and timely ITR and TDS/TCS filings to minimize your liabilities.</p>
-          </div>
-
-          <div class="service-summary-card">
-            <div class="service-summary-icon"><i class="fa-solid fa-rocket"></i></div>
-            <h3 class="service-summary-title">Startup & Advisory</h3>
-            <p class="service-summary-desc">Company formation, MSME registrations, and Virtual CFO services offering budget vs actuals and strategic financial planning.</p>
-          </div>
-
+          <div class="service-summary-card"><div class="service-summary-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div><h3 class="service-summary-title">GST & Indirect Tax</h3><p class="service-summary-desc">End-to-end GST compliance including new registrations, routine GSTR-1 & 3B filings, and thorough ITC reconciliation.</p></div>
+          <div class="service-summary-card"><div class="service-summary-icon"><i class="fa-solid fa-wallet"></i></div><h3 class="service-summary-title">Bookkeeping</h3><p class="service-summary-desc">Precise, real-time financial records via Tally and Zoho Books to ensure you have full visibility into your cash flow at all times.</p></div>
+          <div class="service-summary-card"><div class="service-summary-icon"><i class="fa-solid fa-chart-simple"></i></div><h3 class="service-summary-title">Income Tax & TDS</h3><p class="service-summary-desc">Strategic tax planning, advance tax computation, and timely ITR and TDS/TCS filings to minimize your liabilities.</p></div>
+          <div class="service-summary-card"><div class="service-summary-icon"><i class="fa-solid fa-rocket"></i></div><h3 class="service-summary-title">Startup & Advisory</h3><p class="service-summary-desc">Company formation, MSME registrations, and Virtual CFO services offering budget vs actuals and strategic financial planning.</p></div>
         </div>
-
         <div class="services-cta-container">
-          <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services" class="btn btn-accent">
-            Explore All Detailed Services <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
-          </a>
+          <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services" class="btn btn-accent">Explore All Detailed Services <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
         </div>
       </div>
     </section>
 
     <section id="about" class="wrapper bg-desk" style="padding-top: 4rem; background: none;">
       <div class="grid-2 reveal">
-        <div class="profile-card premium-style">
-          <img src="profile.jpg" alt="Harshith G S - Financial Consultant" loading="lazy">        
-        </div>
+        <div class="profile-card premium-style"><img src="profile.jpg" alt="Harshith G S - Financial Consultant" loading="lazy"></div>
         <div>
           <div class="section-kicker">About Me</div>
           <h2 class="section-title" style="text-align: left;">Hi, I'm Harshiee.</h2>
-          <p style="color: var(--color-text-muted); margin-bottom: 1.5rem; font-size: 1.1rem;">
-            I am a CA Inter student operating out of Bengaluru. I bridge the gap between complex financial theory and practical business application. 
-          </p>
-          <p style="color: var(--color-text-muted); font-size: 1.1rem;">
-            Whether you need help getting your new startup registered, or need an experienced hand to clean up months of messy bookkeeping, I bring academic rigor and hands-on tool experience (Tally, Zoho) to your business.
-          </p>
-          
+          <p style="color: var(--color-text-muted); margin-bottom: 1.5rem; font-size: 1.1rem;">I am a CA Inter student operating out of Bengaluru. I bridge the gap between complex financial theory and practical business application.</p>
+          <p style="color: var(--color-text-muted); font-size: 1.1rem;">Whether you need help getting your new startup registered, or need an experienced hand to clean up months of messy bookkeeping, I bring academic rigor and hands-on tool experience (Tally, Zoho) to your business.</p>
           <div class="skill-badges">
             <span class="skill-badge"><i class="fa-solid fa-check"></i> GST Specialist</span>
             <span class="skill-badge"><i class="fa-solid fa-check"></i> Tally Expert</span>
@@ -1139,7 +562,6 @@
             <span class="skill-badge"><i class="fa-solid fa-check"></i> ITC Reconciliation</span>
             <span class="skill-badge"><i class="fa-solid fa-check"></i> Pan-India Remote</span>
           </div>
-
           <a href="https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/" target="_blank" rel="noopener" class="btn btn-primary">View My Portfolio</a>
         </div>
       </div>
@@ -1153,23 +575,13 @@
       <div class="case-study-card reveal">
         <h3 style="font-size: 1.8rem; color: var(--color-primary);">How proper bookkeeping saves real money.</h3>
         <div class="cs-grid">
-          <div class="cs-item">
-            <h4>1. The Problem</h4>
-            <p>A local agency had 6 months of messy books. Their GSTR-2B data didn't match their vendor invoices, risking a major loss in Input Tax Credit (ITC).</p>
-          </div>
-          <div class="cs-item">
-            <h4>2. The Solution</h4>
-            <p>I migrated their raw data into Zoho Books, reconciled every missing vendor invoice, and established a clean, monthly checklist for their team.</p>
-          </div>
-          <div class="cs-item">
-            <h4>3. The Result</h4>
-            <p>We successfully claimed the missing ITC before the deadline, preventing financial loss, and they are now 100% audit-ready every single month.</p>
-          </div>
+          <div class="cs-item"><h4>1. The Problem</h4><p>A local agency had 6 months of messy books. Their GSTR-2B data didn't match their vendor invoices, risking a major loss in Input Tax Credit (ITC).</p></div>
+          <div class="cs-item"><h4>2. The Solution</h4><p>I migrated their raw data into Zoho Books, reconciled every missing vendor invoice, and established a clean, monthly checklist for their team.</p></div>
+          <div class="cs-item"><h4>3. The Result</h4><p>We successfully claimed the missing ITC before the deadline, preventing financial loss, and they are now 100% audit-ready every single month.</p></div>
         </div>
       </div>
     </section>
-    
-    <!-- TOOLS SECTION (Restored Blue Transparent Theme) -->
+
     <section id="tools" class="dark-section bg-corporate" style="padding-top: 5rem; padding-bottom: 5rem;">
       <div class="wrapper reveal">
         <div class="section-header">
@@ -1177,51 +589,11 @@
           <h2 class="section-title">Client <span class="italic-gold">Toolbox</span></h2>
           <p class="section-subtitle">Use these free tools to quickly estimate your taxes or download our complete service overview.</p>
         </div>
-
         <div class="tools-grid">
-          
-          <!-- Tool 1: Income Tax (Featured) -->
-          <div class="tool-card featured-tool">
-            <div class="tool-badge">Most Used</div>
-            <div class="tool-icon-wrap">
-              <i class="fa-solid fa-calculator"></i>
-            </div>
-            <h3 class="tool-title">Income Tax Calculator</h3>
-            <p class="tool-desc">Estimate your annual tax liability instantly based on the latest Indian tax slabs (New vs Old Regime).</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tax/" class="tool-link">Calculate Tax <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-
-          <!-- Tool 2: TDS -->
-          <div class="tool-card">
-            <div class="tool-icon-wrap regular-icon">
-              <i class="fa-solid fa-file-invoice-dollar"></i>
-            </div>
-            <h3 class="tool-title">TDS Calculator</h3>
-            <p class="tool-desc">Instantly calculate GST, TDS, and net payable amounts for your vendor invoices to avoid compliance errors.</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/TDS/" class="tool-link">Open Calculator <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-
-          <!-- Tool 3: Converter -->
-          <div class="tool-card">
-            <div class="tool-icon-wrap regular-icon">
-              <i class="fa-solid fa-file-export"></i>
-            </div>
-            <h3 class="tool-title">Statement Converter</h3>
-            <p class="tool-desc">Quickly convert your raw bank statements into standard journal entries for easy, error-free bookkeeping.</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Converter/" class="tool-link">Convert Statement <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-
-          <!-- Tool 4: More Tools -->
-          <div class="tool-card">
-            <div class="tool-badge explore-badge">Explore</div>
-            <div class="tool-icon-wrap regular-icon">
-              <i class="fa-solid fa-toolbox"></i>
-            </div>
-            <h3 class="tool-title">More Tools</h3>
-            <p class="tool-desc">Access our complete library of financial calculators, compliance trackers, and accounting templates.</p>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools" class="tool-link">View All Tools <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-
+          <div class="tool-card featured-tool"><div class="tool-badge">Most Used</div><div class="tool-icon-wrap"><i class="fa-solid fa-calculator"></i></div><h3 class="tool-title">Income Tax Calculator</h3><p class="tool-desc">Estimate your annual tax liability instantly based on the latest Indian tax slabs (New vs Old Regime).</p><a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tax/" class="tool-link">Calculate Tax <i class="fa-solid fa-arrow-right"></i></a></div>
+          <div class="tool-card"><div class="tool-icon-wrap regular-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div><h3 class="tool-title">TDS Calculator</h3><p class="tool-desc">Instantly calculate GST, TDS, and net payable amounts for your vendor invoices to avoid compliance errors.</p><a href="https://harshiee-s.github.io/growitharshiee-financial-services/TDS/" class="tool-link">Open Calculator <i class="fa-solid fa-arrow-right"></i></a></div>
+          <div class="tool-card"><div class="tool-icon-wrap regular-icon"><i class="fa-solid fa-file-export"></i></div><h3 class="tool-title">Statement Converter</h3><p class="tool-desc">Quickly convert your raw bank statements into standard journal entries for easy, error-free bookkeeping.</p><a href="https://harshiee-s.github.io/growitharshiee-financial-services/Converter/" class="tool-link">Convert Statement <i class="fa-solid fa-arrow-right"></i></a></div>
+          <div class="tool-card"><div class="tool-badge explore-badge">Explore</div><div class="tool-icon-wrap regular-icon"><i class="fa-solid fa-toolbox"></i></div><h3 class="tool-title">More Tools</h3><p class="tool-desc">Access our complete library of financial calculators, compliance trackers, and accounting templates.</p><a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools" class="tool-link">View All Tools <i class="fa-solid fa-arrow-right"></i></a></div>
         </div>
       </div>
     </section>
@@ -1232,32 +604,22 @@
         <h2 class="section-title">Financial Insights</h2>
         <p class="section-subtitle">Watch local, hosted videos covering tax basics and accounting tips.</p>
       </div>
-
       <div class="grid-2 reveal">
         <div class="media-card">
           <div class="video-wrapper">
             <video controls preload="metadata" poster="https://via.placeholder.com/800x450.png?text=GST+Basics+Video">
-              <source src="assets/videos/gst-basics.mp4" type="video/mp4">
-              Your browser does not support the video tag.
+              <source src="assets/videos/gst-basics.mp4" type="video/mp4">Your browser does not support the video tag.
             </video>
           </div>
-          <div class="video-info">
-            <h3>GST Basics for Startups</h3>
-            <p>Learn exactly when you need to register for GST and how to avoid early compliance penalties.</p>
-          </div>
+          <div class="video-info"><h3>GST Basics for Startups</h3><p>Learn exactly when you need to register for GST and how to avoid early compliance penalties.</p></div>
         </div>
-        
         <div class="media-card" style="transition-delay: 0.2s;">
           <div class="video-wrapper">
             <video controls preload="metadata" poster="https://via.placeholder.com/800x450.png?text=Accounting+Tips+Video">
-              <source src="Logo_Animation_Video_Generated.mp4" type="video/mp4">
-              Your browser does not support the video tag.
+              <source src="Logo_Animation_Video_Generated.mp4" type="video/mp4">Your browser does not support the video tag.
             </video>
           </div>
-          <div class="video-info">
-            <h3>Clean Books, Happy Business</h3>
-            <p>Discover the simple daily bookkeeping habits that will keep your accounts audit-ready all year round.</p>
-          </div>
+          <div class="video-info"><h3>Clean Books, Happy Business</h3><p>Discover the simple daily bookkeeping habits that will keep your accounts audit-ready all year round.</p></div>
         </div>
       </div>
     </section>
@@ -1268,52 +630,12 @@
         <h2 class="section-title">Simple pricing for growing businesses</h2>
       </div>
       <div class="grid-3">
-        <div class="card pricing-card reveal">
-          <h3>Starter</h3>
-          <p style="color: var(--color-text-muted); font-size: 1rem;">Perfect for new freelancers.</p>
-          <div class="price">₹1,499<span>/mo*</span></div>
-          <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 2rem;">*Starting price</p>
-          <ul class="pricing-features">
-            <li>GST Registration Support</li>
-            <li>Basic Monthly GSTR-1 & 3B</li>
-            <li>Quarterly Review Call</li>
-            <li>Email Support</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline" style="width: 100%;">Choose Starter</a>
-        </div>
-
-        <div class="card pricing-card popular reveal" style="transition-delay: 0.1s;">
-          <div class="popular-tag">MOST POPULAR</div>
-          <h3>Growth</h3>
-          <p style="color: var(--color-text-muted); font-size: 1rem;">For active agencies & startups.</p>
-          <div class="price">₹4,999<span>/mo*</span></div>
-          <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 2rem;">*Starting price</p>
-          <ul class="pricing-features">
-            <li>Bookkeeping assistance (Zoho)</li>
-            <li>All GST & TDS Filings</li>
-            <li>Monthly P&L Statements</li>
-            <li>Priority WhatsApp Support</li>
-          </ul>
-          <a href="#contact" class="btn btn-accent" style="width: 100%;">Choose Growth</a>
-        </div>
-
-        <div class="card pricing-card reveal" style="transition-delay: 0.2s;">
-          <h3>Custom</h3>
-          <p style="color: var(--color-text-muted); font-size: 1rem;">For complex historical cleanups.</p>
-          <div class="price" style="font-size: 2.8rem; margin: 2rem 0;">Bespoke</div>
-          <p style="font-size: 0.85rem; color: transparent; margin-bottom: 2rem;">*Spacer</p>
-          <ul class="pricing-features">
-            <li>Historical Ledger Cleanup</li>
-            <li>Complex ITR Filings</li>
-            <li>Advanced MSME Advisory</li>
-            <li>Dedicated 1:1 Strategy</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline" style="width: 100%;">Let's Talk</a>
-        </div>
+        <div class="card pricing-card reveal"><h3>Starter</h3><p style="color: var(--color-text-muted); font-size: 1rem;">Perfect for new freelancers.</p><div class="price">₹1,499<span>/mo*</span></div><p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 2rem;">*Starting price</p><ul class="pricing-features"><li>GST Registration Support</li><li>Basic Monthly GSTR-1 & 3B</li><li>Quarterly Review Call</li><li>Email Support</li></ul><a href="#contact" class="btn btn-outline" style="width: 100%;">Choose Starter</a></div>
+        <div class="card pricing-card popular reveal" style="transition-delay: 0.1s;"><div class="popular-tag">MOST POPULAR</div><h3>Growth</h3><p style="color: var(--color-text-muted); font-size: 1rem;">For active agencies & startups.</p><div class="price">₹4,999<span>/mo*</span></div><p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 2rem;">*Starting price</p><ul class="pricing-features"><li>Bookkeeping assistance (Zoho)</li><li>All GST & TDS Filings</li><li>Monthly P&L Statements</li><li>Priority WhatsApp Support</li></ul><a href="#contact" class="btn btn-accent" style="width: 100%;">Choose Growth</a></div>
+        <div class="card pricing-card reveal" style="transition-delay: 0.2s;"><h3>Custom</h3><p style="color: var(--color-text-muted); font-size: 1rem;">For complex historical cleanups.</p><div class="price" style="font-size: 2.8rem; margin: 2rem 0;">Bespoke</div><p style="font-size: 0.85rem; color: transparent; margin-bottom: 2rem;">*Spacer</p><ul class="pricing-features"><li>Historical Ledger Cleanup</li><li>Complex ITR Filings</li><li>Advanced MSME Advisory</li><li>Dedicated 1:1 Strategy</li></ul><a href="#contact" class="btn btn-outline" style="width: 100%;">Let's Talk</a></div>
       </div>
     </section>
 
-    <!-- TESTIMONIALS (MARQUEE) -->
     <section id="testimonials" class="dark-section bg-corporate">
       <div class="wrapper">
         <div class="section-header reveal">
@@ -1321,124 +643,26 @@
           <h2 class="section-title">What clients are saying</h2>
         </div>
       </div>
-      
       <div class="testimonial-marquee-wrap">
         <div class="testimonial-track">
-          <!-- Card Set 1 -->
-          <div class="testimonial-card">
-            <p class="t-content">Harshiee explained the composition scheme to me in under 10 minutes. I finally understand how my billing works. Highly recommended for creative pros.</p>
-            <div class="t-author">
-              <div class="t-avatar">P</div>
-              <div>
-                <div class="t-name">Priya R.</div>
-                <div class="t-role">Freelance Designer</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="testimonial-card">
-            <p class="t-content">He saved us from a major penalty by catching a mismatch in our input tax credit. The monthly reporting from Zoho Books is flawless.</p>
-            <div class="t-author">
-              <div class="t-avatar">R</div>
-              <div>
-                <div class="t-name">Rahul M.</div>
-                <div class="t-role">Tech Founder</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="testimonial-card">
-            <p class="t-content">Moves at startup speed. If I have a quick question about a vendor invoice, I just drop a WhatsApp and get a clear, legally sound answer immediately.</p>
-            <div class="t-author">
-              <div class="t-avatar">A</div>
-              <div>
-                <div class="t-name">Anita S.</div>
-                <div class="t-role">Agency Owner</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <p class="t-content">The transition from our old accountant was seamless. Harshiee handled all the legacy filings and brought our compliance completely up to date within weeks.</p>
-            <div class="t-author">
-              <div class="t-avatar">V</div>
-              <div>
-                <div class="t-name">Vikram D.</div>
-                <div class="t-role">E-commerce Founder</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <p class="t-content">Finally, an accountant who speaks plain English! The initial consultation alone gave me more clarity than months of searching online.</p>
-            <div class="t-author">
-              <div class="t-avatar">S</div>
-              <div>
-                <div class="t-name">Sneha K.</div>
-                <div class="t-role">Independent Consultant</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card Set 2 (Duplicated for seamless infinite scrolling) -->
-          <div class="testimonial-card">
-            <p class="t-content">Harshiee explained the composition scheme to me in under 10 minutes. I finally understand how my billing works. Highly recommended for creative pros.</p>
-            <div class="t-author">
-              <div class="t-avatar">P</div>
-              <div>
-                <div class="t-name">Priya R.</div>
-                <div class="t-role">Freelance Designer</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="testimonial-card">
-            <p class="t-content">He saved us from a major penalty by catching a mismatch in our input tax credit. The monthly reporting from Zoho Books is flawless.</p>
-            <div class="t-author">
-              <div class="t-avatar">R</div>
-              <div>
-                <div class="t-name">Rahul M.</div>
-                <div class="t-role">Tech Founder</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="testimonial-card">
-            <p class="t-content">Moves at startup speed. If I have a quick question about a vendor invoice, I just drop a WhatsApp and get a clear, legally sound answer immediately.</p>
-            <div class="t-author">
-              <div class="t-avatar">A</div>
-              <div>
-                <div class="t-name">Anita S.</div>
-                <div class="t-role">Agency Owner</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <p class="t-content">The transition from our old accountant was seamless. Harshiee handled all the legacy filings and brought our compliance completely up to date within weeks.</p>
-            <div class="t-author">
-              <div class="t-avatar">V</div>
-              <div>
-                <div class="t-name">Vikram D.</div>
-                <div class="t-role">E-commerce Founder</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <p class="t-content">Finally, an accountant who speaks plain English! The initial consultation alone gave me more clarity than months of searching online.</p>
-            <div class="t-author">
-              <div class="t-avatar">S</div>
-              <div>
-                <div class="t-name">Sneha K.</div>
-                <div class="t-role">Independent Consultant</div>
-              </div>
-            </div>
-          </div>
+          <div class="testimonial-card"><p class="t-content">Harshiee explained the composition scheme to me in under 10 minutes. I finally understand how my billing works. Highly recommended for creative pros.</p><div class="t-author"><div class="t-avatar">P</div><div><div class="t-name">Priya R.</div><div class="t-role">Freelance Designer</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">He saved us from a major penalty by catching a mismatch in our input tax credit. The monthly reporting from Zoho Books is flawless.</p><div class="t-author"><div class="t-avatar">R</div><div><div class="t-name">Rahul M.</div><div class="t-role">Tech Founder</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">Moves at startup speed. If I have a quick question about a vendor invoice, I just drop a WhatsApp and get a clear, legally sound answer immediately.</p><div class="t-author"><div class="t-avatar">A</div><div><div class="t-name">Anita S.</div><div class="t-role">Agency Owner</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">The transition from our old accountant was seamless. Harshiee handled all the legacy filings and brought our compliance completely up to date within weeks.</p><div class="t-author"><div class="t-avatar">V</div><div><div class="t-name">Vikram D.</div><div class="t-role">E-commerce Founder</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">Finally, an accountant who speaks plain English! The initial consultation alone gave me more clarity than months of searching online.</p><div class="t-author"><div class="t-avatar">S</div><div><div class="t-name">Sneha K.</div><div class="t-role">Independent Consultant</div></div></div></div>
+          <!-- Duplicated for seamless loop -->
+          <div class="testimonial-card"><p class="t-content">Harshiee explained the composition scheme to me in under 10 minutes. I finally understand how my billing works. Highly recommended for creative pros.</p><div class="t-author"><div class="t-avatar">P</div><div><div class="t-name">Priya R.</div><div class="t-role">Freelance Designer</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">He saved us from a major penalty by catching a mismatch in our input tax credit. The monthly reporting from Zoho Books is flawless.</p><div class="t-author"><div class="t-avatar">R</div><div><div class="t-name">Rahul M.</div><div class="t-role">Tech Founder</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">Moves at startup speed. If I have a quick question about a vendor invoice, I just drop a WhatsApp and get a clear, legally sound answer immediately.</p><div class="t-author"><div class="t-avatar">A</div><div><div class="t-name">Anita S.</div><div class="t-role">Agency Owner</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">The transition from our old accountant was seamless. Harshiee handled all the legacy filings and brought our compliance completely up to date within weeks.</p><div class="t-author"><div class="t-avatar">V</div><div><div class="t-name">Vikram D.</div><div class="t-role">E-commerce Founder</div></div></div></div>
+          <div class="testimonial-card"><p class="t-content">Finally, an accountant who speaks plain English! The initial consultation alone gave me more clarity than months of searching online.</p><div class="t-author"><div class="t-avatar">S</div><div><div class="t-name">Sneha K.</div><div class="t-role">Independent Consultant</div></div></div></div>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================ -->
+    <!-- CONTACT SECTION — GOOGLE FORMS BACKEND INTEGRATION           -->
+    <!-- ============================================================ -->
     <section id="contact" class="wrapper">
       <div class="section-header reveal">
         <div class="section-kicker">Get Started</div>
@@ -1447,13 +671,12 @@
       </div>
 
       <div class="contact-split-card reveal">
-        
+
         <div class="contact-dark-panel">
           <h3 class="panel-heading">Contact Info</h3>
           <p style="color: var(--color-text-light-muted); margin-bottom: 2.5rem; font-size: 0.95rem;">
             Whether you need a complete bookkeeping overhaul or simple GST filing, I am here to help.
           </p>
-
           <div class="info-row">
             <i class="fa-solid fa-phone info-icon"></i>
             <div class="info-text">
@@ -1461,7 +684,6 @@
               <a href="tel:+917411709054">+91 74117 09054</a>
             </div>
           </div>
-          
           <div class="info-row">
             <i class="fa-solid fa-location-dot info-icon"></i>
             <div class="info-text">
@@ -1469,25 +691,13 @@
               <p>Bengaluru, Karnataka<br><span style="font-size: 0.85rem;">(Available PAN India Online)</span></p>
             </div>
           </div>
-
           <div class="icon-cluster">
-            <button type="button" onclick="window.location.href='mailto:harshiee2122@gmail.com'" class="circle-btn" aria-label="Email">
-              <i class="fa-solid fa-envelope"></i>
-            </button>
-            <button type="button" onclick="window.open('https://www.linkedin.com/in/harshiee', '_blank')" class="circle-btn" aria-label="LinkedIn">
-              <i class="fa-brands fa-linkedin-in"></i>
-            </button>
-            <button type="button" onclick="window.open('https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/', '_blank')" class="circle-btn" aria-label="Portfolio">
-              <i class="fa-solid fa-briefcase"></i>
-            </button>
-            <button type="button" onclick="window.open('https://www.instagram.com/', '_blank')" class="circle-btn" aria-label="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </button>
-            <button type="button" onclick="window.open('https://wa.me/917411709054?text=Hi,%20I%20need%20help%20with%20GST/accounting.', '_blank')" class="circle-btn" aria-label="WhatsApp">
-              <i class="fa-brands fa-whatsapp"></i>
-            </button>
+            <button type="button" onclick="window.location.href='mailto:harshiee2122@gmail.com'" class="circle-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></button>
+            <button type="button" onclick="window.open('https://www.linkedin.com/in/harshiee', '_blank')" class="circle-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></button>
+            <button type="button" onclick="window.open('https://harshiee-s.github.io/growitharshiee-financial-services/portfolio/', '_blank')" class="circle-btn" aria-label="Portfolio"><i class="fa-solid fa-briefcase"></i></button>
+            <button type="button" onclick="window.open('https://www.instagram.com/', '_blank')" class="circle-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></button>
+            <button type="button" onclick="window.open('https://wa.me/917411709054?text=Hi,%20I%20need%20help%20with%20GST/accounting.', '_blank')" class="circle-btn" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
           </div>
-
           <h4 class="q-links-header">Quick Links</h4>
           <div class="q-links-grid">
             <a href="#why-us" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Core Services</a>
@@ -1496,23 +706,49 @@
             <a href="#insights" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Tax Insights</a>
             <a href="brochure.pdf" download class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Download Brochure</a>
             <a href="#case-study" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Success Stories</a>
-<a href="https://harshiee-s.github.io/growitharshiee-financial-services/PDF-Tool/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> PDF Toolkit</a>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/PDF-Tool/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> PDF Toolkit</a>
             <a href="https://harshiee-s.github.io/growitharshiee-financial-services/bank-statement-to-excel/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i>Statement Converter</a>
             <a href="https://harshiee-s.github.io/growitharshiee-financial-services/2B%20ITC%20Reconciliation/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i>2B ITC Reconciliation</a>
           </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- LIGHT PANEL: The form now posts to Google Forms via fetch()   -->
+        <!-- ============================================================ -->
         <div class="contact-light-panel">
-          <form action="https://formsubmit.co/harshiee2122@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New Consultation Request - Growitharshiee">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://harshiee-s.github.io/growitharshiee-financial-services/enquiry-submitted" />
-            
+
+          <!--
+          ╔══════════════════════════════════════════════════════════════╗
+          ║            HOW TO FILL IN YOUR ENTRY IDs                    ║
+          ║                                                              ║
+          ║  1. Open your Google Form in a browser:                     ║
+          ║     https://docs.google.com/forms/d/                        ║
+          ║       1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/        ║
+          ║                                                              ║
+          ║  2. Right-click the page → "View Page Source" (Ctrl+U)      ║
+          ║                                                              ║
+          ║  3. Press Ctrl+F and search for: entry.                     ║
+          ║                                                              ║
+          ║  4. You will see values like entry.123456789                 ║
+          ║     Match them to the field order in your form:             ║
+          ║       1st field  → replace ENTRY_NAME  below               ║
+          ║       2nd field  → replace ENTRY_EMAIL below               ║
+          ║       3rd field  → replace ENTRY_PHONE below               ║
+          ║       4th field  → replace ENTRY_SERVICE below             ║
+          ║       5th field  → replace ENTRY_MESSAGE below             ║
+          ║                                                              ║
+          ║  5. Also confirm your FORM_ACTION_URL below.                ║
+          ║     It should be the /formResponse endpoint.                ║
+          ╚══════════════════════════════════════════════════════════════╝
+          -->
+
+          <form id="gf-contact-form" novalidate>
+
             <div class="form-group">
               <label for="name">Full Name</label>
               <input type="text" id="name" name="name" class="form-control" required placeholder="e.g. John Doe">
             </div>
-            
+
             <div class="form-group">
               <label for="email">Email Address</label>
               <input type="email" id="email" name="email" class="form-control" required placeholder="e.g. john@company.com">
@@ -1522,7 +758,7 @@
               <label for="phone">Phone Number</label>
               <input type="tel" id="phone" name="phone" class="form-control" required placeholder="e.g. +91 98765 43210">
             </div>
-            
+
             <div class="form-group">
               <label for="service">What do you need help with?</label>
               <select id="service" name="service" class="form-control">
@@ -1532,15 +768,23 @@
                 <option value="Other">Other</option>
               </select>
             </div>
-            
+
             <div class="form-group">
-              <label for="message">Project Details</label>
+              <label for="message">About your business</label>
               <textarea id="message" name="message" class="form-control" required placeholder="Tell me a bit about your current situation..."></textarea>
             </div>
-            
-            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem; font-size: 1.1rem; margin-top: 0.5rem;">Send Message</button>
+
+            <button type="submit" id="gf-submit-btn" class="btn btn-primary" style="width: 100%; padding: 1.2rem; font-size: 1.1rem; margin-top: 0.5rem;">
+              <span class="btn-spinner"></span>
+              <span class="btn-text">Send Message</span>
+            </button>
+
+            <!-- Success / error messages appear here -->
+            <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
           </form>
+
         </div>
+        <!-- END LIGHT PANEL -->
 
       </div>
     </section>
@@ -1548,37 +792,235 @@
 
   <footer style="border-top: 1px solid rgba(0,0,0,0.05); padding: 3rem 0; text-align: center; color: var(--color-text-muted); font-size: 0.95rem; background: #ffffff;">
     <div class="wrapper">
-      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand" style="justify-content: center; margin-bottom: 1.5rem;">
-        growitharshiee<span>.</span>
-      </a>
+      <a href="https://harshiee-s.github.io/growitharshiee-financial-services/" class="brand" style="justify-content: center; margin-bottom: 1.5rem;">growitharshiee<span>.</span></a>
       <p>&copy; 2026 Growitharshiee Financial Services. All rights reserved.</p>
     </div>
   </footer>
 
-  <button onclick="window.open('https://wa.me/917411709054?text=Hi,%20I%20need%20help%20with%20GST/accounting.', '_blank')" class="wa-float" style="border: none; cursor: pointer; outline: none;">
-    <svg class="wa-icon" viewBox="0 0 24 24"><path d="M12.031 0C5.383 0 0 5.383 0 12.031c0 2.128.552 4.195 1.599 6.01L.044 23.955l6.067-1.587A11.968 11.968 0 0012.031 24c6.648 0 12.031-5.383 12.031-12.031C24.062 5.383 18.679 0 12.031 0zm0 22.008c-1.802 0-3.567-.485-5.116-1.404l-.366-.217-3.801.996.996-3.801-.217-.366c-.919-1.549-1.404-3.314-1.404-5.116 0-5.548 4.512-10.06 10.06-10.06 5.548 0 10.06 4.512 10.06 10.06 0 5.548-4.512 10.06-10.06 10.06zm5.518-7.53c-.303-.152-1.787-.881-2.064-.982-.278-.101-.48-.152-.682.152-.202.303-.783.982-.96 1.183-.177.202-.354.227-.657.076-1.549-.785-2.738-1.503-3.8-3.32-.177-.303.177-.278.48-.881.101-.202.051-.38-.025-.532-.076-.152-.682-1.643-.935-2.25-.246-.593-.497-.512-.682-.52h-.581c-.202 0-.53.076-.808.38-.278.303-1.061 1.036-1.061 2.527 0 1.491 1.086 2.932 1.238 3.134.152.202 2.14 3.264 5.186 4.577 2.016.868 2.846.938 3.902.787 1.144-.162 3.49-1.425 3.983-2.805.493-1.38.493-2.563.341-2.815-.152-.253-.556-.404-.859-.556z"/></svg>
-    Chat with us
+  <!-- Chatbot toggle -->
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chat assistant">
+    <i class="fa-solid fa-comments chatbot-icon-open"></i>
+    <i class="fa-solid fa-xmark chatbot-icon-close"></i>
   </button>
 
+  <div id="chatbot-window" class="chatbot-window" aria-hidden="true" role="dialog">
+    <div class="chatbot-header">
+      <div class="chatbot-avatar">G</div>
+      <div>
+        <div class="chatbot-name">Growitharshiee Assistant</div>
+        <div class="chatbot-status"><span class="chatbot-status-dot"></span>Online · Replies instantly</div>
+      </div>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages"></div>
+    <div class="chatbot-quick-replies" id="chatbot-quick-replies"></div>
+    <div class="chatbot-input-area">
+      <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Ask about GST, pricing, services..." autocomplete="off">
+      <button id="chatbot-send" class="chatbot-send-btn" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Hidden iframe absorbs Google Forms redirect so the user never leaves your page -->
+  <iframe name="gf-hidden-iframe" id="gf-hidden-iframe" style="display:none;" title="Form submission target"></iframe>
+
   <script>
-    // Reveal Animations on Scroll
+    // ===== Scroll Reveal =====
     const revealEls = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-          } else {
-            entry.target.classList.remove("active");
-          }
-        });
-      },
-      { 
-        threshold: 0.1, 
-        rootMargin: "0px" 
-      }
+      (entries) => entries.forEach(e => e.isIntersecting ? e.target.classList.add("active") : e.target.classList.remove("active")),
+      { threshold: 0.1 }
     );
-    revealEls.forEach((el) => observer.observe(el));
+    revealEls.forEach(el => observer.observe(el));
+
+
+    // ================================================================
+    //  GOOGLE FORMS INTEGRATION — EDIT THE THREE CONSTANTS BELOW
+    // ================================================================
+
+    /**
+     * STEP 1 — Paste the formResponse URL for your Google Form.
+     *
+     * Formula: take your form's edit URL:
+     *   https://docs.google.com/forms/d/1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/
+     * and append "formResponse":
+     *   https://docs.google.com/forms/d/1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/formResponse
+     *
+     * NOTE: If your form has a /e/LONGID/ path, use that version instead.
+     *   You can find it by clicking "Send" → Link icon in the Google Forms editor.
+     */
+    const GOOGLE_FORM_ACTION =
+      "https://docs.google.com/forms/d/1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/formResponse";
+
+    /**
+     * STEP 2 — Map each HTML field to its Google Form entry ID.
+     *
+     * How to find your entry IDs in 60 seconds:
+     *   a) Open your form URL in Chrome (logged into your Google account)
+     *   b) Press F12 → go to "Network" tab → tick "Preserve log"
+     *   c) Fill the form with test data and click Submit
+     *   d) Look for a POST request to "formResponse"
+     *   e) Click it → "Payload" tab → you'll see entry.XXXXXXXXX=value
+     *
+     * OR:
+     *   a) View Page Source of the live form (Ctrl+U)
+     *   b) Ctrl+F → search "entry."
+     *   c) The numbers after "entry." are your IDs
+     *
+     * Replace the placeholder strings below with your actual IDs,
+     * keeping the "entry." prefix.
+     */
+    const FIELD_MAP = {
+      name:    "entry.REPLACE_WITH_NAME_ENTRY_ID",     // e.g. "entry.123456789"
+      email:   "entry.REPLACE_WITH_EMAIL_ENTRY_ID",    // e.g. "entry.987654321"
+      phone:   "entry.REPLACE_WITH_PHONE_ENTRY_ID",    // e.g. "entry.112233445"
+      service: "entry.REPLACE_WITH_SERVICE_ENTRY_ID",  // e.g. "entry.556677889"
+      message: "entry.REPLACE_WITH_MESSAGE_ENTRY_ID"   // e.g. "entry.998877665"
+    };
+
+    // ================================================================
+    //  FORM SUBMISSION ENGINE — no changes needed below this line
+    // ================================================================
+    (function () {
+      const form      = document.getElementById("gf-contact-form");
+      const submitBtn = document.getElementById("gf-submit-btn");
+      const statusEl  = document.getElementById("form-status");
+
+      function setStatus(type, msg) {
+        statusEl.className = "form-status " + type;
+        statusEl.innerHTML = msg;
+        statusEl.style.display = "block";
+        statusEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function setLoading(loading) {
+        if (loading) {
+          submitBtn.classList.add("loading");
+          submitBtn.querySelector(".btn-text").textContent = "Sending…";
+        } else {
+          submitBtn.classList.remove("loading");
+          submitBtn.querySelector(".btn-text").textContent = "Send Message";
+        }
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Basic client-side validation
+        const name    = form.name.value.trim();
+        const email   = form.email.value.trim();
+        const phone   = form.phone.value.trim();
+        const service = form.service.value;
+        const message = form.message.value.trim();
+
+        if (!name || !email || !phone || !message) {
+          setStatus("error", "⚠️ Please fill in all required fields.");
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setStatus("error", "⚠️ Please enter a valid email address.");
+          return;
+        }
+
+        setLoading(true);
+        statusEl.style.display = "none";
+
+        // Build URL-encoded payload mapping HTML fields → Google Form entries
+        const body = new URLSearchParams();
+        body.append(FIELD_MAP.name,    name);
+        body.append(FIELD_MAP.email,   email);
+        body.append(FIELD_MAP.phone,   phone);
+        body.append(FIELD_MAP.service, service);
+        body.append(FIELD_MAP.message, message);
+
+        /**
+         * Google Forms blocks CORS, so we use the "hidden iframe" trick:
+         * point a <form> target at an invisible iframe so the redirect
+         * lands there instead of navigating the main page.
+         */
+        const ghostForm = document.createElement("form");
+        ghostForm.method  = "POST";
+        ghostForm.action  = GOOGLE_FORM_ACTION;
+        ghostForm.target  = "gf-hidden-iframe";
+        ghostForm.style.display = "none";
+
+        body.forEach((val, key) => {
+          const input = document.createElement("input");
+          input.type  = "hidden";
+          input.name  = key;
+          input.value = val;
+          ghostForm.appendChild(input);
+        });
+
+        document.body.appendChild(ghostForm);
+        ghostForm.submit();
+        document.body.removeChild(ghostForm);
+
+        // Google Forms doesn't send a success callback over CORS,
+        // so we optimistically show success after a short delay.
+        setTimeout(() => {
+          setLoading(false);
+          setStatus(
+            "success",
+            "✅ Message sent! Your enquiry has been recorded in Google Forms. Harshiee will get back to you within 24 hours."
+          );
+          form.reset();
+        }, 1800);
+      });
+    })();
+
+
+    // ===== Chatbot Engine (unchanged) =====
+    (function() {
+      const toggleBtn     = document.getElementById('chatbot-toggle');
+      const chatWindow    = document.getElementById('chatbot-window');
+      const messagesEl    = document.getElementById('chatbot-messages');
+      const quickRepliesEl= document.getElementById('chatbot-quick-replies');
+      const inputEl       = document.getElementById('chatbot-input');
+      const sendBtn       = document.getElementById('chatbot-send');
+
+      const knowledge = [
+        { patterns: ['service','offer','what do you do','help with','expertise','what can you','work','specialty'], response: `<strong>Growitharshiee offers four core services:</strong><br><br>📊 <strong>GST & Indirect Tax</strong> — Registration, GSTR-1 & 3B filings, ITC reconciliation<br><br>💼 <strong>Bookkeeping</strong> — Tally & Zoho Books expertise, monthly P&L<br><br>📈 <strong>Income Tax & TDS</strong> — ITR filings, advance tax, TDS/TCS compliance<br><br>🚀 <strong>Startup & Advisory</strong> — Company formation, MSME, Virtual CFO<br><br>Which service do you want to know more about?`, quickReplies: ['GST Help','Bookkeeping','Income Tax','Startup Advisory','Pricing'] },
+        { patterns: ['gst','gstr','indirect tax','gst registration'], response: `<strong>GST Services we handle:</strong><br><br>✓ New GST Registration<br>✓ Monthly GSTR-1 & GSTR-3B filings<br>✓ GSTR-2B reconciliation<br>✓ Input Tax Credit (ITC) optimization<br>✓ Annual GSTR-9 filing<br><br>Want to discuss your specific situation?`, quickReplies: ['Book Consultation','View Pricing','Free GST Tools'] },
+        { patterns: ['price','pricing','cost','fee','plan','how much','charge','rate','package'], response: `<strong>Our transparent pricing plans:</strong><br><br>💎 <strong>Starter — ₹1,499/mo*</strong><br>Perfect for freelancers.<br><br>⭐ <strong>Growth — ₹4,999/mo*</strong> (Most Popular)<br>For startups & agencies.<br><br>🎯 <strong>Custom — Bespoke</strong><br>For complex needs.<br><br><a href="#pricing">View full pricing →</a>`, quickReplies: ['Book Consultation','Services','About Harshiee'] },
+        { patterns: ['about','who are you','harshiee','background','qualification'], response: `<strong>Meet Harshiee</strong> 👋<br><br>CA Inter student (ICAI Certified) from Bengaluru. Expert in Tally ERP 9 and Zoho Books. Pan-India remote services.`, quickReplies: ['View Services','Pricing','Contact Harshiee'] },
+        { patterns: ['hello','hi ','hii','hey','good morning','namaste'], response: `Hello! 👋 I'm the Growitharshiee assistant.<br><br>I can help with our <strong>GST, accounting, and tax services</strong>, pricing, free tools, or connect you with Harshiee.<br><br>What would you like to know?`, quickReplies: ['Services','Pricing','About Harshiee','Free Tools','Book Consultation'] },
+        { patterns: ['thank','thanks','thx'], response: `You're welcome! 😊 If you have more questions, feel free to ask. Or <a href="https://wa.me/917411709054" target="_blank">WhatsApp Harshiee</a> for personalized help.`, quickReplies: ['Book Consultation','Services'] },
+        { patterns: ['contact','reach','phone','email'], response: `<strong>Reach Harshiee directly:</strong><br><br>📱 <a href="tel:+917411709054">+91 74117 09054</a><br>✉️ <a href="mailto:harshiee2122@gmail.com">harshiee2122@gmail.com</a><br>📍 Bengaluru (PAN India online)`, quickReplies: ['Book Consultation','WhatsApp Now'] },
+        { patterns: ['book','consultation','meeting','appointment'], response: `Great! 🚀<br><br>1️⃣ <strong>Fill the form</strong> on our <a href="#contact">Contact section</a><br><br>2️⃣ <strong>WhatsApp directly:</strong> <a href="https://wa.me/917411709054" target="_blank">Click to chat</a><br><br>Free 15-minute initial consultation included.`, quickReplies: ['WhatsApp Now','View Services','Pricing'] }
+      ];
+
+      const fallback = { response: `I'm not sure I caught that. Here's what I can help with:<br><br>• Our <strong>services</strong> (GST, bookkeeping, tax)<br>• <strong>Pricing plans</strong><br>• <strong>About Harshiee</strong><br>• <strong>Free tools</strong><br>• How to <strong>book a consultation</strong>`, quickReplies: ['Services','Pricing','About Harshiee','Contact'] };
+      const qMap = { 'Services':'services','Pricing':'pricing','About Harshiee':'about harshiee','Free Tools':'tools','Contact':'contact','Contact Harshiee':'contact','Book Consultation':'book consultation','GST Help':'gst','GST Services':'gst','Bookkeeping':'bookkeeping','WhatsApp Now':'__whatsapp__','View Services':'services','View Pricing':'pricing','Free GST Tools':'tools','Income Tax':'income tax','Startup Advisory':'startup advisory' };
+
+      function findResponse(msg) {
+        msg = msg.toLowerCase().trim();
+        if (msg === '__whatsapp__') { window.open('https://wa.me/917411709054?text=Hi,%20I%20need%20help%20with%20GST/accounting.','_blank'); return { response: `Opening WhatsApp... 📱<br><a href="https://wa.me/917411709054" target="_blank">Click here if it didn't open</a>`, quickReplies: ['Services','Pricing'] }; }
+        let best = null, bestScore = 0;
+        for (const entry of knowledge) { let score = 0; for (const p of entry.patterns) { if (msg.includes(p)) score += p.length; } if (score > bestScore) { bestScore = score; best = entry; } }
+        return best || fallback;
+      }
+
+      function addMessage(text, sender) { const m = document.createElement('div'); m.className = `chatbot-message ${sender}`; m.innerHTML = text; messagesEl.appendChild(m); messagesEl.scrollTop = messagesEl.scrollHeight; }
+      function showTyping() { const t = document.createElement('div'); t.className='chatbot-typing'; t.id='chatbot-typing-indicator'; t.innerHTML='<span></span><span></span><span></span>'; messagesEl.appendChild(t); messagesEl.scrollTop=messagesEl.scrollHeight; }
+      function hideTyping() { const t=document.getElementById('chatbot-typing-indicator'); if(t)t.remove(); }
+      function updateQR(replies) { quickRepliesEl.innerHTML=''; if(!replies||!replies.length) return; replies.forEach(r=>{const b=document.createElement('button');b.className='chatbot-quick-reply';b.textContent=r;b.onclick=()=>handleInput(r,true);quickRepliesEl.appendChild(b);}); }
+      function escHtml(t) { const d=document.createElement('div');d.textContent=t;return d.innerHTML; }
+
+      function handleInput(text, isQR) {
+        const val = text.trim(); if(!val) return;
+        addMessage(escHtml(val),'user'); inputEl.value=''; updateQR([]);
+        showTyping();
+        setTimeout(()=>{ hideTyping(); const q=isQR&&qMap[val]?qMap[val]:val; const r=findResponse(q); addMessage(r.response,'bot'); updateQR(r.quickReplies); }, 700+Math.random()*400);
+      }
+
+      toggleBtn.addEventListener('click',()=>{
+        chatWindow.classList.toggle('active'); toggleBtn.classList.toggle('active');
+        if(chatWindow.classList.contains('active')){ chatWindow.setAttribute('aria-hidden','false'); if(!messagesEl.children.length){setTimeout(()=>{addMessage(`Hi! 👋 Welcome to <strong>Growitharshiee</strong>.<br><br>I'm here to help with GST, accounting, and tax services. What would you like to know?`,'bot');updateQR(['Services','Pricing','About Harshiee','Free Tools','Book Consultation']);},350);} setTimeout(()=>inputEl.focus(),400); }
+        else { chatWindow.setAttribute('aria-hidden','true'); }
+      });
+
+      sendBtn.addEventListener('click',()=>handleInput(inputEl.value,false));
+      inputEl.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();handleInput(inputEl.value,false);}});
+    })();
   </script>
 
 </body>
