@@ -4,42 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Favicon -->
-<link rel="icon" type="image/png" href="SVG.png" />
-<link rel="shortcut icon" type="image/png" href="SVG.png" />
-<link rel="apple-touch-icon" href="SVG.png" />
+  <link rel="icon" type="image/png" href="SVG.png" />
+  <link rel="shortcut icon" type="image/png" href="SVG.png" />
+  <link rel="apple-touch-icon" href="SVG.png" />
   <title>Thank You | Growitharshiee</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --color-bg: #f3f4f6; 
-      --color-surface: #ffffff;
-      --color-primary: #0f4c81;
-      --color-accent: #d97706;
-      --color-text: #0f172a;
-      --color-text-muted: #475569;
-      --bg-grid: rgba(11, 59, 99, 0.05); 
-      --radius-lg: 18px;
+      /* Premium Light Theme Variables */
+      --primary: #0A2540;
+      --primary-soft: rgba(10, 37, 64, 0.07);
+      --accent: #D4AF37;
+      --accent-soft: rgba(212, 175, 55, 0.13);
+      --accent-gradient: linear-gradient(135deg, #E6C265, #D4AF37);
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #5a6a82;
+      --border: rgba(10, 37, 64, 0.15);
+      --shadow-glass: 0 16px 40px rgba(10, 37, 64, 0.08);
+      
+      --radius-lg: 16px;
       --radius-pill: 999px;
-      --shadow-soft: 0 12px 24px rgba(15, 23, 42, 0.06);
-      --font-heading: "Poppins", sans-serif;
-      --font-body: "Inter", sans-serif;
+      
+      --font-heading: "Playfair Display", serif;
+      --font-body: "Poppins", sans-serif;
+      --font-read: "Inter", sans-serif;
+      --transition: 0.28s ease;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: var(--font-body);
-      color: var(--color-text);
-      background-color: var(--color-bg);
-      /* Finance Grid Background */
-      background-image: 
-        linear-gradient(var(--bg-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
-      background-size: 40px 40px;
+      font-family: var(--font-read);
+      color: var(--text);
+      background-color: var(--bg);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -47,34 +50,48 @@
       padding: 1.25rem;
       position: relative;
       overflow: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Abstract Market Trendline SVG Background */
-    .finance-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1; /* Behind the card but on the grid */
-      opacity: 0.6;
-      pointer-events: none;
+    /* Animated Sweeping Lines Background */
+    .dgv-background {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none; opacity: 0.7;
+    }
+    .dgv-background svg { width: 100%; height: 100%; }
+    .dgv-line {
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 4000; stroke-dashoffset: 4000;
+      animation: drawDGV 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+    .dgv-line-1 { stroke: var(--accent); stroke-width: 3px; opacity: 0.5; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); }
+    .dgv-line-2 { stroke: var(--primary); stroke-width: 1.5px; opacity: 0.15; animation-delay: -5s; }
+    .dgv-line-3 { stroke: var(--accent); stroke-width: 1px; opacity: 0.3; animation-delay: -10s; }
+    
+    @keyframes drawDGV { 
+      0% { stroke-dashoffset: 4000; } 
+      100% { stroke-dashoffset: 0; } 
     }
 
+    /* Glassmorphism Thank You Card */
     .thank-you-card {
-      background: var(--color-surface);
-      border: 1px solid rgba(15, 23, 42, 0.1);
+      /* Frosted glass effect */
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      
       border-radius: var(--radius-lg);
-      padding: 3.5rem 2rem;
+      padding: 3.5rem 2.5rem;
       max-width: 500px;
       width: 100%;
       text-align: center;
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--shadow-glass);
       position: relative;
-      z-index: 10; /* Above the trendline */
+      z-index: 10;
       opacity: 0;
-      transform: translateY(25px);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .thank-you-card.active {
@@ -82,48 +99,61 @@
       transform: translateY(0);
     }
 
-    /* Gold accent bar like your website cards */
+    /* Gold accent bar at the top */
     .thank-you-card::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 4px;
-      background: var(--color-accent);
+      background: var(--accent-gradient);
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
+    /* Brand Logo Styling */
+    .brand-logo {
+      height: 48px;
+      width: auto;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
     .icon-circle {
-      width: 60px;
-      height: 60px;
-      background: rgba(34, 197, 94, 0.1);
-      color: #22c55e;
+      width: 56px;
+      height: 56px;
+      background: var(--surface);
+      color: var(--accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
-      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 4px 16px var(--accent-soft);
+      border: 1px solid var(--border);
     }
 
     h1 {
       font-family: var(--font-heading);
-      font-size: 1.6rem;
-      line-height: 1.2;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.3;
       margin-bottom: 1rem;
-      color: var(--color-primary);
+      color: var(--primary);
     }
 
     h1 span {
-      background: linear-gradient(120deg, #f5c461, #f97316);
+      background: var(--accent-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     p {
-      color: var(--color-text-muted);
+      font-family: var(--font-read);
+      color: var(--muted);
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.75;
       margin-bottom: 2.5rem;
     }
 
@@ -131,37 +161,45 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #f5c461, #f97316); 
-      color: #111827;
+      background: var(--accent-gradient); 
+      color: var(--primary);
       padding: 0.85rem 2.2rem;
       border-radius: var(--radius-pill);
+      font-family: var(--font-body);
       font-weight: 600;
+      letter-spacing: 0.03em;
       text-decoration: none;
       font-size: 0.95rem;
-      transition: all 0.2s ease;
-      box-shadow: 0 10px 20px rgba(249, 115, 22, 0.2);
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px var(--accent-soft);
       border: none;
       cursor: pointer;
     }
 
     .btn-home:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(249, 115, 22, 0.3);
-      filter: brightness(1.05);
+      box-shadow: 0 8px 22px rgba(212, 175, 55, 0.3);
+      filter: brightness(1.04);
     }
   </style>
 </head>
 <body>
 
-  <svg class="finance-bg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-    <path d="M0,800 Q150,600 250,700 T500,400 T750,500 T1000,200 L1000,1000 L0,1000 Z" fill="rgba(11, 59, 99, 0.03)"></path>
-    <polyline points="0,800 150,600 250,700 500,400 750,500 1000,200" fill="none" stroke="rgba(11, 59, 99, 0.15)" stroke-width="2"></polyline>
-    <polyline points="0,900 200,850 400,900 600,600 800,800 1000,400" fill="none" stroke="rgba(15, 23, 42, 0.05)" stroke-width="1"></polyline>
-  </svg>
+  <!-- Animated SVG Background -->
+  <div class="dgv-background">
+    <svg viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="dgv-line dgv-line-1" d="M-100,750 C150,650 300,500 650,450 C1000,400 1200,200 1500,100" />
+      <path class="dgv-line dgv-line-2" d="M-100,800 C250,700 450,550 800,500 C1100,450 1300,300 1500,150" />
+      <path class="dgv-line dgv-line-3" d="M-100,850 C350,750 550,650 900,550 C1250,450 1400,350 1500,200" />
+    </svg>
+  </div>
 
   <div class="thank-you-card" id="card">
+    <!-- Inserted Logo -->
+    <img src="logo.png" alt="Growitharshiee Logo" class="brand-logo">
+    
     <div class="icon-circle">✓</div>
-    <h1>Thank you for choosing <span>Growitharshiee.</span></h1>
+    <h1>Thank you for choosing <br><span>Growitharshiee.</span></h1>
     <p>
       Your enquiry has been received successfully. <br>
       <strong>Harshiee</strong> will get back to you within one business day.
@@ -177,7 +215,7 @@
       // Small delay for a smoother intro
       setTimeout(() => {
         document.getElementById('card').classList.add('active');
-      }, 100);
+      }, 150);
     });
   </script>
 
