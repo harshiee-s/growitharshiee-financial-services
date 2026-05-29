@@ -107,13 +107,30 @@
     .btn-outline-light { border: 2px solid var(--color-text-light); background: transparent; color: var(--color-text-light); }
     .btn-outline-light:hover { background: var(--color-text-light); color: var(--color-primary); }
 
+    /* ---- Header & Nav ---- */
     header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-    .brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; color: var(--color-primary); display: flex; align-items: center; gap: 12px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 1rem; }
+    .brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; color: var(--color-primary); display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     .brand span { color: var(--color-accent); }
     .nav-links { display: flex; gap: 2rem; font-size: 0.95rem; font-family: var(--font-subheading); font-weight: 500; }
     .nav-links a { color: var(--color-text-muted); transition: color 0.2s; }
     .nav-links a:hover { color: var(--color-primary); }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--color-primary); font-size: 1.4rem; line-height: 1; border-radius: 8px; transition: background 0.2s; }
+    .nav-hamburger:hover { background: rgba(10,37,64,0.06); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    /* Mobile nav drawer */
+    .nav-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200; }
+    .nav-drawer-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+    .nav-drawer-panel { position: absolute; top: 0; right: 0; width: min(320px, 88vw); height: 100%; background: #fff; display: flex; flex-direction: column; box-shadow: -8px 0 32px rgba(0,0,0,0.15); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .nav-drawer.open { display: block; }
+    .nav-drawer.open .nav-drawer-panel { transform: translateX(0); }
+    .nav-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .nav-drawer-close { background: none; border: none; cursor: pointer; font-size: 1.4rem; color: var(--color-primary); padding: 4px; }
+    .nav-drawer-links { display: flex; flex-direction: column; padding: 1rem 0; flex: 1; overflow-y: auto; }
+    .nav-drawer-links a { padding: 0.9rem 1.5rem; font-family: var(--font-subheading); font-size: 1rem; font-weight: 500; color: var(--color-text-muted); border-bottom: 1px solid rgba(0,0,0,0.04); transition: color 0.2s, background 0.2s; display: flex; align-items: center; gap: 0.75rem; }
+    .nav-drawer-links a:hover { color: var(--color-primary); background: rgba(10,37,64,0.03); }
+    .nav-drawer-footer { padding: 1.5rem; border-top: 1px solid rgba(0,0,0,0.07); }
 
     section { padding: 7rem 0; position: relative; }
     .dark-section { background-color: var(--color-bg-dark); color: var(--color-text-light); }
@@ -252,60 +269,23 @@
     .t-name { font-weight: 600; font-size: 1.05rem; color: var(--color-text-light); }
     .t-role { font-size: 0.85rem; color: var(--color-text-light-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
-    /* ============================================ */
-    /* ===== CONTACT FORM — GOOGLE FORMS STYLE === */
-    /* ============================================ */
     .form-group { margin-bottom: 1.8rem; text-align: left; }
     .form-group label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--color-primary); font-family: var(--font-subheading); }
     .form-control { width: 100%; padding: 1.2rem 1.5rem; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: var(--radius-md); background: #ffffff; color: var(--color-text-dark); font-family: inherit; font-size: 1rem; transition: all 0.3s; }
     .form-control:focus { border-color: var(--color-accent); outline: none; box-shadow: 0 0 0 4px var(--color-accent-soft); }
     textarea.form-control { resize: vertical; min-height: 160px; }
 
-    /* ---- Success / Error State ---- */
-    .form-status {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 1.2rem 1.5rem;
-      border-radius: var(--radius-md);
-      font-family: var(--font-subheading);
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-align: center;
-      animation: fadeInUp 0.4s ease;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .form-status.success {
-      display: block;
-      background: #ecfdf5;
-      border: 1px solid #6ee7b7;
-      color: #065f46;
-    }
-    .form-status.error {
-      display: block;
-      background: #fef2f2;
-      border: 1px solid #fca5a5;
-      color: #991b1b;
-    }
+    .form-status { display: none; margin-top: 1.5rem; padding: 1.2rem 1.5rem; border-radius: var(--radius-md); font-family: var(--font-subheading); font-size: 0.95rem; font-weight: 500; text-align: center; animation: fadeInUp 0.4s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .form-status.success { display: block; background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }
+    .form-status.error { display: block; background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
 
-    /* Spinner inside the button */
-    .btn-spinner {
-      width: 18px; height: 18px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
-      margin-right: 8px;
-    }
+    .btn-spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; margin-right: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .btn-primary.loading .btn-spinner { display: inline-block; }
     .btn-primary.loading .btn-text { opacity: 0.7; }
     .btn-primary.loading { pointer-events: none; }
 
-    /* ---- Ticker ---- */
     .ticker-wrap { width: 100%; overflow: hidden; background-color: var(--color-primary); color: #fff; padding: 0.8rem 0; position: relative; z-index: 99; border-bottom: 2px solid var(--color-accent); }
     .ticker { display: inline-block; white-space: nowrap; animation: ticker-anim 35s linear infinite; }
     .ticker-wrap:hover .ticker { animation-play-state: paused; }
@@ -326,7 +306,7 @@
     .circle-btn { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all var(--transition-fast); text-decoration: none; cursor: pointer; }
     .circle-btn:hover { background: var(--color-accent); color: var(--color-primary); transform: translateY(-4px); border-color: var(--color-accent); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
     .q-links-header { font-family: var(--font-subheading); font-size: 0.9rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em; margin: 2.5rem 0 1rem; font-weight: 600; }
-    .q-links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .q-links-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     .q-link-item { color: var(--color-text-light-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: color var(--transition-fast); }
     .q-link-item i { color: var(--color-accent); font-size: 0.75rem; }
     .q-link-item:hover { color: #ffffff; }
@@ -375,27 +355,142 @@
     .chatbot-typing span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes typing-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-8px); opacity: 1; } }
 
-    @media (max-width: 480px) {
-      .chatbot-window { width: calc(100vw - 24px); right: 12px; bottom: 100px; height: calc(100vh - 130px); max-height: calc(100vh - 130px); }
-      .chatbot-toggle { bottom: 20px; right: 20px; width: 58px; height: 58px; }
-    }
+    /* ================================================================
+       RESPONSIVE — TABLET (≤1024px)
+    ================================================================ */
     @media (max-width: 1024px) {
       .grid-3, .grid-4, .why-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .nav-links { display: none; }
       .hero-inner { grid-template-columns: 1fr; }
-      .pricing-card.popular { transform: none; }
-      .pricing-card.popular:hover { transform: translateY(-8px); }
+      .pricing-card.popular { transform: none !important; }
+      .pricing-card.popular:hover { transform: translateY(-8px) !important; }
       .hero { padding-top: 5rem; }
       .contact-split-card { grid-template-columns: 1fr; }
       .contact-dark-panel, .contact-light-panel { padding: 2.5rem; }
+      /* Show hamburger, hide desktop nav */
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
     }
+
+    /* ================================================================
+       RESPONSIVE — MOBILE (≤768px)
+    ================================================================ */
     @media (max-width: 768px) {
+      .wrapper { padding: 0 1.25rem; }
+      section { padding: 3.5rem 0; }
+
+      /* Nav */
+      .nav { height: 60px; }
+      .brand { font-size: 1.2rem; }
+      .brand img { height: 32px; }
+      .nav-right .btn { padding: 0.55rem 1rem; font-size: 0.8rem; }
+
+      /* Typography */
+      .section-title { font-size: 1.9rem; }
+      .section-header { margin-bottom: 2rem; }
+      .section-subtitle { font-size: 0.95rem; }
+
+      /* Hero */
+      .hero { padding-top: 3rem; padding-bottom: 3rem; }
+      .hero-title { font-size: clamp(1.9rem, 6vw, 2.8rem); }
+      .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.75rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-card { padding: 1.5rem; }
+      .hero-india-tag { position: static; display: inline-flex; margin-bottom: 1rem; }
+
+      /* Trust banner */
+      .trust-banner {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem 1rem;
+        padding: 2rem 0;
+        margin-top: 2rem;
+      }
+      .trust-item h4 { font-size: 1.5rem; }
+      .trust-item p { font-size: 0.75rem; letter-spacing: 0; }
+
+      /* Grids */
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
       .service-summary-grid { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
       .cs-grid { grid-template-columns: 1fr; }
-      .cred-grid { grid-template-columns: 1fr; }
-      .testimonial-card { width: 300px; padding: 2.5rem 2rem 2rem 2rem; }
+      .cred-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Cards */
+      .card { padding: 1.75rem 1.25rem; }
+      .num-card { padding: 1.2rem; gap: 1rem; }
+      .cred-box { padding: 1.5rem 1.25rem; }
+      .case-study-card { padding: 2rem 1.5rem; }
+
+      /* Testimonials */
+      .testimonial-card { width: 300px; padding: 2.5rem 1.5rem 2rem 1.5rem; }
+
+      /* Contact */
+      .contact-dark-panel, .contact-light-panel { padding: 2rem 1.5rem; }
+      .panel-heading { font-size: 1.7rem; }
+      .q-links-grid { gap: 0.75rem; }
+      .icon-cluster { gap: 0.75rem; }
+
+      /* Pricing */
+      .price { font-size: 2.8rem; }
+      .pricing-card { padding: 2.5rem 1.5rem; }
+
+      /* Ticker */
+      .ticker span { font-size: 0.75rem; margin: 0 1.2rem; }
+
+      /* Video */
+      .video-info { padding: 1.25rem; }
+      .video-info h3 { font-size: 1.1rem; }
+      .video-info p { font-size: 0.9rem; }
+
+      /* Buttons */
+      .btn { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+      .services-cta-container .btn { width: 100%; justify-content: center; }
+    }
+
+    /* ================================================================
+       RESPONSIVE — SMALL MOBILE (≤480px)
+    ================================================================ */
+    @media (max-width: 480px) {
+      .wrapper { padding: 0 1rem; }
+      section { padding: 3rem 0; }
+
+      /* Chatbot */
+      .chatbot-window { width: calc(100vw - 24px); right: 12px; bottom: 90px; height: calc(100vh - 120px); max-height: calc(100vh - 120px); }
+      .chatbot-toggle { bottom: 20px; right: 16px; width: 54px; height: 54px; font-size: 1.3rem; }
+
+      /* Hero */
+      .hero-title { font-size: 1.75rem; line-height: 1.15; }
+      .badge { font-size: 0.75rem; padding: 0.4rem 0.75rem; }
+
+      /* Nav */
+      .brand { font-size: 1.1rem; gap: 8px; }
+      .nav-right .btn { display: none; }
+
+      /* Trust banner — single col on very small screens */
+      .trust-banner { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+      /* Cards */
+      .service-summary-card { padding: 1.75rem 1.25rem; }
+      .dark-section .tool-card { padding: 1.75rem 1.25rem; }
+      .contact-split-card { border-radius: 16px; }
+      .contact-dark-panel, .contact-light-panel { padding: 1.75rem 1.25rem; }
+      .panel-heading { font-size: 1.5rem; }
+
+      /* Profile */
+      .profile-card.premium-style { padding: 6px; }
+
+      /* Cred grid single col on very small */
+      .cred-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Section titles */
+      .section-title { font-size: 1.65rem; }
+
+      /* Form */
+      .form-control { padding: 1rem 1.25rem; }
+
+      /* About section skills */
+      .skill-badge { padding: 0.5rem 1rem; font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -415,7 +510,7 @@
         <img src="logo.png" alt="Growitharshiee Logo" style="height: 40px; width: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         <span></span>
       </a>
-      <nav class="nav-links">
+      <nav class="nav-links" id="desktop-nav">
         <a href="#home">Home</a>
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services">Services</a>
         <a href="#about">About Us</a>
@@ -425,9 +520,40 @@
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Blog">Blog</a>
         <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Careers">Careers</a>
       </nav>
-      <a href="https://harshiee-s.github.io/growitharshiee-CMS/" class="btn btn-primary" style="padding: 0.7rem 1.5rem; font-size: 0.85rem;">User Login</a>
+      <div class="nav-right">
+        <a href="https://harshiee-s.github.io/growitharshiee-CMS/" class="btn btn-primary" style="padding: 0.7rem 1.5rem; font-size: 0.85rem;">User Login</a>
+        <button id="nav-hamburger" class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false">
+          <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Mobile nav drawer -->
+  <div id="nav-drawer" class="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div class="nav-drawer-backdrop" id="nav-drawer-backdrop"></div>
+    <div class="nav-drawer-panel">
+      <div class="nav-drawer-header">
+        <span class="brand" style="font-size: 1.1rem;">growitharshiee<span style="color: var(--color-accent);">.</span></span>
+        <button class="nav-drawer-close" id="nav-drawer-close" aria-label="Close menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="nav-drawer-links">
+        <a href="#home"><i class="fa-solid fa-house" style="color: var(--color-accent); width: 18px;"></i> Home</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Services"><i class="fa-solid fa-briefcase" style="color: var(--color-accent); width: 18px;"></i> Services</a>
+        <a href="#about"><i class="fa-solid fa-user" style="color: var(--color-accent); width: 18px;"></i> About Us</a>
+        <a href="#pricing"><i class="fa-solid fa-tags" style="color: var(--color-accent); width: 18px;"></i> Pricing</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Tools"><i class="fa-solid fa-toolbox" style="color: var(--color-accent); width: 18px;"></i> Tools</a>
+        <a href="#insights"><i class="fa-solid fa-chart-line" style="color: var(--color-accent); width: 18px;"></i> Insights</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Blog"><i class="fa-solid fa-newspaper" style="color: var(--color-accent); width: 18px;"></i> Blog</a>
+        <a href="https://harshiee-s.github.io/growitharshiee-financial-services/Careers"><i class="fa-solid fa-people-group" style="color: var(--color-accent); width: 18px;"></i> Careers</a>
+      </nav>
+      <div class="nav-drawer-footer">
+        <a href="https://harshiee-s.github.io/growitharshiee-CMS/" class="btn btn-primary" style="width: 100%; justify-content: center;">User Login</a>
+      </div>
+    </div>
+  </div>
 
   <div class="ticker-wrap">
     <div class="ticker">
@@ -660,9 +786,6 @@
       </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!-- CONTACT SECTION — GOOGLE FORMS BACKEND INTEGRATION           -->
-    <!-- ============================================================ -->
     <section id="contact" class="wrapper">
       <div class="section-header reveal">
         <div class="section-kicker">Get Started</div>
@@ -707,58 +830,25 @@
             <a href="brochure.pdf" download class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Download Brochure</a>
             <a href="#case-study" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Success Stories</a>
             <a href="https://harshiee-s.github.io/growitharshiee-financial-services/PDF-Tool/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> PDF Toolkit</a>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/bank-statement-to-excel/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i>Statement Converter</a>
-            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/2B%20ITC%20Reconciliation/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i>2B ITC Reconciliation</a>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/bank-statement-to-excel/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> Statement Converter</a>
+            <a href="https://harshiee-s.github.io/growitharshiee-financial-services/2B%20ITC%20Reconciliation/" class="q-link-item"><i class="fa-solid fa-chevron-right"></i> 2B ITC Reconciliation</a>
           </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- LIGHT PANEL: The form now posts to Google Forms via fetch()   -->
-        <!-- ============================================================ -->
         <div class="contact-light-panel">
-
-          <!--
-          ╔══════════════════════════════════════════════════════════════╗
-          ║            HOW TO FILL IN YOUR ENTRY IDs                    ║
-          ║                                                              ║
-          ║  1. Open your Google Form in a browser:                     ║
-          ║     https://docs.google.com/forms/d/                        ║
-          ║       1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/        ║
-          ║                                                              ║
-          ║  2. Right-click the page → "View Page Source" (Ctrl+U)      ║
-          ║                                                              ║
-          ║  3. Press Ctrl+F and search for: entry.                     ║
-          ║                                                              ║
-          ║  4. You will see values like entry.123456789                 ║
-          ║     Match them to the field order in your form:             ║
-          ║       1st field  → replace ENTRY_NAME  below               ║
-          ║       2nd field  → replace ENTRY_EMAIL below               ║
-          ║       3rd field  → replace ENTRY_PHONE below               ║
-          ║       4th field  → replace ENTRY_SERVICE below             ║
-          ║       5th field  → replace ENTRY_MESSAGE below             ║
-          ║                                                              ║
-          ║  5. Also confirm your FORM_ACTION_URL below.                ║
-          ║     It should be the /formResponse endpoint.                ║
-          ╚══════════════════════════════════════════════════════════════╝
-          -->
-
           <form id="gf-contact-form" novalidate>
-
             <div class="form-group">
               <label for="name">Full Name</label>
               <input type="text" id="name" name="name" class="form-control" required placeholder="e.g. John Doe">
             </div>
-
             <div class="form-group">
               <label for="email">Email Address</label>
               <input type="email" id="email" name="email" class="form-control" required placeholder="e.g. john@company.com">
             </div>
-
             <div class="form-group">
               <label for="phone">Phone Number</label>
               <input type="tel" id="phone" name="phone" class="form-control" required placeholder="e.g. +91 98765 43210">
             </div>
-
             <div class="form-group">
               <label for="service">What do you need help with?</label>
               <select id="service" name="service" class="form-control">
@@ -768,23 +858,17 @@
                 <option value="Other">Other</option>
               </select>
             </div>
-
             <div class="form-group">
               <label for="message">About your business</label>
               <textarea id="message" name="message" class="form-control" required placeholder="Tell me a bit about your current situation..."></textarea>
             </div>
-
             <button type="submit" id="gf-submit-btn" class="btn btn-primary" style="width: 100%; padding: 1.2rem; font-size: 1.1rem; margin-top: 0.5rem;">
               <span class="btn-spinner"></span>
               <span class="btn-text">Send Message</span>
             </button>
-
-            <!-- Success / error messages appear here -->
             <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
           </form>
-
         </div>
-        <!-- END LIGHT PANEL -->
 
       </div>
     </section>
@@ -797,7 +881,6 @@
     </div>
   </footer>
 
-  <!-- Chatbot toggle -->
   <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chat assistant">
     <i class="fa-solid fa-comments chatbot-icon-open"></i>
     <i class="fa-solid fa-xmark chatbot-icon-close"></i>
@@ -819,7 +902,6 @@
     </div>
   </div>
 
-  <!-- Hidden iframe absorbs Google Forms redirect so the user never leaves your page -->
   <iframe name="gf-hidden-iframe" id="gf-hidden-iframe" style="display:none;" title="Form submission target"></iframe>
 
   <script>
@@ -831,54 +913,49 @@
     );
     revealEls.forEach(el => observer.observe(el));
 
+    // ===== Mobile Nav Drawer =====
+    (function () {
+      const hamburger   = document.getElementById('nav-hamburger');
+      const drawer      = document.getElementById('nav-drawer');
+      const backdrop    = document.getElementById('nav-drawer-backdrop');
+      const closeBtn    = document.getElementById('nav-drawer-close');
+      const drawerLinks = document.querySelectorAll('.nav-drawer-links a');
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        hamburger.setAttribute('aria-expanded', 'true');
+      }
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+
+      hamburger.addEventListener('click', openDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+      drawerLinks.forEach(link => link.addEventListener('click', closeDrawer));
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      });
+    })();
 
     // ================================================================
-    //  GOOGLE FORMS INTEGRATION — EDIT THE THREE CONSTANTS BELOW
+    //  GOOGLE FORMS INTEGRATION
     // ================================================================
-
-    /**
-     * STEP 1 — Paste the formResponse URL for your Google Form.
-     *
-     * Formula: take your form's edit URL:
-     *   https://docs.google.com/forms/d/1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/
-     * and append "formResponse":
-     *   https://docs.google.com/forms/d/1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/formResponse
-     *
-     * NOTE: If your form has a /e/LONGID/ path, use that version instead.
-     *   You can find it by clicking "Send" → Link icon in the Google Forms editor.
-     */
     const GOOGLE_FORM_ACTION =
       "https://docs.google.com/forms/d/1OMYHQkMJ2ehKiBp6_wsVz3MR38z0MafxVr9S9X7H-qY/formResponse";
 
-    /**
-     * STEP 2 — Map each HTML field to its Google Form entry ID.
-     *
-     * How to find your entry IDs in 60 seconds:
-     *   a) Open your form URL in Chrome (logged into your Google account)
-     *   b) Press F12 → go to "Network" tab → tick "Preserve log"
-     *   c) Fill the form with test data and click Submit
-     *   d) Look for a POST request to "formResponse"
-     *   e) Click it → "Payload" tab → you'll see entry.XXXXXXXXX=value
-     *
-     * OR:
-     *   a) View Page Source of the live form (Ctrl+U)
-     *   b) Ctrl+F → search "entry."
-     *   c) The numbers after "entry." are your IDs
-     *
-     * Replace the placeholder strings below with your actual IDs,
-     * keeping the "entry." prefix.
-     */
     const FIELD_MAP = {
-      name:    "entry.REPLACE_WITH_NAME_ENTRY_ID",     // e.g. "entry.123456789"
-      email:   "entry.REPLACE_WITH_EMAIL_ENTRY_ID",    // e.g. "entry.987654321"
-      phone:   "entry.REPLACE_WITH_PHONE_ENTRY_ID",    // e.g. "entry.112233445"
-      service: "entry.REPLACE_WITH_SERVICE_ENTRY_ID",  // e.g. "entry.556677889"
-      message: "entry.REPLACE_WITH_MESSAGE_ENTRY_ID"   // e.g. "entry.998877665"
+      name:    "entry.REPLACE_WITH_NAME_ENTRY_ID",
+      email:   "entry.REPLACE_WITH_EMAIL_ENTRY_ID",
+      phone:   "entry.REPLACE_WITH_PHONE_ENTRY_ID",
+      service: "entry.REPLACE_WITH_SERVICE_ENTRY_ID",
+      message: "entry.REPLACE_WITH_MESSAGE_ENTRY_ID"
     };
 
-    // ================================================================
-    //  FORM SUBMISSION ENGINE — no changes needed below this line
-    // ================================================================
     (function () {
       const form      = document.getElementById("gf-contact-form");
       const submitBtn = document.getElementById("gf-submit-btn");
@@ -903,8 +980,6 @@
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-
-        // Basic client-side validation
         const name    = form.name.value.trim();
         const email   = form.email.value.trim();
         const phone   = form.phone.value.trim();
@@ -923,7 +998,6 @@
         setLoading(true);
         statusEl.style.display = "none";
 
-        // Build URL-encoded payload mapping HTML fields → Google Form entries
         const body = new URLSearchParams();
         body.append(FIELD_MAP.name,    name);
         body.append(FIELD_MAP.email,   email);
@@ -931,11 +1005,6 @@
         body.append(FIELD_MAP.service, service);
         body.append(FIELD_MAP.message, message);
 
-        /**
-         * Google Forms blocks CORS, so we use the "hidden iframe" trick:
-         * point a <form> target at an invisible iframe so the redirect
-         * lands there instead of navigating the main page.
-         */
         const ghostForm = document.createElement("form");
         ghostForm.method  = "POST";
         ghostForm.action  = GOOGLE_FORM_ACTION;
@@ -954,8 +1023,6 @@
         ghostForm.submit();
         document.body.removeChild(ghostForm);
 
-        // Google Forms doesn't send a success callback over CORS,
-        // so we optimistically show success after a short delay.
         setTimeout(() => {
           setLoading(false);
           setStatus(
@@ -967,15 +1034,14 @@
       });
     })();
 
-
-    // ===== Chatbot Engine (unchanged) =====
+    // ===== Chatbot Engine =====
     (function() {
-      const toggleBtn     = document.getElementById('chatbot-toggle');
-      const chatWindow    = document.getElementById('chatbot-window');
-      const messagesEl    = document.getElementById('chatbot-messages');
-      const quickRepliesEl= document.getElementById('chatbot-quick-replies');
-      const inputEl       = document.getElementById('chatbot-input');
-      const sendBtn       = document.getElementById('chatbot-send');
+      const toggleBtn      = document.getElementById('chatbot-toggle');
+      const chatWindow     = document.getElementById('chatbot-window');
+      const messagesEl     = document.getElementById('chatbot-messages');
+      const quickRepliesEl = document.getElementById('chatbot-quick-replies');
+      const inputEl        = document.getElementById('chatbot-input');
+      const sendBtn        = document.getElementById('chatbot-send');
 
       const knowledge = [
         { patterns: ['service','offer','what do you do','help with','expertise','what can you','work','specialty'], response: `<strong>Growitharshiee offers four core services:</strong><br><br>📊 <strong>GST & Indirect Tax</strong> — Registration, GSTR-1 & 3B filings, ITC reconciliation<br><br>💼 <strong>Bookkeeping</strong> — Tally & Zoho Books expertise, monthly P&L<br><br>📈 <strong>Income Tax & TDS</strong> — ITR filings, advance tax, TDS/TCS compliance<br><br>🚀 <strong>Startup & Advisory</strong> — Company formation, MSME, Virtual CFO<br><br>Which service do you want to know more about?`, quickReplies: ['GST Help','Bookkeeping','Income Tax','Startup Advisory','Pricing'] },
