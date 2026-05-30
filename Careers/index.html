@@ -427,7 +427,7 @@ async function fetchJobs(manual=false) {
     const jobs  = rowsToJobs(rows);
 
     if(!jobs.length){
-      showState('empty','No openings right now','Your sheet is connected but has no job rows yet. Add rows and this page updates automatically.');
+      showState('empty','No openings right now','');
       updateStats([]);
       setLastUpdated(new Date());
       btn.classList.remove('spinning');
